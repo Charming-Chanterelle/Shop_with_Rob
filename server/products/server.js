@@ -1,17 +1,11 @@
-const express = require('express');
-const productRouter = express.Router();
-const endPoint = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-sfo/products/';
+const productRouter = require('express').Router();
+const { handleGetProducts, handleGetProductID, handleGetProductStyle, handleGetRelatedProducts } = require('./controller.js');
 
-productRouter.get('/', function(req, res) {
-  res.send('GET handler for /dogs route.');
-});
-
-productRouter.get('/:product_id/styles', function(req, res) {
-  res.send('GET hello route.');
-});
-
-productRouter.get('/:product_id/related', function(req, res) {
-  res.send('GET hello route.');
-});
+productRouter.get('/', handleGetProducts);
+productRouter.get('/:product_id', handleGetProductID);
+productRouter.get('/:product_id/style', handleGetProductStyle);
+productRouter.get('/:product_id/related', handleGetRelatedProducts);
 
 module.exports = productRouter;
+
+// test product ids: 48487, 48488c
