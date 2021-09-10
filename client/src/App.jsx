@@ -1,4 +1,10 @@
+/* eslint-disable import/extensions */
 import React, { Component } from 'react';
+import NavBar from './NavBar.jsx';
+import Overview from './Overview.jsx';
+import Related from './Related.jsx';
+import Questions from './Questions.jsx';
+import Ratings from './Ratings.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -10,7 +16,15 @@ class App extends Component {
 
   render() {
     // const { value } = this.state;
-    return <div>Hello</div>;
+    return (
+      <div>
+        <NavBar />
+        <Overview />
+        <Related />
+        <Questions />
+        <Ratings />
+      </div>
+    );
   }
 }
 

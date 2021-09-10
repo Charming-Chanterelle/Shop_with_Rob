@@ -1,0 +1,39 @@
+.questions {
+  color: blue;
+}
+
+.overview {
+
+}
+
+.ratings {
+
+}
+
+.related {
+
+}
+
+button {
+  background-color:#FBD63F;
+  border: none;
+  border-radius: 5px;
+  color:#000000;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.imgFormat {
+  border-radius: 5px;
+}
+
+.bigText {
+  font-family: 'Major Mono Display', monospace;
+}
+
+.subText {
+  color:#899499;
+}

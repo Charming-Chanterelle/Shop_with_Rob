@@ -1,6 +1,7 @@
 const axios = require('axios');
 // eslint-disable-next-line import/extensions
-const config = require('/Users/jaylee/Shop_with_Rob/config.js');
+const config = require('../../config.js');
+
 const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-sfo/reviews';
 
 module.exports = {
