@@ -4,11 +4,13 @@
 
 1. Fork and clone repo to your local machine.
 2. Open the project and open the terminal.
-3. Run `npm install` in the terminal.
-4. Run `start` in the terminal. //for the server
-5. Run `npm run react-dev` in a new terminal(keep the last one going!). //for bundling
+3. Run `npm install`.
+4. Run `npm start` in the terminal. //for the server
+5. Run `npm webpack` in a new terminal(keep the last one going!).
+7. Run `npm run react-dev` in the terminal from step 5. //for bundling
 
 /////////////////////////////////////////////////////
+
 #Further learning:
 
 ##How to install npm on your own on VSCode:
