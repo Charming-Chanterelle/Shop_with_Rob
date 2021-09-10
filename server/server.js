@@ -11,9 +11,9 @@ app.use(express.static(path.join(__dirname,'/../react-client/dist')));
 
 console.log(path.join(__dirname, 'client/public'));
 
-app.get('/api', (req, res) => {
-  res.send('Hello Today!');
-});
+// app.get('/api', (req, res) => {
+//   res.send('Hello Today!');
+// });
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
