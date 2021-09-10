@@ -1,9 +1,5 @@
 const express = require('express');
-
-
- productRouter = express.Router();
-
-
+const productRouter = express.Router();
 const endPoint = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-sfo/products/';
 
 productRouter.get('/', function(req, res) {
