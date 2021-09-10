@@ -4,13 +4,13 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 'hello worlddddd',
+      // value: 'hello worlddddd',
     };
   }
 
   render() {
-    const { value } = this.state;
-    return <div>{value}</div>;
+    // const { value } = this.state;
+    return <div>Hello</div>;
   }
 }
 
