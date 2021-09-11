@@ -7,10 +7,10 @@ class NavBar extends React.Component {
     this.state = {
       value: 'Search our store',
     };
-    this.onSearch = this.OnSearch.bind(this);
+    this.search = this.search.bind(this);
   }
 
-  onSearch(event) {
+  search(event) {
     this.setState({ value: event.target.value });
   }
 
@@ -20,7 +20,7 @@ class NavBar extends React.Component {
       <div>
         <ul id="nav">
           <li><a href="www.google.com">SHOP WITH ROB.</a></li>
-          <SearchBar onSearch={this.onSearch} value={value} />
+          <SearchBar search={this.search} value={value} />
         </ul>
       </div>
     );
