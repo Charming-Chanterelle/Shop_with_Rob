@@ -1,5 +1,6 @@
 const axios = require('axios');
-const config = require('/Users/jaylee/Shop_with_Rob/config.js');
+const config = require('../../config.js');
+
 const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-sfo/qa/questions';
 const answersUrl = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-sfo/qa/answers';
 
