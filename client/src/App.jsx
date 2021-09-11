@@ -10,7 +10,7 @@ class App extends Component {
 
   render() {
     // const { value } = this.state;
-    return <div>Hello</div>;
+    return <div id="app">Hello</div>;
   }
 }
 
