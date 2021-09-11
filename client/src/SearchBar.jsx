@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const SearchBar = (props) => {
-  const { onSearch, value } = props;
+  const { search, value } = props;
 
   return (
     <form>
       <span>Search blog posts</span>
       <input
-        onSearch={onSearch}
+        onChange={search}
         type="text"
         placeholder={value}
       />
@@ -18,7 +18,7 @@ const SearchBar = (props) => {
 };
 
 SearchBar.propTypes = {
-  onSearch: PropTypes.func.isRequired,
+  search: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
 };
 

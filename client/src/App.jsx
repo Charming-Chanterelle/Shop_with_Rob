@@ -17,7 +17,8 @@ class App extends Component {
   render() {
     // const { value } = this.state;
     return (
-      <div>
+      <div id="app">
+        Hello
         <NavBar />
         <Overview />
         <Related />
