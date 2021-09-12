@@ -1,40 +1,30 @@
-import React, { Component } from 'react';
-// import SearchBar from './SearchBar';
+import React from 'react';
+import SearchBar from './SearchBar.jsx';
 
-class NavBar extends Component {
+class NavBar extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-
+      value: 'Search our store',
     };
+    this.search = this.search.bind(this);
+  }
+
+  search(event) {
+    this.setState({ value: event.target.value });
   }
 
   render() {
+    const { value } = this.state;
     return (
-      <nav className="navBar">
-        <h1>Shop With Rob</h1>
-      </nav>
+      <div>
+        <ul id="nav">
+          <li><a href="www.google.com">SHOP WITH ROB.</a></li>
+          <SearchBar search={this.search} value={value} />
+        </ul>
+      </div>
     );
   }
 }
 
 export default NavBar;
-
-// {/* <SearchBar /> */}
-
-//  {/* <div className="nav">
-//           <span className="logo">BLOGMODO</span>
-//           <span className={this.state.view === 'feed'
-//             ? 'nav-selected'
-//             : 'nav-unselected'}
-//             onClick={() => this.changeView('feed')}>
-//             See all Posts
-//           </span>
-//           <span className="nav-unselected" style={{'cursor': 'pointer'}}onClick={() => this.changeView('create')}>
-//             Write a Post
-//           </span>
-//           <span className="nav-unselected" style={{'cursor': 'pointer'}}onClick={() => this.changeView('admin')}>
-//             Admin
-//           </span>
-//         </div> */}
