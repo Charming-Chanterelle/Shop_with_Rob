@@ -6,15 +6,20 @@ class NavBar extends Component {
     super(props);
 
     this.state = {
-
+      view: '',
     };
   }
 
   render() {
     return (
-      <nav className="navBar">
-        <h1>Shop With Rob</h1>
-      </nav>
+      <div className="nav">
+        <span className="logo">BLOGMODO</span>
+        {/* <span className={this.state.view === 'feed'
+          ? 'nav-selected'
+          : 'nav-unselected'}
+          onClick={() => this.changeView('feed')}> */}
+          See all Posts </span>
+      </div>
     );
   }
 }
@@ -22,19 +27,3 @@ class NavBar extends Component {
 export default NavBar;
 
 // {/* <SearchBar /> */}
-
-//  {/* <div className="nav">
-//           <span className="logo">BLOGMODO</span>
-//           <span className={this.state.view === 'feed'
-//             ? 'nav-selected'
-//             : 'nav-unselected'}
-//             onClick={() => this.changeView('feed')}>
-//             See all Posts
-//           </span>
-//           <span className="nav-unselected" style={{'cursor': 'pointer'}}onClick={() => this.changeView('create')}>
-//             Write a Post
-//           </span>
-//           <span className="nav-unselected" style={{'cursor': 'pointer'}}onClick={() => this.changeView('admin')}>
-//             Admin
-//           </span>
-//         </div> */}
