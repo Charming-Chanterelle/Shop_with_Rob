@@ -1,4 +1,4 @@
-const { getQuestions, getAnswers, createQuesion, createAnswer, helpfulQuestion, reportQuestion, helpfulAnswer, reportAnswer } = require('./questions_answersAPI.js');
+const { getQuestions, getAnswers, createQuesion, createAnswer, helpfulQuestion, reportQuestion, helpfulAnswer, reportAnswer } = require('./questions_answersAPI');
 
 module.exports = {
   handleGetQuestions: (req, res) => {

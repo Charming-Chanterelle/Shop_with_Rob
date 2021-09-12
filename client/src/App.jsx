@@ -4,7 +4,7 @@ import NavBar from './NavBar.jsx';
 import Overview from './Overview.jsx';
 import Related from './Related.jsx';
 import Questions from './Questions.jsx';
-import Ratings from './Ratings.jsx';
+import Ratings from './RatingsList.jsx';
 
 class App extends Component {
   constructor(props) {
