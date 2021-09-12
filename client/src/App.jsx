@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 /* eslint-disable import/extensions */
 import React, { Component } from 'react';
 import NavBar from './NavBar.jsx';
@@ -17,7 +18,8 @@ class App extends Component {
   render() {
     // const { value } = this.state;
     return (
-      <div>
+      <div id="app">
+        Hello
         <NavBar />
         <Overview />
         <Related />
