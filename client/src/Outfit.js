@@ -1,6 +1,15 @@
 module.exports = {
   items: [
     {
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ252uOeq8QHRIxDH7GfJ6xNI8NBZhirx1mZA&usqp=CAU',
+      category: 'N/A',
+      name: 'Add to your outfit',
+      price: 'N/A',
+      rating: 'N/A',
+      id: 'N/A',
+
+    },
+    {
       image: 'https://cdn.shopify.com/s/files/1/0148/9585/products/sunglasses-rose-theater-1_1100x.jpg?v=1568755545',
       category: 'Accessories',
       name: 'Bright Future Sunglasses',
@@ -33,22 +42,6 @@ module.exports = {
       price: '120.00',
       rating: 4.5,
       id: 48438,
-
     },
-    // {
-    //   image:
-    //   category:
-    //   name:
-    //   price:
-    //   rating:
-    // },
-    // {
-    //   image:
-    //   category:
-    //   name:
-    //   price:
-    //   rating:
-
-    // },
   ],
 };

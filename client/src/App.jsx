@@ -22,8 +22,8 @@ class App extends Component {
         Hello
         <NavBar />
         <Overview />
-        <Related />
-        <Outfit />
+        <Related show={3} />
+        <Outfit show={3}/>
         <Questions />
         <Ratings />
       </div>
