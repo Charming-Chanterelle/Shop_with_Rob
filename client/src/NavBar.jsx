@@ -12,6 +12,7 @@ class NavBar extends React.Component {
   }
 
   search(event) {
+    event.preventDefault();
     this.setState({ value: event.target.value });
   }
 
@@ -20,7 +21,7 @@ class NavBar extends React.Component {
     return (
       <div>
         <ul id="nav">
-          <h1 className="bigText"><a href="www.google.com">SHOP WITH ROB.</a></h1>
+          <h1 className="bigText"> SHOP WITH ROB.</h1>
           <SearchBar search={this.search} value={value} />
         </ul>
       </div>
