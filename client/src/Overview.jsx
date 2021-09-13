@@ -2,9 +2,7 @@
 /* eslint-disable react/button-has-type */
 import React, { useState, useEffect } from 'react';
 // styled comps
-import {
-  Container, Main, Side, Content, List, LeftArrow, RightArrow, BigImg, ImgCards, SideList, Styles,
-} from './OverviewStyledComponents.jsx';
+import * as S from './OverviewStyledComponents.jsx';
 import productStyle from './OverviewTESTstyle.js';
 import product from './OverviewTESTproductReg.js';
 
@@ -25,28 +23,30 @@ const Overview = () => {
   };
   return (
     <>
-      <Container>
-        <Main>
-          {productImgs.map((x) => <ImgCards src={x.url} />)}
-          <LeftArrow onClick={prevSlide}>l</LeftArrow>
+      <S.Container>
+        <S.Main>
+          <S.LeftArrow onClick={prevSlide}>l</S.LeftArrow>
           {productImgs.map((x, i) => {
             if (i === current) {
-              return <BigImg src={x.url} alt="pic" />;
+              return <S.BigImg src={x.url} alt="pic" />;
             }
           })}
-          <RightArrow onClick={nextSlide}>r</RightArrow>
-        </Main>
-        <Content>
+          <S.ImgCards>
+            {productImgs.map((x) => <S.ImgSample src={x.url} />)}
+          </S.ImgCards>
+          <S.RightArrow onClick={nextSlide}>r</S.RightArrow>
+        </S.Main>
+        <S.Content>
           <h2>{defaultInfo.slogan}</h2>
           <p>{defaultInfo.description}</p>
-        </Content>
-        <Side>
+        </S.Content>
+        <S.Side>
           <div>
             <span>
               ADD STAR RATING WITH
               <a href="google.com">link to reviews</a>
             </span>
-            <h4>{defaultInfo.category}</h4>
+            <h4 className="subText">{defaultInfo.category}</h4>
             <h1 className="bigText">{defaultInfo.name}</h1>
             <h2>
               $
@@ -54,21 +54,42 @@ const Overview = () => {
             </h2>
           </div>
           <div>
-            <h3>Style: SELECTED STYLE</h3>
-            <Styles>1</Styles>
-            <Styles>2</Styles>
-            <Styles>3</Styles>
+            <h3 className="subText">Style: SELECTED STYLE</h3>
+            <S.Styles>
+              <S.StylesButton> style1</S.StylesButton>
+              <S.StylesButton> style2</S.StylesButton>
+              <S.StylesButton> style3</S.StylesButton>
+              <S.StylesButton> style4</S.StylesButton>
+              <S.StylesButton> style5</S.StylesButton>
+            </S.Styles>
+            <S.Styles>
+              <select name="size">
+                {/* need to get skus sizes based on product id and style*/}
+                <option>XS</option>
+                <option>S</option>
+                <option>M</option>
+                <option>XL</option>
+              </select>
+              <select name="quantity">
+                {/* need to check with cart and DB based on the sku availability*/}
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+              </select>
+              <button className="bigText"><h3>ADD TO BAG ++</h3></button>
+              <button>star</button>
+            </S.Styles>
           </div>
-        </Side>
-        <List>
-          <SideList>
+        </S.Side>
+        <S.List>
+          <S.SideList>
             <li>110% Satisfaction Guaranteed</li>
             <li>Suitable for All Ages</li>
             <li>Moms love it</li>
             <li>No Returns</li>
-          </SideList>
-        </List>
-      </Container>
+          </S.SideList>
+        </S.List>
+      </S.Container>
     </>
   );
 };

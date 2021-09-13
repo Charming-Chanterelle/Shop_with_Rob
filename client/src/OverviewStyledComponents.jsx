@@ -1,73 +1,94 @@
 import styles from 'styled-components';
-
-const Container = styles.div`
+// entire component level:
+export const Container = styles.div`
   display: grid;
   height: 70vh;
   color: black;
-  grid-template-rows: .4fr .4fr .2fr;
+  grid-template-rows: .275fr .275fr .275fr .2fr;
   grid-template-columns: .3fr .3fr .2fr .2fr;
   grid-template-areas:
     "main main side side"
     "main main side side"
-    "content content content list";
+    "main main side side"
+    "content content list list";
   padding: 0.25rem;
   grid-gap: 0.25rem;
   overflow: hidden;
     `;
-const Main = styles.main`
+// grid areas:
+export const Main = styles.div`
   grid-area: main;
+  position relative;
   overflow: hidden;
-  width:700px;
-  height: 510px;
   `;
-const Side = styles.div`
+export const Side = styles.div`
   grid-area: side;
+  overflow: hidden;
   `;
-const Content = styles.div`
+export const Content = styles.div`
   grid-area: content;
   `;
-const List = styles.div`
+export const List = styles.div`
   grid-area: list;
   border-left: 6px solid black;
   height: 100%;
   `;
-const LeftArrow = styles.button`
+// Smaller pieces:
+  // main:
+export const LeftArrow = styles.button`
   grid-area: main;
-  position: alsolute;
+  position: absolute;
+  z-index: 1000;
   top: 30%;
   left: 5%;
   `;
-const RightArrow = styles.button`
+export const RightArrow = styles.button`
   grid-area: main;
   position: absolute;
   top: 30%;
-  right: 45%;
+  right: 60%;
   `;
-const BigImg = styles.img`
+export const BigImg = styles.img`
   grid-area: main;
   height: 100%;
   background-size: cover;
   background-position: center;
   `;
-const ImgCards = styles.img`
+export const ImgCards = styles.div`
   grid-area: main;
-  grid-column: 1;
+  position: absolute;
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  top: 20%;
+  `;
+export const ImgSample = styles.img`
+  grid-area: main;
   width: 40px;
   height: 40px;
-  `;
-const SideList = styles.ul`
+`;
+  // list:
+export const SideList = styles.ul`
   grid-area: list;
   text-align: left;
   height: 100%;
   `;
-const Styles = styles.button`
+  // side:
+export const Styles = styles.div`
   grid-area: side;
-  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex-flow: row wrap;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  `;
+export const StylesButton = styles.button`
+grid-area: side;
+border-radius: 50%;
+color: #899499;
   border: 1px solid black;
   padding: 10px;
   margin: 10px;
-  `;
-
-export {
-  Container, Main, Side, Content, List, LeftArrow, RightArrow, BigImg, ImgCards, SideList, Styles,
-};
+`;

@@ -21,7 +21,7 @@ class NavBar extends React.Component {
     return (
       <div>
         <ul id="nav">
-          <h1 className="bigText"> SHOP WITH ROB.</h1>
+          <h1 className="bigText"> SHOP_WITH_ROB;</h1>
           <SearchBar search={this.search} value={value} />
         </ul>
       </div>
