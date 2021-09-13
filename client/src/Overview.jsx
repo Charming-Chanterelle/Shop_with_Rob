@@ -11,7 +11,7 @@ const Overview = () => {
   // need to get the default pics ^
   // need to change:
   const productImgs = productStyle.results[0].photos;
-
+  const [selectedStyle, setSelectedStyle] = useState('choose your style');
   // image slider counter
   const [current, setCurrent] = useState(0);
   const length = productStyle.results[0].photos.length;
@@ -21,6 +21,11 @@ const Overview = () => {
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
   };
+
+  const styleOnClick = (event) => {
+    setSelectedStyle(event.target.value);
+  };
+
   return (
     <>
       <S.Container>
@@ -43,8 +48,7 @@ const Overview = () => {
         <S.Side>
           <div>
             <span>
-              ADD STAR RATING WITH
-              <a href="google.com">link to reviews</a>
+              ADD STAR RATING
             </span>
             <h4 className="subText">{defaultInfo.category}</h4>
             <h1 className="bigText">{defaultInfo.name}</h1>
@@ -54,13 +58,16 @@ const Overview = () => {
             </h2>
           </div>
           <div>
-            <h3 className="subText">Style: SELECTED STYLE</h3>
+            <h3 className="bigText">
+              Style:
+              {selectedStyle}
+            </h3>
             <S.Styles>
-              <S.StylesButton> style1</S.StylesButton>
-              <S.StylesButton> style2</S.StylesButton>
-              <S.StylesButton> style3</S.StylesButton>
-              <S.StylesButton> style4</S.StylesButton>
-              <S.StylesButton> style5</S.StylesButton>
+              <S.StylesButton onClick={styleOnClick} value="style1"> style1</S.StylesButton>
+              <S.StylesButton onClick={styleOnClick} value="style2"> style2</S.StylesButton>
+              <S.StylesButton onClick={styleOnClick} value="style3"> style3</S.StylesButton>
+              <S.StylesButton onClick={styleOnClick} value="style4"> style4</S.StylesButton>
+              <S.StylesButton onClick={styleOnClick} value="style5"> style5</S.StylesButton>
             </S.Styles>
             <S.Styles>
               <select name="size">
