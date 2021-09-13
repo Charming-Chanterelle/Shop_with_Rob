@@ -1,6 +1,5 @@
 const product = {
   id: 48432,
-  urls: ['https://www.w3schools.com/images/picture.jpg', 'https://www.w3schools.com/html/pic_trulli.jpg', 'https://www.w3schools.com/html/img_girl.jpg', 'https://www.w3schools.com/html/img_chania.jpg'],
   campus: 'hr-sfo',
   name: 'Camo Onesie',
   slogan: 'Blend in to your crowd',
@@ -9,6 +8,16 @@ const product = {
   default_price: '140.00',
   created_at: '2021-09-09T19:03:37.378Z',
   updated_at: '2021-09-09T19:03:37.378Z',
+  features: [
+    {
+      feature: 'Fabric',
+      value: 'Canvas',
+    },
+    {
+      feature: 'Buttons',
+      value: 'Brass',
+    },
+  ],
 };
 
 export default product;

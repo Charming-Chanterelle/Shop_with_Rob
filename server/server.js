@@ -24,5 +24,5 @@ app.use('/api/interactions', interactionRouter);
 app.use('/api/reviews', reviewsRouter);
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`Listening at http://localhost:${port}`);
 });
