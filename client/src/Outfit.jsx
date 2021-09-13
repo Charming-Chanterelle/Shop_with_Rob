@@ -1,36 +1,157 @@
-import React from 'react';
-import Carousel from 'react-elastic-carousel';
+import React, { useEffect, useState } from 'react';
+import OutfitItems from './Outfit';
 
-class Outfit extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [
-        { id: 1, title: 'item #1' },
-        { id: 2, title: 'item #2' },
-        { id: 3, title: 'item #3' },
-        { id: 4, title: 'item #4' },
-        { id: 5, title: 'item #5' },
-      ],
-    };
-  }
+const Outfit = (props) => {
+  const { items } = OutfitItems;
+  const { show } = props;
 
-  render() {
-    const { items } = this.state;
-    return (
-      <>
-        <h1 className="bigText">Your Outfit</h1>
-        <Carousel itemsToShow={4}>
-          {items.map((item) => (
-            <>
-              <img className="carouselImage" src="data:image/jpeg;base64,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" alt="mushroom-shirt" />
-              <div key={item.id}>{item.title}</div>
-            </>
-          ))}
-        </Carousel>
-      </>
-    );
-  }
-}
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [length, setLength] = useState(items.length);
+
+  const [touchPosition, setTouchPosition] = useState(null);
+
+  // Set the length to match current children from props
+  useEffect(() => {
+    setLength(items.length);
+  }, [items]);
+
+  const next = () => {
+    if (currentIndex < (length - show)) {
+      setCurrentIndex((prevState) => prevState + 1);
+    }
+  };
+
+  const prev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex((prevState) => prevState - 1);
+    }
+  };
+
+  const handleTouchStart = (e) => {
+    const touchDown = e.touches[0].clientX;
+    setTouchPosition(touchDown);
+  };
+
+  const handleTouchMove = (e) => {
+    const touchDown = touchPosition;
+
+    if (touchDown === null) {
+      return;
+    }
+
+    const currentTouch = e.touches[0].clientX;
+    const diff = touchDown - currentTouch;
+
+    if (diff > 5) {
+      next();
+    }
+
+    if (diff < -5) {
+      prev();
+    }
+
+    setTouchPosition(null);
+  };
+
+  return (
+    <>
+      <h1 className="bigText">Your Outfit</h1>
+      <div className="carousel-container">
+        <div className="carousel-wrapper">
+          {/* You can alwas change the content of the button to other things */}
+          {
+                  currentIndex > 0
+                  && (
+                  <button type="button" onClick={prev} className="left-arrow">
+                    &lt;
+                  </button>
+                  )
+              }
+          <div
+            className="carousel-content-wrapper"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+          >
+            <div
+              className={`carousel-content show-${show}`}
+              style={{ transform: `translateX(-${currentIndex * (100 / show)}%)` }}
+            >
+              {/* start of item info */}
+              {items.map((item) => (
+                <>
+                  <div>
+                    <img src={item.image} className="carouselImage" alt="related-item" />
+                    <div>
+                      {/* Name: */}
+                      {item.name}
+                    </div>
+                    <div>
+                      Category:
+                      {item.category}
+                    </div>
+                    <div>
+                      Price:
+                      {`$${item.price}`}
+                    </div>
+                    <div>
+                      Rating:
+                      {item.rating}
+                    </div>
+                  </div>
+                </>
+              ))}
+
+              {/* end of item info  */}
+            </div>
+          </div>
+          {/* You can alwas change the content of the button to other things */}
+          {
+                  currentIndex < (length - show)
+                  && (
+                  <button type="button" onClick={next} className="right-arrow">
+                    &gt;
+                  </button>
+                  )
+              }
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default Outfit;
+
+// import React from 'react';
+// import Carousel from 'react-elastic-carousel';
+
+// class Outfit extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       items: [
+//         { id: 1, title: 'item #1' },
+//         { id: 2, title: 'item #2' },
+//         { id: 3, title: 'item #3' },
+//         { id: 4, title: 'item #4' },
+//         { id: 5, title: 'item #5' },
+//       ],
+//     };
+//   }
+
+//   render() {
+//     const { items } = this.state;
+//     return (
+//       <>
+//         <h1 className="bigText">Your Outfit</h1>
+//         <Carousel itemsToShow={4}>
+//           {items.map((item) => (
+//             <>
+//               />
+//               <div key={item.id}>{item.title}</div>
+//             </>
+//           ))}
+//         </Carousel>
+//       </>
+//     );
+//   }
+// }
