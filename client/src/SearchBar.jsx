@@ -6,7 +6,6 @@ const SearchBar = (props) => {
 
   return (
     <form>
-      <span>Search blog posts</span>
       <input
         onChange={search}
         type="text"
