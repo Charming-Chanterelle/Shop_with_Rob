@@ -21,7 +21,12 @@ class Related extends React.Component {
       <>
         <h1 className="bigText">Related Items</h1>
         <Carousel itemsToShow={4}>
-          {items.map((item) => <div key={item.id}>{item.title}</div>)}
+          {items.map((item) => (
+            <>
+              <img className="carouselImage" src="https://www.montereymushrooms.com/hubfs/AdobeStock_21616275%202.jpeg" alt="sliced-mushrooms" />
+              <div key={item.id}>{item.title}</div>
+            </>
+          ))}
         </Carousel>
       </>
     );
