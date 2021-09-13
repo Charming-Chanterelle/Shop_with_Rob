@@ -60,6 +60,11 @@ button {
   border-radius: 5px;
 }
 
+.carouselImage {
+  height: 100px;
+  width: 100px
+}
+
 .bigText {
   font-family: 'Major Mono Display', monospace;
 }

@@ -5,6 +5,7 @@ import Overview from './Overview.jsx';
 import Related from './Related.jsx';
 import Questions from './Questions.jsx';
 import Ratings from './Ratings.jsx';
+import Outfit from './Outfit.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class App extends Component {
         <NavBar />
         <Overview />
         <Related />
+        <Outfit />
         <Questions />
         <Ratings />
       </div>
