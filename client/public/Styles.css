@@ -6,6 +6,13 @@
 
 }
 
+.inactive {
+  display: none;
+}
+.active {
+  display: block;
+}
+
 .ratings {
 
 }
@@ -72,3 +79,4 @@ button {
 .subText {
   color:#899499;
 }
+
