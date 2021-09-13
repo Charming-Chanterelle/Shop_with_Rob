@@ -20,7 +20,7 @@ class NavBar extends React.Component {
     return (
       <div>
         <ul id="nav">
-          <li><a href="www.google.com">SHOP WITH ROB.</a></li>
+          <h1 className="bigText"><a href="www.google.com">SHOP WITH ROB.</a></h1>
           <SearchBar search={this.search} value={value} />
         </ul>
       </div>
