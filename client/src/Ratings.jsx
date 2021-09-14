@@ -46,7 +46,8 @@ class Ratings extends Component {
   }
 
   getProductRatings() {
-    axios.get('/api/reviews/?product_id=48487')
+    //48487
+    axios.get('/api/reviews/?product_id=48445')
       .then((results) => {
         this.setState({
           ratingsStorage: results.data.results,

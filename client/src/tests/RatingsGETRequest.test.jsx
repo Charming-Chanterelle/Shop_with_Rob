@@ -9,6 +9,7 @@ import 'regenerator-runtime/runtime';
 afterEach(cleanup);
 
 jest.mock('axios');
+
 describe('Fetch Product Ratings', () => {
   it('should return ratings and reviews for a specific product', async () => {
     axios.get.mockResolvedValueOnce(data);
