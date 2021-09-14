@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import React from 'react';
 // eslint-disable-next-line import/extensions
 import SearchBar from './SearchBar.jsx';
@@ -12,6 +13,7 @@ class NavBar extends React.Component {
   }
 
   search(event) {
+    event.preventDefault();
     this.setState({ value: event.target.value });
   }
 
@@ -20,7 +22,7 @@ class NavBar extends React.Component {
     return (
       <div>
         <ul id="nav">
-          <li><a href="www.google.com">SHOP WITH ROB.</a></li>
+          <h1 className="bigText"> SHOP_WITH_ROB;</h1>
           <SearchBar search={this.search} value={value} />
         </ul>
       </div>

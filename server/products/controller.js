@@ -1,7 +1,9 @@
+// eslint-disable-next-line import/extensions
 const { getProducts, getProductByID, getProductStyle, getRelatedProducts } = require('./productAPI.js');
 
 module.exports = {
   handleGetProducts: (req, res) => {
+    // eslint-disable-next-line no-nested-ternary
     const query = !req.query.count ? !req.query.page ? '' : req.query : req.query;
 
     getProducts(query, (err, results) => {

@@ -6,8 +6,8 @@ const SearchBar = (props) => {
 
   return (
     <form>
-      <span>Search blog posts</span>
       <input
+        className="imgFormat"
         onChange={search}
         type="text"
         placeholder={value}
