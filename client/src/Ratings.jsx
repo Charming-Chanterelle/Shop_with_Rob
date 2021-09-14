@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReviewAction from './RatingsComponent/ReviewAction.jsx';
@@ -5,9 +6,10 @@ import RatingsSearch from './RatingsComponent/RatingsSearch.jsx';
 import RatingsContent from './RatingsComponent/RatingsContent.jsx';
 import RatingsStarHeader from './RatingsComponent/RatingsStarHeader.jsx';
 import RatingsSummaryReview from './RatingsComponent/RatingsSummaryReview.jsx';
+
 const { data } = require('./RatingsComponent/RatingsDummyData.js');
 
-let newData = data.slice(0,2);
+const newData = data.slice(0, 2);
 
 class Ratings extends Component {
   constructor(props) {
@@ -50,7 +52,7 @@ class Ratings extends Component {
       ratingsCount: newRatingsCount,
       showMoreRatings: anyMoreRatings,
     });
-  };
+  }
 
   render() {
     const { ratings, showMoreRatings } = this.state;
