@@ -21,16 +21,7 @@ class Ratings extends Component {
   }
 
   componentDidMount() {
-    axios.get('/api/reviews/?product_id=48487')
-      .then((results) => {
-        this.setState({
-          ratingsStorage: results.data.results,
-          limitedRatings: results.data.results.slice(0, 2),
-        });
-      })
-      .catch((err) => {
-        throw err;
-      });
+    this.getProductRatings();
   }
 
   onAddMoreReviews() {
@@ -52,6 +43,19 @@ class Ratings extends Component {
       ratingsCount: newRatingsCount,
       showMoreRatings: anyMoreRatings,
     });
+  }
+
+  getProductRatings() {
+    axios.get('/api/reviews/?product_id=48487')
+      .then((results) => {
+        this.setState({
+          ratingsStorage: results.data.results,
+          limitedRatings: results.data.results.slice(0, 2),
+        });
+      })
+      .catch((err) => {
+        throw err;
+      });
   }
 
   render() {
