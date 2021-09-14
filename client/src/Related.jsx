@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { FaRegStar } from 'react-icons/fa';
 import RelatedItems from './RelatedItems';
+
+// import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const Related = (props) => {
   const { items } = RelatedItems;
@@ -30,6 +33,10 @@ const Related = (props) => {
   const handleTouchStart = (e) => {
     const touchDown = e.touches[0].clientX;
     setTouchPosition(touchDown);
+  };
+
+  const clicked = () => {
+    console.log('clicked');
   };
 
   const handleTouchMove = (e) => {
@@ -80,6 +87,9 @@ const Related = (props) => {
               {items.map((item) => (
                 <>
                   <div>
+                    <button className="one-star-container" onClick={clicked}>
+                      <FaRegStar />
+                    </button>
                     <img src={item.image} className="carouselImage" alt="related-item" />
                     <div>
                       {/* Name: */}
