@@ -6,8 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import NavBar from './NavBar.jsx';
 import Overview from './Overview.jsx';
 import Related from './Related.jsx';
-import Questions from './Questions.jsx';
+import Questions from './Q&A/App.jsx';
 import Ratings from './Ratings.jsx';
+import Outfit from './Outfit.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -21,7 +22,8 @@ class App extends Component {
       <div id="app">
         <NavBar />
         <Overview />
-        <Related />
+        <Related show={3} />
+        <Outfit show={3}/>
         <Questions />
         <Ratings />
       </div>

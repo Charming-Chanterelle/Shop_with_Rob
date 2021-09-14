@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import RelatedItems from './RelatedItems';
+import OutfitItems from './Outfit';
 
-const Related = (props) => {
-  const { items } = RelatedItems;
+const Outfit = (props) => {
+  const { items } = OutfitItems;
   const { show } = props;
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -55,7 +55,7 @@ const Related = (props) => {
 
   return (
     <>
-      <h1 className="bigText">Related Items</h1>
+      <h1 className="bigText">Your Outfit</h1>
       <div className="carousel-container">
         <div className="carousel-wrapper">
           {/* You can alwas change the content of the button to other things */}
@@ -119,4 +119,4 @@ const Related = (props) => {
   );
 };
 
-export default Related;
+export default Outfit;
