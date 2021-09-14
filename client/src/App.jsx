@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 /* eslint-disable import/extensions */
 import React, { Component } from 'react';
 import NavBar from './NavBar.jsx';
@@ -10,7 +11,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // value: 'hello worlddddd',
     };
   }
 
@@ -18,7 +18,6 @@ class App extends Component {
     // const { value } = this.state;
     return (
       <div id="app">
-        Hello
         <NavBar />
         <Overview />
         <Related />
