@@ -1,6 +1,7 @@
 /* eslint-disable import/extensions */
 /* eslint-disable react/button-has-type */
 import React, { useState, useEffect } from 'react';
+import { FaStar, FaStarHalfAlt, FaRegStar, IoChevronForwardCircle } from 'react-icons/fa';
 // styled comps
 import * as S from './OverviewStyledComponents.jsx';
 import productStyle from './OverviewTESTstyle.js';
@@ -24,6 +25,7 @@ const Overview = () => {
   // need current sku obj for display options and cart ready
   const [currentSku, setCurrentSku] = useState(currentStyle.skus);
 
+  const [isFavorited, setIsFavorited] = useState(false);
   // image slider counter
   const [current, setCurrent] = useState(0);
   const length = currentStyle.photos.length;
@@ -38,12 +40,20 @@ const Overview = () => {
     setCurrentStyle(theStyle(parseInt(event.target.value, 10)));
     // setBigPics()
     // setStyleName()
-
   };
+  // star button click handler
+  const favorite = () => {
+    setIsFavorited(!isFavorited);
+  };
+  // top ratings score click handler
+  // const jumpToRatings = () => {
+
+  // };
 
   return (
     <>
       <S.Container>
+        {/* <IoChevronForwardCircle /> */}
         <S.Main>
           <S.LeftArrow onClick={prevSlide}>l</S.LeftArrow>
           {currentStyle.photos.map((x, i) => {
@@ -63,7 +73,13 @@ const Overview = () => {
         <S.Side>
           <div>
             <span>
-              ADD STAR RATING
+              {/* {for rating number, make that many stars where FaStar is for whole int and partial is FaStarHalfAlt and the remainder out of 5 is FaRegStar} */}
+              <FaStar />
+              <FaStar />
+              <FaStar />
+              <FaStar />
+              <FaStarHalfAlt />
+              {/* <Link to="/courses?sort=name" /> */}
             </span>
             <h4 className="subText">{product.category}</h4>
             <h1 className="bigText">{product.name}</h1>
@@ -88,6 +104,7 @@ const Overview = () => {
                 </S.StylesButton>;
               })}
             </S.Styles>
+            {/* change  */}
             <S.Styles>
               <select className="imgFormat" name="size">
                 {/* {currentStyle.skus.forEach((x) => {
@@ -101,7 +118,7 @@ const Overview = () => {
                 <option>3</option>
               </select>
               <button className="bigText"><h3>ADD TO BAG ++</h3></button>
-              <button>star</button>
+              <button onClick={favorite}>{isFavorited ? <FaStar /> : <FaRegStar />}</button>
             </S.Styles>
           </div>
         </S.Side>

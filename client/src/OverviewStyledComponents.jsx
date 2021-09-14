@@ -2,7 +2,7 @@ import styles from 'styled-components';
 // entire component level:
 export const Container = styles.div`
   display: grid;
-  height: 70vh;
+  height: 80vh;
   color: black;
   grid-template-rows: .275fr .275fr .275fr .2fr;
   grid-template-columns: .3fr .3fr .2fr .2fr;
@@ -39,14 +39,14 @@ export const LeftArrow = styles.button`
   grid-area: main;
   position: absolute;
   z-index: 1000;
-  top: 30%;
+  top: 80%;
   left: 5%;
   `;
 export const RightArrow = styles.button`
   grid-area: main;
   position: absolute;
-  top: 30%;
-  right: 60%;
+  top: 80%;
+  right: 5%;
   `;
 export const BigImg = styles.img`
   grid-area: main;

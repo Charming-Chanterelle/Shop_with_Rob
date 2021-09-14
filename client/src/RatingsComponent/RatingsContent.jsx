@@ -2,11 +2,11 @@ import React from 'react';
 import RatingsDisplay from './RatingsDisplay.jsx';
 
 
-const RatingsContent = ({ratingsList}) => {
+const RatingsContent = ({ ratingsList }) => {
 
   return (
     <>
-      {ratingsList.map(rating => <RatingsDisplay key={rating.body} ratingList={rating}/>)}
+      {ratingsList.map(rating => <RatingsDisplay key={rating.body} ratingList={rating} />)}
     </>
   )
 

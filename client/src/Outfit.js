@@ -1,14 +1,14 @@
 module.exports = {
   items: [
-    {
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ252uOeq8QHRIxDH7GfJ6xNI8NBZhirx1mZA&usqp=CAU',
-      category: 'N/A',
-      name: 'Add to your outfit',
-      price: 'N/A',
-      rating: 'N/A',
-      id: 'N/A',
+    // {
+    //   image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ252uOeq8QHRIxDH7GfJ6xNI8NBZhirx1mZA&usqp=CAU',
+    //   category: 'N/A',
+    //   name: 'Add to your outfit',
+    //   price: 'N/A',
+    //   rating: 'N/A',
+    //   id: 'N/A',
 
-    },
+    // },
     {
       image: 'https://ae01.alicdn.com/kf/HTB1XORbdi6guuRkSmLyq6AulFXaH/zml14-Steampunk-Goggles-Sunglasses-Men-Women-Cool-Shades-Retro-Round-Sun-Glasses-Great-Texture-Metal-Brand.jpg',
       category: 'Accessories',
