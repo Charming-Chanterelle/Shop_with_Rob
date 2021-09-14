@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { FaTimes } from 'react-icons/fa';
 import OutfitItems from './Outfit';
 
 const Outfit = (props) => {
   const { items } = OutfitItems;
+  // const carouselItems = Array.from(OutfitItems).slice(1,2);
   const { show } = props;
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -30,6 +32,10 @@ const Outfit = (props) => {
   const handleTouchStart = (e) => {
     const touchDown = e.touches[0].clientX;
     setTouchPosition(touchDown);
+  };
+
+  const clicked = () => {
+    console.log('clicked');
   };
 
   const handleTouchMove = (e) => {
@@ -77,9 +83,15 @@ const Outfit = (props) => {
               style={{ transform: `translateX(-${currentIndex * (100 / show)}%)` }}
             >
               {/* start of item info */}
+                <div>
+                  <div><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ252uOeq8QHRIxDH7GfJ6xNI8NBZhirx1mZA&usqp=CAU' className="carouselImage" alt="remove"></img></div>
+                </div>
               {items.map((item) => (
                 <>
                   <div>
+                    <button>
+                      <FaTimes onClick={clicked}/>
+                    </button>
                     <img src={item.image} className="carouselImage" alt="related-item" />
                     <div>
                       {/* Name: */}
