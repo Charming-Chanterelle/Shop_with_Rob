@@ -12,7 +12,7 @@ const ProductRating = () => {
     <div className="product-rating-container">
       <label className="product-rating-label">Overall rating*</label>
       <div className="product-rating-icon">
-        <FaRegStar /><FaRegStar /><FaRegStar /><FaRegStar /><FaRegStar />
+        <FaRegStar className="review-product-star"/><FaRegStar /><FaRegStar /><FaRegStar /><FaRegStar />
         </div>
 
     </div>

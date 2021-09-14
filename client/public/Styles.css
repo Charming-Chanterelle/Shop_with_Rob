@@ -310,7 +310,7 @@ grid-template-areas:
 }
 
 .ratings-content-container {
-  grid-auto-rows: 1.5fr 1.5fr 2.5fr 1fr;
+  grid-auto-rows: 1.5fr 1.5fr 1.5fr 1fr 1fr;
   grid-template-columns: 2fr 2fr;
   padding-top: 10px;
   gap: 2px;
@@ -320,6 +320,7 @@ grid-template-areas:
   "stars username"
   "summary summary"
   "body body"
+  "response response"
   "helpful helpful"
   ;
 
@@ -344,10 +345,16 @@ grid-template-areas:
   grid-area: body;
 }
 
+.ratings-content-response {
+  grid-area: response;
+  background-color: lightgray;
+}
+
 .ratings-content-helpful {
   grid-area: helpful;
   font-size: 12px;
   padding-bottom: 8px;
+  padding-top: 10px;
 }
 
 .ratings-header-text {
@@ -588,4 +595,8 @@ grid-template-areas:
   grid-area: slider-desc-high;
   text-align: right;
   font-size: 11px;
+}
+
+.review-product-star:hover{
+  background-color: black;
 }

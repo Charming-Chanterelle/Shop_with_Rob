@@ -11,7 +11,7 @@ class RatingsDisplay extends Component {
 
   render() {
     const { reviews } = this.state;
-    const { rating, reviewer_name, summary, body, helpfulness } = reviews;
+    const { rating, reviewer_name, summary, body, helpfulness, response } = reviews;
 
     return (
       <>
@@ -25,6 +25,7 @@ class RatingsDisplay extends Component {
           <div className="ratings-content-summary">{summary}</div>
           <div className="ratings-content-body">{body}</div>
           <div className="ratings-content-helpful">Helpful? <span><u>Yes </u></span>({helpfulness})<span style={{ "margin": "8px"}}>|</span><span style={{ "margin": "2px"}}><u>Report</u></span></div>
+          {!response ? <></> : <div className="ratings-content-response"><span>Response:</span><div>{response}</div></div>}
         </div>
       </>
     )
