@@ -10,7 +10,6 @@ const Outfit = (props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(items.length);
 
-  const [touchPosition, setTouchPosition] = useState(null);
 
   // Set the length to match current children from props
   useEffect(() => {
@@ -29,34 +28,8 @@ const Outfit = (props) => {
     }
   };
 
-  const handleTouchStart = (e) => {
-    const touchDown = e.touches[0].clientX;
-    setTouchPosition(touchDown);
-  };
-
   const clicked = () => {
     console.log('clicked');
-  };
-
-  const handleTouchMove = (e) => {
-    const touchDown = touchPosition;
-
-    if (touchDown === null) {
-      return;
-    }
-
-    const currentTouch = e.touches[0].clientX;
-    const diff = touchDown - currentTouch;
-
-    if (diff > 5) {
-      next();
-    }
-
-    if (diff < -5) {
-      prev();
-    }
-
-    setTouchPosition(null);
   };
 
   return (
@@ -64,7 +37,6 @@ const Outfit = (props) => {
       <h1 className="bigText">Your Outfit</h1>
       <div className="carousel-container">
         <div className="carousel-wrapper">
-          {/* You can alwas change the content of the button to other things */}
           {
                   currentIndex > 0
                   && (
@@ -75,8 +47,6 @@ const Outfit = (props) => {
               }
           <div
             className="carousel-content-wrapper"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
           >
             <div
               className={`carousel-content show-${show}`}
