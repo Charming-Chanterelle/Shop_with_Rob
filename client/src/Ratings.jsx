@@ -1,59 +1,61 @@
+/* eslint-disable import/extensions */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import axios from 'axios';
+
 import ReviewAction from './RatingsComponent/ReviewAction.jsx';
 import RatingsSearch from './RatingsComponent/RatingsSearch.jsx';
 import RatingsContent from './RatingsComponent/RatingsContent.jsx';
 import RatingsStarHeader from './RatingsComponent/RatingsStarHeader.jsx';
 import RatingsSummaryReview from './RatingsComponent/RatingsSummaryReview.jsx';
-const { data } = require('./RatingsComponent/RatingsDummyData.js');
-
-let newData = data.slice(0,2);
 
 class Ratings extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-      ratings: newData,
+      ratingsStorage: [],
+      limitedRatings: [],
       ratingsCount: 2,
       showMoreRatings: true,
     };
     this.onAddMoreReviews = this.onAddMoreReviews.bind(this);
   }
 
-  // componentDidMount() {
-  //   axios.get('/api/reviews/?product_id=48487')
-  //     .then((results) => {
-  //       this.setState({
-  //         reviews: results.data.results,
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
+  componentDidMount() {
+    axios.get('/api/reviews/?product_id=48487')
+      .then((results) => {
+        this.setState({
+          ratingsStorage: results.data.results,
+          limitedRatings: results.data.results.slice(0, 2),
+        });
+      })
+      .catch((err) => {
+        throw err;
+      });
+  }
 
   onAddMoreReviews() {
-    const { ratingsCount } = this.state;
+    const { ratingsStorage, ratingsCount } = this.state;
+    const ratingStorageLen = ratingsStorage.length;
 
     let newRatingsCount = ratingsCount + 2;
     let anyMoreRatings = true;
 
-    if (data.length < newRatingsCount) {
-      newRatingsCount = data.length;
+    if (ratingStorageLen < newRatingsCount) {
+      newRatingsCount = ratingStorageLen;
       anyMoreRatings = false;
     }
 
-    const newListings = data.slice(0, newRatingsCount);
+    const newListings = ratingsStorage.slice(0, newRatingsCount);
 
     this.setState({
-      ratings: newListings,
+      limitedRatings: newListings,
       ratingsCount: newRatingsCount,
       showMoreRatings: anyMoreRatings,
     });
-  };
+  }
 
   render() {
-    const { ratings, showMoreRatings } = this.state;
+    const { limitedRatings, showMoreRatings } = this.state;
 
     return (
       <>
@@ -71,7 +73,7 @@ class Ratings extends Component {
           </div>
           <div className="temp" />
           <div className="content">
-            <RatingsContent ratingsList={ratings} />
+            <RatingsContent ratingsList={limitedRatings} />
           </div>
           <div className="reviewAction">
             <ReviewAction moreRatings={showMoreRatings} onAddMoreReviews={this.onAddMoreReviews} />
@@ -81,9 +83,5 @@ class Ratings extends Component {
     );
   }
 }
-
-Ratings.propTypes = {
-  reviews: PropTypes.any,
-};
 
 export default Ratings;

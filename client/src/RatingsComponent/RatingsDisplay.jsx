@@ -12,7 +12,7 @@ class RatingsDisplay extends Component {
   render() {
     const { reviews } = this.state;
     const { rating, reviewer_name, summary, body, helpfulness } = reviews;
-    console.log(reviews);
+
     return (
       <>
         <div className="ratings-content-container">
