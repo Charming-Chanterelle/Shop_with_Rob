@@ -1,6 +1,8 @@
 /* eslint-disable import/no-named-as-default */
 /* eslint-disable import/extensions */
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { FaThumbsUp } from '@fortawesome/free-brands-svg-icons';
 import NavBar from './NavBar.jsx';
 import Overview from './Overview.jsx';
 import Related from './Related.jsx';
@@ -16,7 +18,6 @@ class App extends Component {
   }
 
   render() {
-    // const { value } = this.state;
     return (
       <div id="app">
         <NavBar />
