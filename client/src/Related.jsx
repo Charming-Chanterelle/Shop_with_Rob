@@ -87,7 +87,7 @@ const Related = (props) => {
               {items.map((item) => (
                 <>
                   <div>
-                    <button className="one-star-container" onClick={clicked}>
+                    <button onClick={clicked}>
                       <FaRegStar />
                     </button>
                     <img src={item.image} className="carouselImage" alt="related-item" />
