@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 /* eslint-disable import/extensions */
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,7 +19,6 @@ class App extends Component {
   render() {
     return (
       <div id="app">
-        Hello
         <NavBar />
         <Overview />
         <Related />
