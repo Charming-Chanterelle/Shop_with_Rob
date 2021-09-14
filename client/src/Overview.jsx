@@ -4,26 +4,41 @@ import React, { useState, useEffect } from 'react';
 // styled comps
 import * as S from './OverviewStyledComponents.jsx';
 import productStyle from './OverviewTESTstyle.js';
+// the hard code product detail:
 import product from './OverviewTESTproductReg.js';
 
+// need default style id and product to start
 const Overview = () => {
-  const [defaultInfo, setDefaultInfo] = useState(product);
-  // need to get the default pics ^
-  // need to change:
-  const productImgs = productStyle.results[0].photos;
-  const [selectedStyle, setSelectedStyle] = useState('choose your style');
+  // get the specific style object from the style_id
+  const theStyle = (num) => {
+    const temp = productStyle.results.filter((x) => x.style_id === num);
+    return temp[0];
+  };
+  // the whole current style obj
+  const [currentStyle, setCurrentStyle] = useState(theStyle(productStyle.results[0].style_id));
+  // need to get the default pics first ^
+  // // current pictures to show
+  // const [bigPics, setBigPics] = useState(currentStyle.photos);
+  // // current style name
+  // const [styleName, setStyleName] = useState(currentStyle.name);
+  // need current sku obj for display options and cart ready
+  const [currentSku, setCurrentSku] = useState(currentStyle.skus);
+
   // image slider counter
   const [current, setCurrent] = useState(0);
-  const length = productStyle.results[0].photos.length;
+  const length = currentStyle.photos.length;
   const prevSlide = () => {
     setCurrent(current === 0 ? length - 1 : current - 1);
   };
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
   };
-
+  // click a style button
   const styleOnClick = (event) => {
-    setSelectedStyle(event.target.value);
+    setCurrentStyle(theStyle(parseInt(event.target.value, 10)));
+    // setBigPics()
+    // setStyleName()
+
   };
 
   return (
@@ -31,53 +46,55 @@ const Overview = () => {
       <S.Container>
         <S.Main>
           <S.LeftArrow onClick={prevSlide}>l</S.LeftArrow>
-          {productImgs.map((x, i) => {
+          {currentStyle.photos.map((x, i) => {
             if (i === current) {
-              return <S.BigImg src={x.url} alt="pic" />;
+              return <S.BigImg className="imgFormat" src={x.url} alt="pic" />;
             }
           })}
           <S.ImgCards>
-            {productImgs.map((x) => <S.ImgSample src={x.url} />)}
+            {currentStyle.photos.map((x) => <S.ImgSample className="imgFormat" src={x.url} />)}
           </S.ImgCards>
           <S.RightArrow onClick={nextSlide}>r</S.RightArrow>
         </S.Main>
         <S.Content>
-          <h2>{defaultInfo.slogan}</h2>
-          <p>{defaultInfo.description}</p>
+          <h2 className="bigText">{product.slogan}</h2>
+          <p>{product.description}</p>
         </S.Content>
         <S.Side>
           <div>
             <span>
               ADD STAR RATING
             </span>
-            <h4 className="subText">{defaultInfo.category}</h4>
-            <h1 className="bigText">{defaultInfo.name}</h1>
+            <h4 className="subText">{product.category}</h4>
+            <h1 className="bigText">{product.name}</h1>
             <h2>
               $
-              {defaultInfo.default_price}
+              {currentStyle.original_price}
             </h2>
+            {currentStyle.sale_price !== null
+              && <h2>SALE: {currentStyle.sale_price}
+              </h2>
+            }
           </div>
           <div>
             <h3 className="bigText">
-              Style:
-              {selectedStyle}
+              Choose your style:
+              {currentStyle.name}
             </h3>
             <S.Styles>
-              <S.StylesButton onClick={styleOnClick} value="style1"> style1</S.StylesButton>
-              <S.StylesButton onClick={styleOnClick} value="style2"> style2</S.StylesButton>
-              <S.StylesButton onClick={styleOnClick} value="style3"> style3</S.StylesButton>
-              <S.StylesButton onClick={styleOnClick} value="style4"> style4</S.StylesButton>
-              <S.StylesButton onClick={styleOnClick} value="style5"> style5</S.StylesButton>
+              {productStyle.results.map((x) => {
+                return <S.StylesButton onClick={styleOnClick} value={x.style_id}>
+                  {x.style_id}
+                </S.StylesButton>;
+              })}
             </S.Styles>
             <S.Styles>
-              <select name="size">
-                {/* need to get skus sizes based on product id and style*/}
-                <option>XS</option>
-                <option>S</option>
-                <option>M</option>
-                <option>XL</option>
+              <select className="imgFormat" name="size">
+                {/* {currentStyle.skus.forEach((x) => {
+                  return <option>{x.size}</option>
+                })} */}
               </select>
-              <select name="quantity">
+              <select className="imgFormat" name="quantity">
                 {/* need to check with cart and DB based on the sku availability*/}
                 <option>1</option>
                 <option>2</option>
@@ -88,14 +105,14 @@ const Overview = () => {
             </S.Styles>
           </div>
         </S.Side>
-        <S.List>
-          <S.SideList>
-            <li>110% Satisfaction Guaranteed</li>
-            <li>Suitable for All Ages</li>
-            <li>Moms love it</li>
-            <li>No Returns</li>
-          </S.SideList>
-        </S.List>
+        <S.Features>
+          <S.FeaturesList>
+            <li>110% Satisfaction Guaranteed*</li>
+            {product.features.map((x) => {
+              return <li>{x.feature}: {x.value}</li>;
+            })}
+          </S.FeaturesList>
+        </S.Features>
       </S.Container>
     </>
   );

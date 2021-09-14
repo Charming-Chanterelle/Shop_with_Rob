@@ -10,7 +10,7 @@ export const Container = styles.div`
     "main main side side"
     "main main side side"
     "main main side side"
-    "content content list list";
+    "content content features features";
   padding: 0.25rem;
   grid-gap: 0.25rem;
   overflow: hidden;
@@ -28,8 +28,8 @@ export const Side = styles.div`
 export const Content = styles.div`
   grid-area: content;
   `;
-export const List = styles.div`
-  grid-area: list;
+export const Features = styles.div`
+  grid-area: features;
   border-left: 6px solid black;
   height: 100%;
   `;
@@ -68,8 +68,8 @@ export const ImgSample = styles.img`
   height: 40px;
 `;
   // list:
-export const SideList = styles.ul`
-  grid-area: list;
+export const FeaturesList = styles.ul`
+  grid-area: features;
   text-align: left;
   height: 100%;
   `;
