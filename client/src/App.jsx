@@ -18,7 +18,6 @@ class App extends Component {
   }
 
   render() {
-    const { reviews } = this.state;
 
     return (
       <div id="app">
