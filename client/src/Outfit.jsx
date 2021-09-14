@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { FaTimes } from 'react-icons/fa';
 import OutfitItems from './Outfit';
 
 const Outfit = (props) => {
   const { items } = OutfitItems;
+  // const carouselItems = Array.from(OutfitItems).slice(1,2);
   const { show } = props;
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(items.length);
 
-  const [touchPosition, setTouchPosition] = useState(null);
 
   // Set the length to match current children from props
   useEffect(() => {
@@ -27,30 +28,8 @@ const Outfit = (props) => {
     }
   };
 
-  const handleTouchStart = (e) => {
-    const touchDown = e.touches[0].clientX;
-    setTouchPosition(touchDown);
-  };
-
-  const handleTouchMove = (e) => {
-    const touchDown = touchPosition;
-
-    if (touchDown === null) {
-      return;
-    }
-
-    const currentTouch = e.touches[0].clientX;
-    const diff = touchDown - currentTouch;
-
-    if (diff > 5) {
-      next();
-    }
-
-    if (diff < -5) {
-      prev();
-    }
-
-    setTouchPosition(null);
+  const clicked = () => {
+    console.log('clicked');
   };
 
   return (
@@ -58,7 +37,6 @@ const Outfit = (props) => {
       <h1 className="bigText">Your Outfit</h1>
       <div className="carousel-container">
         <div className="carousel-wrapper">
-          {/* You can alwas change the content of the button to other things */}
           {
                   currentIndex > 0
                   && (
@@ -69,17 +47,21 @@ const Outfit = (props) => {
               }
           <div
             className="carousel-content-wrapper"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
           >
             <div
               className={`carousel-content show-${show}`}
               style={{ transform: `translateX(-${currentIndex * (100 / show)}%)` }}
             >
               {/* start of item info */}
+                <div>
+                  <div><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ252uOeq8QHRIxDH7GfJ6xNI8NBZhirx1mZA&usqp=CAU' className="carouselImage" alt="remove"></img></div>
+                </div>
               {items.map((item) => (
                 <>
                   <div>
+                    <button>
+                      <FaTimes onClick={clicked}/>
+                    </button>
                     <img src={item.image} className="carouselImage" alt="related-item" />
                     <div>
                       {/* Name: */}
