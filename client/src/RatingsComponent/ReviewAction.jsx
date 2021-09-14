@@ -4,7 +4,6 @@ import RatingsModal from './RatingsModal.jsx';
 const ReviewAction = ({onAddMoreReviews, moreRatings}) => {
   const [show, setShow] = useState(false);
 
-  console.log(moreRatings);
   return (
     <>
       {moreRatings ? <button type="button" style={{ "margin": "15px", "cursor":"pointer" }} onClick={() => onAddMoreReviews()}>More Reviews</button> : <> </>}

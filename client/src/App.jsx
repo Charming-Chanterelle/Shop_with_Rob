@@ -11,13 +11,15 @@ import Ratings from './Ratings.jsx';
 import Outfit from './Outfit.jsx';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
     };
   }
 
   render() {
+    const { reviews } = this.state;
+
     return (
       <div id="app">
         <NavBar />
