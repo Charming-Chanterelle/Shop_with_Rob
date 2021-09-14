@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import NavBar from './NavBar.jsx';
 import Overview from './Overview.jsx';
 import Related from './Related.jsx';
-import Questions from './Questions.jsx';
+import Questions from './Q&A/App.jsx';
 import Ratings from './Ratings.jsx';
 
 class App extends Component {
