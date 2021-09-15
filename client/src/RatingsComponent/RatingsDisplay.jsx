@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FaStar, FaStarHalfAlt, FaRegStar, FaRegGem } from 'react-icons/fa';
 
 class RatingsDisplay extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       reviews: props.ratingList
