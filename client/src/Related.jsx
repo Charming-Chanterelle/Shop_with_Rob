@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaRegStar } from 'react-icons/fa';
 import RelatedItems from './RelatedComponents/RelatedItems';
+import ComparisonModal from './RelatedComponents/ComparisonModal.jsx';
 
 const Related = (props) => {
   const { items } = RelatedItems;
@@ -53,9 +54,12 @@ const Related = (props) => {
               {items.map((item) => (
                 <>
                   <div>
-                    <button onClick={clicked} type="button">
-                      <FaRegStar />
-                    </button>
+                    <div>
+                      <button onClick={clicked} type="button">
+                        <FaRegStar />
+                      </button>
+                      <ComparisonModal />
+                    </div>
                     <img src={item.image} className="carouselImage" alt="related-item" />
                     <div>
                       {/* Name: */}
