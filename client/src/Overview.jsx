@@ -9,7 +9,7 @@ import productStyle from './OverviewTESTstyle.js';
 import product from './OverviewTESTproductReg.js';
 
 // need default style id and product to start
-const Overview = () => {
+const Overview = (props) => {
   // get the specific style object from the style_id
   const theStyle = (num) => {
     const temp = productStyle.results.filter((x) => x.style_id === num);
