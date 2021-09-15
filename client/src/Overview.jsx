@@ -12,7 +12,7 @@ import productStyle from './OverviewTESTstyle.js';
 const Overview = () => {
   // get new style by id
   const theStyle = (ID) => productStyle.results.filter((x) => x.style_id === ID)[0];
-  // default style (obj)
+  // start with default style (obj)
   const [currentStyle, setCurrentStyle] = useState(
     productStyle.results.filter((x) => x['default?'] === true)[0],
   );
@@ -20,7 +20,7 @@ const Overview = () => {
   const reviews = [{
     1: 5, 2: 0, 3: 1, 4: 20, 5: 10,
   }];
-  // current sku (obj of objs) for display and cart
+  // current sku (obj of objs) for dropdown and cart
   const [currentSku, setCurrentSku] = useState(currentStyle.skus);
   // star button state
   const [isFavorited, setIsFavorited] = useState(false);
@@ -35,7 +35,8 @@ const Overview = () => {
   };
   // click a style button
   const styleOnClick = (event) => {
-    setCurrentStyle(theStyle(parseInt(event.target.value, 10)));
+    currentStyle.id !== event.target.value ?
+    setCurrentStyle(theStyle(parseInt(event.target.value, 10))) : null;
   };
   // star button click handler
   const favorite = () => {
@@ -108,6 +109,10 @@ const Overview = () => {
             {/* change  */}
             <S.Styles>
               <select className="imgFormat" name="size">
+                {/* {
+                  <option>Select Size</option>
+                  <option>OUT OF STOCK</option>
+                } */}
                 {/* {currentStyle.skus.forEach((x) => {
                   return <option>{x.size}</option>
                 })} */}
