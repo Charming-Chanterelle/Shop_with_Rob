@@ -64,7 +64,7 @@ class App extends Component {
         <NavBar />
         <Overview />
         <Related show={3} />
-        <Outfit show={3}/>
+        <Outfit show={3} />
         <Questions />
         <Ratings />
       </div>

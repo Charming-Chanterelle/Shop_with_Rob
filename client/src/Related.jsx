@@ -9,6 +9,7 @@ const Related = (props) => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(items.length);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     setLength(items.length);
@@ -26,9 +27,10 @@ const Related = (props) => {
     }
   };
 
-  const clicked = () => {
-    console.log('clicked');
-  };
+  // const clicked = () => {
+  //   console.log('clicked');
+  //   setShowModal(true);
+  // };
 
   return (
     <>
@@ -55,10 +57,13 @@ const Related = (props) => {
                 <>
                   <div>
                     <div>
-                      <button onClick={clicked} type="button">
+                      <button onClick={() => setShowModal(true)} type="button">
                         <FaRegStar />
                       </button>
-                      <ComparisonModal />
+                      <ComparisonModal
+                        onClose={() => setShowModal(false)}
+                        showModal={showModal}
+                      />
                     </div>
                     <img src={item.image} className="carouselImage" alt="related-item" />
                     <div>
