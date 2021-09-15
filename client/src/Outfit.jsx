@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
-import OutfitItems from './Outfit';
+import OutfitItems from './RelatedComponents/Outfit';
 
 const Outfit = (props) => {
   const { items } = OutfitItems;

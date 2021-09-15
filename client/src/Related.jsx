@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaRegStar } from 'react-icons/fa';
-import RelatedItems from './RelatedItems';
-
-// import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro';
+import RelatedItems from './RelatedComponents/RelatedItems';
 
 const Related = (props) => {
   const { items } = RelatedItems;
@@ -11,7 +9,6 @@ const Related = (props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(items.length);
 
-  // Set the length to match current children from props
   useEffect(() => {
     setLength(items.length);
   }, [items]);
@@ -28,11 +25,6 @@ const Related = (props) => {
     }
   };
 
-  // const handleTouchStart = (e) => {
-  //   const touchDown = e.touches[0].clientX;
-  //   setTouchPosition(touchDown);
-  // };
-
   const clicked = () => {
     console.log('clicked');
   };
@@ -42,7 +34,6 @@ const Related = (props) => {
       <h1 className="bigText">Related Items</h1>
       <div className="carousel-container">
         <div className="carousel-wrapper">
-          {/* You can alwas change the content of the button to other things */}
           {
                   currentIndex > 0
                   && (
@@ -62,7 +53,7 @@ const Related = (props) => {
               {items.map((item) => (
                 <>
                   <div>
-                    <button onClick={clicked}>
+                    <button onClick={clicked} type="button">
                       <FaRegStar />
                     </button>
                     <img src={item.image} className="carouselImage" alt="related-item" />
@@ -89,7 +80,6 @@ const Related = (props) => {
               {/* end of item info  */}
             </div>
           </div>
-          {/* You can alwas change the content of the button to other things */}
           {
                   currentIndex < (length - show)
                   && (
