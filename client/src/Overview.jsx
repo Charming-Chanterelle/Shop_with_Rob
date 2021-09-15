@@ -1,6 +1,7 @@
 /* eslint-disable import/extensions */
 /* eslint-disable react/button-has-type */
 import React, { useState, useEffect } from 'react';
+// icons
 import { FaStar, FaStarHalfAlt, FaRegStar, IoChevronForwardCircle } from 'react-icons/fa';
 // styled comps
 import * as S from './OverviewStyledComponents.jsx';
@@ -8,10 +9,6 @@ import * as S from './OverviewStyledComponents.jsx';
 // params: product obj, all_styles arr, ratings arr
 const Overview = ({ product, styles, stars }) => {
   // get new style by id
-  // console.log("RIGHT EHRE", props.product);
-  // console.log("RIGHT EHRE", props.stars);
-  // console.log("RIGHT EHRE", props.styles);
-
   const theStyle = (ID) => styles.results.filter((x) => x.style_id === ID)[0];
   // default style (obj)
   const [currentStyle, setCurrentStyle] = useState(

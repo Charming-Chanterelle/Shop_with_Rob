@@ -1,6 +1,6 @@
 /* eslint-disable import/no-named-as-default */
 /* eslint-disable import/extensions */
-import React, { Component } from 'react';
+import React, { Component, createContext } from 'react';
 import axios from 'axios';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,10 +12,14 @@ import Questions from './Q&A/App.jsx';
 import Ratings from './Ratings.jsx';
 import Outfit from './Outfit.jsx';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+// import productz from './OverviewTESTproductReg.js'; //
+// import style from './OverviewTESTstyle.js';
+
+const productContext = createContext();
+
+class productContextProvider extends Component {
+
+    state = {
       product: {},
       product_styles: [], // all styles for this product
       // (needed like this for overview if want overview to
@@ -25,11 +29,12 @@ class App extends Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const randID = Math.ceil(Math.random() * (9 - 0));
     axios.get('/api/products/?count=10')
       .then((products) => {
         const product = products.data[randID];
+        console.log(product);
         return [product, product.id];
       })
       .then(([product, ID]) => {
@@ -41,7 +46,11 @@ class App extends Component {
             this.setState({
               product, product_styles: data1.data.results, meta_ratings: data2.data,
             });
-          }));
+            console.log('HERE');
+          }))
+          .catch((err) => {
+            console.log('here is error', err);
+          });
       })
       .catch((err) => {
         console.log('error in client styles/ratings GET', err);
@@ -64,3 +73,6 @@ class App extends Component {
 }
 
 export default App;
+
+// { product !== {} &&
+// <Overview product={product} styles={product_styles} stars={meta_ratings.ratings} />}
