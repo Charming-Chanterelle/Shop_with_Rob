@@ -10,7 +10,6 @@ const Outfit = (props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(items.length);
 
-
   // Set the length to match current children from props
   useEffect(() => {
     setLength(items.length);
