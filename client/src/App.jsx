@@ -24,27 +24,25 @@ class App extends Component {
 
   componentDidMount() {
     const randID = Math.ceil(Math.random() * (10 - 0));
-    console.log(randID);
-
     axios.get('/api/products/?count=10')
       .then((results) => {
         this.setState({
           product: results.data[randID],
-        })
-        axios.get(`/api/products/${this.state.product.id}/style`)
-          .then((results) => {
+        });
+        axios.get(`/api/products/${results.data[randID].id}/style`)
+          .then((results1) => {
             this.setState({
-              product_style: results.data.results,
-            })
+              product_style: results1.data.results.filter((x) => x['default?'] === true),
+            });
           })
           .catch((err) => {
             console.log('This is from Component Did Mount in the App Component', err);
-          })
-        axios.get(`/api/reviews/meta/?product_id=${this.state.product.id}`)
-          .then((results) => {
+          });
+        axios.get(`/api/reviews/meta/?product_id=${results.data[randID].id}`)
+          .then((results2) => {
             this.setState({
-              meta_ratings: results.data,
-            })
+              meta_ratings: results2.data,
+            });
           })
           .catch((err) => {
             console.log('This is from Component Did Mount in the App Component', err);
@@ -57,12 +55,11 @@ class App extends Component {
 
   render() {
     const { product, product_style, meta_ratings } = this.state;
-    // console.log(product, product_style , meta_ratings);
-
+    console.log(product, product_style, meta_ratings);
     return (
       <div id="app">
         <NavBar />
-        <Overview />
+        <Overview product={product} currentStyle={product_style} stars={meta_ratings.ratings} />
         <Related show={3} />
         <Outfit show={3}/>
         <Questions />
