@@ -4,16 +4,14 @@ import React, { useState, useEffect } from 'react';
 import { FaStar, FaStarHalfAlt, FaRegStar, IoChevronForwardCircle } from 'react-icons/fa';
 // styled comps
 import * as S from './OverviewStyledComponents.jsx';
-import productStyle from './OverviewTESTstyle.js';
-// the hard code product detail:
-import product from './OverviewTESTproductReg.js';
 
-// need default style id and product to start
-const Overview = (props) => {
+const Overview = ({ product, styles, stars }) => {
   // get the specific style object from the style_id
   const theStyle = (num) => {
     const temp = productStyle.results.filter((x) => x.style_id === num);
     return temp[0];
+
+    // results.filter((x) => x['default?'] === true) });
   };
   // the whole current style obj
   const [currentStyle, setCurrentStyle] = useState(theStyle(productStyle.results[0].style_id));
