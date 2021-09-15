@@ -36,7 +36,7 @@ class App extends Component {
             });
           })
           .catch((err) => {
-            console.log('This is from Component Did Mount in the App Component', err);
+            console.log('This is from Component Did Mount STYLE GET in the App Component', err);
           });
         axios.get(`/api/reviews/meta/?product_id=${results.data[randID].id}`)
           .then((results2) => {
@@ -45,11 +45,11 @@ class App extends Component {
             });
           })
           .catch((err) => {
-            console.log('This is from Component Did Mount in the App Component', err);
+            console.log('This is from Component Did Mount RATINGS GET in the App Component', err);
           });
       })
       .catch((err) => {
-        console.log('This is from Component Did Mount in the App Component', err);
+        console.log('This is from Component Did Mount PRODUCT GET in the App Component', err);
       });
   }
 
