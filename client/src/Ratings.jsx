@@ -12,46 +12,57 @@ class Ratings extends Component {
   constructor() {
     super();
     this.state = {
+      product_id: 48445,
       ratings: [],
-      limitedRatings: [],
-      ratingsCount: 2,
+      total_ratings_count: 26,
+      count: 2,
       showMoreRatings: true,
     };
     this.onAddMoreReviews = this.onAddMoreReviews.bind(this);
+    this.getProductRatings = this.getProductRatings.bind(this);
+    this.handleFilterData = this.handleFilterData.bind(this);
   }
 
   componentDidMount() {
     this.getProductRatings();
   }
 
-  onAddMoreReviews() {
-    const { ratingsStorage, ratingsCount } = this.state;
-    const ratingStorageLen = ratingsStorage.length;
+  handleFilterData(sort) {
+    const { count } = this.state;
 
-    let newRatingsCount = ratingsCount + 2;
-    let anyMoreRatings = true;
-
-    if (ratingStorageLen < newRatingsCount) {
-      newRatingsCount = ratingStorageLen;
-      anyMoreRatings = false;
-    }
-
-    const newListings = ratingsStorage.slice(0, newRatingsCount);
-
-    this.setState({
-      limitedRatings: newListings,
-      ratingsCount: newRatingsCount,
-      showMoreRatings: anyMoreRatings,
-    });
+    this.getProductRatings(count, sort);
   }
 
-  getProductRatings() {
-    //48487
-    axios.get('/api/reviews/?product_id=48445')
+  onAddMoreReviews() {
+    const { total_ratings_count, showMoreRatings } = this.state;
+    let { count } = this.state;
+    count += 2;
+
+    if (count > total_ratings_count) {
+      count = total_ratings_count;
+      this.setState({
+        showMoreRatings: !showMoreRatings,
+      });
+    }
+    this.getProductRatings(count);
+  }
+
+  getProductRatings(count = 2, sort = 'relevant') {
+    const { product_id } = this.state;
+
+    // 48487
+    // 48445
+    axios.get('/api/reviews/', {
+      params: {
+        product_id,
+        count,
+        sort,
+      },
+    })
       .then((results) => {
         this.setState({
-          ratingsStorage: results.data.results,
-          limitedRatings: results.data.results.slice(0, 2),
+          ratings: results.data.results,
+          count,
         });
       })
       .catch((err) => {
@@ -60,7 +71,7 @@ class Ratings extends Component {
   }
 
   render() {
-    const { limitedRatings, showMoreRatings } = this.state;
+    const { ratings, total_ratings_count, showMoreRatings } = this.state;
 
     return (
       <>
@@ -69,7 +80,10 @@ class Ratings extends Component {
             <RatingsStarHeader />
           </div>
           <div className="filter">
-            <RatingsSearch />
+            <RatingsSearch
+              totalRatings={total_ratings_count}
+              handleFilterData={this.handleFilterData}
+            />
           </div>
           <div className="reviews">
             <div>
@@ -78,7 +92,7 @@ class Ratings extends Component {
           </div>
           <div className="temp" />
           <div className="content">
-            <RatingsContent ratingsList={limitedRatings} />
+            <RatingsContent ratingsList={ratings} />
           </div>
           <div className="reviewAction">
             <ReviewAction moreRatings={showMoreRatings} onAddMoreReviews={this.onAddMoreReviews} />

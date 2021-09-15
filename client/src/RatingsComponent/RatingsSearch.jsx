@@ -1,17 +1,29 @@
 import React from 'react';
 
-const RatingsSearch = () => {
+const RatingsSearch = ({ totalRatings, handleFilterData }) => {
+  const onDropDownSelect = (event) => {
+    event.preventDefault();
+    handleFilterData(event.target.value);
+  };
+
   return (
     <>
-      <label htmlFor="ratingsSearch">248 reviews, sorted by </label>
-        <select name="search" id="ratingsSearch" form="ratings">
-          <option value="relevance">relevance</option>
-          <option value="helpfulness">helpfulness</option>
-          <option value="newest">newest</option>
-          <option value="oldest">oldest</option>
-        </select>
+      <label htmlFor="ratingsSearch">
+        {totalRatings}
+        <span> reviews, sorted by </span>
+      </label>
+      <select
+        name="search"
+        id="ratingsSearch"
+        form="ratings"
+        onChange={(event) => onDropDownSelect(event)}
+      >
+        <option value="relevant">relevant</option>
+        <option value="helpful">helpful</option>
+        <option value="newest">newest</option>
+      </select>
     </>
-  )
+  );
 };
 
 export default RatingsSearch;

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { FaRegStar } from 'react-icons/fa';
 import RelatedItems from './RelatedItems';
+
+// import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const Related = (props) => {
   const { items } = RelatedItems;
@@ -7,8 +10,6 @@ const Related = (props) => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(items.length);
-
-  const [touchPosition, setTouchPosition] = useState(null);
 
   // Set the length to match current children from props
   useEffect(() => {
@@ -27,30 +28,13 @@ const Related = (props) => {
     }
   };
 
-  const handleTouchStart = (e) => {
-    const touchDown = e.touches[0].clientX;
-    setTouchPosition(touchDown);
-  };
+  // const handleTouchStart = (e) => {
+  //   const touchDown = e.touches[0].clientX;
+  //   setTouchPosition(touchDown);
+  // };
 
-  const handleTouchMove = (e) => {
-    const touchDown = touchPosition;
-
-    if (touchDown === null) {
-      return;
-    }
-
-    const currentTouch = e.touches[0].clientX;
-    const diff = touchDown - currentTouch;
-
-    if (diff > 5) {
-      next();
-    }
-
-    if (diff < -5) {
-      prev();
-    }
-
-    setTouchPosition(null);
+  const clicked = () => {
+    console.log('clicked');
   };
 
   return (
@@ -69,8 +53,6 @@ const Related = (props) => {
               }
           <div
             className="carousel-content-wrapper"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
           >
             <div
               className={`carousel-content show-${show}`}
@@ -80,6 +62,9 @@ const Related = (props) => {
               {items.map((item) => (
                 <>
                   <div>
+                    <button onClick={clicked}>
+                      <FaRegStar />
+                    </button>
                     <img src={item.image} className="carouselImage" alt="related-item" />
                     <div>
                       {/* Name: */}
