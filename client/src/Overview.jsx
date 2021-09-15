@@ -5,24 +5,21 @@ import { FaStar, FaStarHalfAlt, FaRegStar, IoChevronForwardCircle } from 'react-
 // styled comps
 import * as S from './OverviewStyledComponents.jsx';
 
+// params: product obj, all_styles arr, ratings arr
 const Overview = ({ product, styles, stars }) => {
-  // get the specific style object from the style_id
-  const theStyle = (num) => {
-    const temp = productStyle.results.filter((x) => x.style_id === num);
-    return temp[0];
+  // get new style by id
+  // console.log("RIGHT EHRE", props.product);
+  // console.log("RIGHT EHRE", props.stars);
+  // console.log("RIGHT EHRE", props.styles);
 
-    // results.filter((x) => x['default?'] === true) });
-  };
-  // the whole current style obj
-  const [currentStyle, setCurrentStyle] = useState(theStyle(productStyle.results[0].style_id));
-  // need to get the default pics first ^
-  // // current pictures to show
-  // const [bigPics, setBigPics] = useState(currentStyle.photos);
-  // // current style name
-  // const [styleName, setStyleName] = useState(currentStyle.name);
-  // need current sku obj for display options and cart ready
+  const theStyle = (ID) => styles.results.filter((x) => x.style_id === ID)[0];
+  // default style (obj)
+  const [currentStyle, setCurrentStyle] = useState(
+    styles.results.filter((x) => x['default?'] === true)[0],
+  );
+  // current sku (obj of objs) for display and cart
   const [currentSku, setCurrentSku] = useState(currentStyle.skus);
-
+  // star button state
   const [isFavorited, setIsFavorited] = useState(false);
   // image slider counter
   const [current, setCurrent] = useState(0);
@@ -36,8 +33,6 @@ const Overview = ({ product, styles, stars }) => {
   // click a style button
   const styleOnClick = (event) => {
     setCurrentStyle(theStyle(parseInt(event.target.value, 10)));
-    // setBigPics()
-    // setStyleName()
   };
   // star button click handler
   const favorite = () => {
@@ -96,7 +91,7 @@ const Overview = ({ product, styles, stars }) => {
               {currentStyle.name}
             </h3>
             <S.Styles>
-              {productStyle.results.map((x) => {
+              {styles.results.map((x) => {
                 return <S.StylesButton onClick={styleOnClick} value={x.style_id}>
                   {x.style_id}
                 </S.StylesButton>;
