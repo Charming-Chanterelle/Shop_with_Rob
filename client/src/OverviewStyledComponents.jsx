@@ -2,7 +2,7 @@ import styles from 'styled-components';
 // entire component level:
 export const Container = styles.div`
   display: grid;
-  height: 80vh;
+  height: 85vh;
   color: black;
   grid-template-rows: .275fr .275fr .275fr .2fr;
   grid-template-columns: .3fr .3fr .2fr .2fr;
@@ -91,4 +91,5 @@ color: #899499;
   border: 1px solid black;
   padding: 10px;
   margin: 10px;
+  background: url(${props => props.url}) no-repeat;
 `;

@@ -2,18 +2,24 @@
 /* eslint-disable react/button-has-type */
 import React, { useState, useEffect } from 'react';
 // icons
-import { FaStar, FaStarHalfAlt, FaRegStar, IoChevronForwardCircle } from 'react-icons/fa';
+import { FaStar, FaStarHalfAlt, FaRegStar, FaChevronCircleRight, FaChevronCircleLeft, FaFacebookSquare, FaTwitterSquare, FaPinterestSquare, FaCheck } from 'react-icons/fa';
 // styled comps
 import * as S from './OverviewStyledComponents.jsx';
+import product from './OverviewTESTproductReg.js';
+import productStyle from './OverviewTESTstyle.js';
 
 // params: product obj, all_styles arr, ratings arr
-const Overview = ({ product, styles, stars }) => {
+const Overview = () => {
   // get new style by id
-  const theStyle = (ID) => styles.results.filter((x) => x.style_id === ID)[0];
+  const theStyle = (ID) => productStyle.results.filter((x) => x.style_id === ID)[0];
   // default style (obj)
   const [currentStyle, setCurrentStyle] = useState(
-    styles.results.filter((x) => x['default?'] === true)[0],
+    productStyle.results.filter((x) => x['default?'] === true)[0],
   );
+  // reveiws info
+  const reviews = [{
+    1: 5, 2: 0, 3: 1, 4: 20, 5: 10,
+  }];
   // current sku (obj of objs) for display and cart
   const [currentSku, setCurrentSku] = useState(currentStyle.skus);
   // star button state
@@ -43,9 +49,8 @@ const Overview = ({ product, styles, stars }) => {
   return (
     <>
       <S.Container>
-        {/* <IoChevronForwardCircle /> */}
         <S.Main>
-          <S.LeftArrow onClick={prevSlide}>l</S.LeftArrow>
+          <S.LeftArrow onClick={prevSlide}><FaChevronCircleLeft /></S.LeftArrow>
           {currentStyle.photos.map((x, i) => {
             if (i === current) {
               return <S.BigImg className="imgFormat" src={x.url} alt="pic" />;
@@ -54,33 +59,36 @@ const Overview = ({ product, styles, stars }) => {
           <S.ImgCards>
             {currentStyle.photos.map((x) => <S.ImgSample className="imgFormat" src={x.url} />)}
           </S.ImgCards>
-          <S.RightArrow onClick={nextSlide}>r</S.RightArrow>
+          <S.RightArrow onClick={nextSlide}><FaChevronCircleRight /></S.RightArrow>
         </S.Main>
         <S.Content>
           <h2 className="bigText">{product.slogan}</h2>
           <p>{product.description}</p>
+          <FaFacebookSquare />
+          <FaTwitterSquare />
+          <FaPinterestSquare />
         </S.Content>
         <S.Side>
           <div>
-            <span>
-              {/* {for rating number, make that many stars where FaStar is for whole int and partial is FaStarHalfAlt and the remainder out of 5 is FaRegStar} */}
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStarHalfAlt />
-              {/* <Link to="/courses?sort=name" /> */}
-            </span>
+            {reviews && (
+              <span>
+                <FaStar />
+                <FaStar />
+                <FaStar />
+                <FaStar />
+                <FaStarHalfAlt />
+                Read all [#] reviews
+              </span>
+            )}
             <h4 className="subText">{product.category}</h4>
             <h1 className="bigText">{product.name}</h1>
-            <h2>
-              $
-              {currentStyle.original_price}
-            </h2>
-            {currentStyle.sale_price !== null
-              && <h2>SALE: {currentStyle.sale_price}
-              </h2>
-            }
+
+            {currentStyle.sale_price !== null ?
+              <h2>
+                <strike style={{ color: "red" }}>${currentStyle.original_price}</strike>
+                &nbsp;&nbsp;SALE:&nbsp;${currentStyle.sale_price}
+              </h2> :
+              <h2>${currentStyle.original_price}</h2>}
           </div>
           <div>
             <h3 className="bigText">
@@ -88,10 +96,14 @@ const Overview = ({ product, styles, stars }) => {
               {currentStyle.name}
             </h3>
             <S.Styles>
-              {styles.results.map((x) => {
-                return <S.StylesButton onClick={styleOnClick} value={x.style_id}>
-                  {x.style_id}
-                </S.StylesButton>;
+              {productStyle.results.map((x) => {
+                return x === currentStyle ?
+                  <S.StylesButton onClick={styleOnClick} url={x.photos[0].thumbnail_url} value={x.style_id}>
+                    {x.style_id}
+                  </S.StylesButton> :
+                  <S.StylesButton onClick={styleOnClick} url={x.photos[0].thumbnail_url} value={x.style_id}>
+                    {x.style_id}
+                  </S.StylesButton>
               })}
             </S.Styles>
             {/* change  */}

@@ -17,9 +17,10 @@ import Outfit from './Outfit.jsx';
 
 const productContext = createContext();
 
-class productContextProvider extends Component {
-
-    state = {
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       product: {},
       product_styles: [], // all styles for this product
       // (needed like this for overview if want overview to
@@ -34,7 +35,6 @@ class productContextProvider extends Component {
     axios.get('/api/products/?count=10')
       .then((products) => {
         const product = products.data[randID];
-        console.log(product);
         return [product, product.id];
       })
       .then(([product, ID]) => {
@@ -46,7 +46,6 @@ class productContextProvider extends Component {
             this.setState({
               product, product_styles: data1.data.results, meta_ratings: data2.data,
             });
-            console.log('HERE');
           }))
           .catch((err) => {
             console.log('here is error', err);
