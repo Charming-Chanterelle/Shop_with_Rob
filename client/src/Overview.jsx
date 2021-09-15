@@ -99,10 +99,9 @@ const Overview = () => {
               {productStyle.results.map((x) => {
                 return x === currentStyle ?
                   <S.StylesButton onClick={styleOnClick} url={x.photos[0].thumbnail_url} value={x.style_id}>
-                    {x.style_id}
+                    <FaCheck style={{color: "yellow"}}/>
                   </S.StylesButton> :
                   <S.StylesButton onClick={styleOnClick} url={x.photos[0].thumbnail_url} value={x.style_id}>
-                    {x.style_id}
                   </S.StylesButton>
               })}
             </S.Styles>

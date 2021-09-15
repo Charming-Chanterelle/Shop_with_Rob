@@ -77,7 +77,7 @@ export const FeaturesList = styles.ul`
 export const Styles = styles.div`
   grid-area: side;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
   flex-flow: row wrap;
   padding: 10px;
@@ -86,10 +86,13 @@ export const Styles = styles.div`
   `;
 export const StylesButton = styles.button`
 grid-area: side;
+flex-basis: 20%;
 border-radius: 50%;
 color: #899499;
   border: 1px solid black;
   padding: 10px;
   margin: 10px;
+  width: 70px;
+  height: 70px;
   background: url(${props => props.url}) no-repeat;
 `;
