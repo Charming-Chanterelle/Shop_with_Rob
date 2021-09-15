@@ -12,7 +12,7 @@ class Ratings extends Component {
   constructor() {
     super();
     this.state = {
-      ratingsStorage: [],
+      ratings: [],
       limitedRatings: [],
       ratingsCount: 2,
       showMoreRatings: true,

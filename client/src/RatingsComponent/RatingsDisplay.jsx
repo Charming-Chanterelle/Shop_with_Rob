@@ -24,8 +24,8 @@ class RatingsDisplay extends Component {
             </div>
           <div className="ratings-content-summary">{summary}</div>
           <div className="ratings-content-body">{body}</div>
-          <div className="ratings-content-helpful">Helpful? <span><u>Yes </u></span>({helpfulness})<span style={{ "margin": "8px"}}>|</span><span style={{ "margin": "2px"}}><u>Report</u></span></div>
           {!response ? <></> : <div className="ratings-content-response"><span>Response:</span><div>{response}</div></div>}
+          <div className="ratings-content-helpful">Helpful? <span><u>Yes </u></span>({helpfulness})<span style={{ "margin": "8px"}}>|</span><span style={{ "margin": "2px"}}><u>Report</u></span></div>
         </div>
       </>
     )
