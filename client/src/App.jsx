@@ -17,14 +17,13 @@ class App extends Component {
     super(props);
     this.state = {
       product: {},
-      product_style: [],
+      product_styles: [], // all styles for this product (needed like this for overview if want overview to easily have the array to choose which style is rendered. Will need Overview to pass currentStyle to Related)
       meta_ratings: {},
     };
   }
 
   async componentDidMount() {
     const randID = Math.ceil(Math.random() * (9 - 0));
-
     axios.get('/api/products/?count=10')
       .then((products) => {
         const product = products.data[randID];
@@ -34,7 +33,7 @@ class App extends Component {
       .then((ID) => {
         axios.get(`/api/products/${ID}/style`)
           .then((styles) => {
-            this.setState({ product_style: styles.data.results.filter((x) => x['default?'] === true) });
+            this.setState({ product_styles: styles.data.results });
           })
           .catch((err) => {
             console.log('error in client style GET', err);
@@ -53,12 +52,11 @@ class App extends Component {
   }
 
   render() {
-    const { product, product_style, meta_ratings } = this.state;
+    const { product, product_styles, meta_ratings } = this.state;
     return (
       <div id="app">
         <NavBar />
-        {console.log(product, product_style, meta_ratings)}
-        <Overview product={product} currentStyle={product_style} stars={meta_ratings.ratings} />
+        {/* <Overview product={product} styles={product_styles} stars={meta_ratings.ratings} /> */}
         <Related show={3} />
         <Outfit show={3} />
         <Questions />
