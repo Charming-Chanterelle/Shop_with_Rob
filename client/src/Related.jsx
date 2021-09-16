@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaRegStar } from 'react-icons/fa';
-import RelatedItems from './RelatedItems';
-
-// import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro';
+import RelatedItems from './RelatedComponents/RelatedItems';
+import ComparisonModal from './RelatedComponents/ComparisonModal.jsx';
 
 const Related = (props) => {
   const { items } = RelatedItems;
@@ -10,8 +9,8 @@ const Related = (props) => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(items.length);
+  const [showModal, setShowModal] = useState(false);
 
-  // Set the length to match current children from props
   useEffect(() => {
     setLength(items.length);
   }, [items]);
@@ -28,21 +27,16 @@ const Related = (props) => {
     }
   };
 
-  // const handleTouchStart = (e) => {
-  //   const touchDown = e.touches[0].clientX;
-  //   setTouchPosition(touchDown);
+  // const clicked = () => {
+  //   console.log('clicked');
+  //   setShowModal(true);
   // };
-
-  const clicked = () => {
-    console.log('clicked');
-  };
 
   return (
     <>
       <h1 className="bigText">Related Items</h1>
       <div className="carousel-container">
         <div className="carousel-wrapper">
-          {/* You can alwas change the content of the button to other things */}
           {
                   currentIndex > 0
                   && (
@@ -62,9 +56,15 @@ const Related = (props) => {
               {items.map((item) => (
                 <>
                   <div>
-                    <button onClick={clicked}>
-                      <FaRegStar />
-                    </button>
+                    <div>
+                      <button onClick={() => setShowModal(true)} type="button">
+                        <FaRegStar />
+                      </button>
+                      <ComparisonModal
+                        onClose={() => setShowModal(false)}
+                        showModal={showModal}
+                      />
+                    </div>
                     <img src={item.image} className="carouselImage" alt="related-item" />
                     <div>
                       {/* Name: */}
@@ -89,7 +89,6 @@ const Related = (props) => {
               {/* end of item info  */}
             </div>
           </div>
-          {/* You can alwas change the content of the button to other things */}
           {
                   currentIndex < (length - show)
                   && (

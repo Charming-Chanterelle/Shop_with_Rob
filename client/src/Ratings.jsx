@@ -1,62 +1,83 @@
 /* eslint-disable import/extensions */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, useContext } from 'react';
+import axios from 'axios';
+import { ProductContext } from './contexts/ProductContext.jsx';
+
 import ReviewAction from './RatingsComponent/ReviewAction.jsx';
 import RatingsSearch from './RatingsComponent/RatingsSearch.jsx';
 import RatingsContent from './RatingsComponent/RatingsContent.jsx';
 import RatingsStarHeader from './RatingsComponent/RatingsStarHeader.jsx';
 import RatingsSummaryReview from './RatingsComponent/RatingsSummaryReview.jsx';
 
-const { data } = require('./RatingsComponent/RatingsDummyData.js');
 
-const newData = data.slice(0, 2);
 
 class Ratings extends Component {
-  constructor(props) {
-    super(props);
+
+  constructor() {
+    super();
     this.state = {
-      ratings: newData,
-      ratingsCount: 2,
+      product_id: 48445,
+      ratings: [],
+      total_ratings_count: 26,
+      count: 2,
       showMoreRatings: true,
     };
     this.onAddMoreReviews = this.onAddMoreReviews.bind(this);
+    this.getProductRatings = this.getProductRatings.bind(this);
+    this.handleFilterData = this.handleFilterData.bind(this);
+  }
+  componentDidMount() {
+    this.getProductRatings();
   }
 
-  // componentDidMount() {
-  //   axios.get('/api/reviews/?product_id=48487')
-  //     .then((results) => {
-  //       this.setState({
-  //         reviews: results.data.results,
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
+  handleFilterData(sort) {
+    const { count } = this.state;
+
+    this.getProductRatings(count, sort);
+  }
 
   onAddMoreReviews() {
-    const { ratingsCount } = this.state;
+    const { total_ratings_count, showMoreRatings } = this.state;
+    let { count } = this.state;
+    count += 2;
 
-    let newRatingsCount = ratingsCount + 2;
-    let anyMoreRatings = true;
-
-    if (data.length < newRatingsCount) {
-      newRatingsCount = data.length;
-      anyMoreRatings = false;
+    if (count > total_ratings_count) {
+      count = total_ratings_count;
+      this.setState({
+        showMoreRatings: !showMoreRatings,
+      });
     }
+    this.getProductRatings(count);
+  }
+  // look into retis
+  // elastic search db
+  //
+  getProductRatings(count = 2, sort = 'relevant') {
+    const { product_id } = this.state;
 
-    const newListings = data.slice(0, newRatingsCount);
-
-    this.setState({
-      ratings: newListings,
-      ratingsCount: newRatingsCount,
-      showMoreRatings: anyMoreRatings,
-    });
+    // 48487
+    // 48445
+    axios.get('/api/reviews/', {
+      params: {
+        product_id,
+        count,
+        sort,
+      },
+    })
+      .then((results) => {
+        this.setState({
+          ratings: results.data.results,
+          count,
+        });
+      })
+      .catch((err) => {
+        throw err;
+      });
   }
 
   render() {
-    const { ratings, showMoreRatings } = this.state;
-
+    const { ratings, total_ratings_count, showMoreRatings } = this.state;
+    
     return (
       <>
         <div className="ratingsContainer">
@@ -64,7 +85,10 @@ class Ratings extends Component {
             <RatingsStarHeader />
           </div>
           <div className="filter">
-            <RatingsSearch />
+            <RatingsSearch
+              totalRatings={total_ratings_count}
+              handleFilterData={this.handleFilterData}
+            />
           </div>
           <div className="reviews">
             <div>
@@ -83,9 +107,5 @@ class Ratings extends Component {
     );
   }
 }
-
-Ratings.propTypes = {
-  reviews: PropTypes.any,
-};
 
 export default Ratings;
