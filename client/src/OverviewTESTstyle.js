@@ -55,7 +55,7 @@ const productStyle = {
           size: 'XL',
         },
         1702769: {
-          quantity: 4,
+          quantity: 0,
           size: 'XL',
         },
       },
