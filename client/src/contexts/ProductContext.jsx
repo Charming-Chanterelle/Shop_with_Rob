@@ -63,8 +63,8 @@ const ProductContextProvider = ({ children }) => {
       })
       .then(([currentProduct, ID]) => {
         axios.all([
-          axios.get(`/api/products/${ID}/style`),
-          axios.get(`/api/reviews/meta/?product_id=${ID}`),
+          axios.get(`/api/products/48445/style`),
+          axios.get(`/api/reviews/meta/?product_id=48445`),
         ])
           .then(axios.spread((style, metaReview) => {
             setProduct(currentProduct);
