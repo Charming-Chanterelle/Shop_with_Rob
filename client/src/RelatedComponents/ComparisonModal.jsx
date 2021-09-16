@@ -12,7 +12,33 @@ const ComparisonModal = (props) => {
           <h4 className="modal-title">Comparing</h4>
         </div>
         <div className="modal-body">
-          This is modal content
+          <table>
+            <tr>
+              <th>Current</th>
+              <th>Characteristics</th>
+              <th>Related Item</th>
+            </tr>
+            <tr>
+              <td>4 stars</td>
+              <td>Rating</td>
+              <td>4.2 stars</td>
+            </tr>
+            <tr>
+              <td>Yes</td>
+              <td>Sale Item</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>Cotton</td>
+              <td>Fabric</td>
+              <td>Canvas</td>
+            </tr>
+            <tr>
+              <td>Brass</td>
+              <td>Button</td>
+              <td>Plastic</td>
+            </tr>
+          </table>
         </div>
         <div className="modal-footer">
           <button onClick={props.onClose} className="button" type="button">Close</button>
