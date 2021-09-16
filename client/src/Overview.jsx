@@ -24,7 +24,8 @@ const Overview = () => {
   // current sku (obj of objs) for dropdown and cart
   const [sizes, setSizes] = useState(['Select Size']);
   const [size, setSize] = useState('');
-  const [quantity, setQuantity] = useState(-1);
+  const [quantities, setQuantities] = useState(-1);
+  const [quantity, setQuantity] = useState(1);
   // star button state
   const [isFavorited, setIsFavorited] = useState(false);
   // image counter
@@ -61,7 +62,7 @@ const Overview = () => {
     // first touch
     if (sizes.includes('Select Size')) {
       const newSizes = [];
-      setQuantity(1);
+      setQuantities(1);
       Object.values(currentStyle.skus).forEach((x) => {
         if (x.quantity > 0) {
           newSizes.push(x.size);
@@ -70,13 +71,18 @@ const Overview = () => {
       newSizes.length > 0 ? setSizes(newSizes) : setSizes(['OUT OF STOCK']);
     }
   };
-  const getQuantity = () => {
+  const getQuantities = () => {
     const theQuantity = Object.values(currentStyle.skus).filter((x) => x.size === size);
-    setQuantity(theQuantity[0].quantity);
+    setQuantities(theQuantity[0].quantity);
   };
   const selectSize = (event) => {
-    console.log("HERE", event.target.value);
     setSize(event.target.value);
+  };
+  const selectQuantity = (event) => {
+    setQuantity(event.target.value);
+  };
+  const addToCart = () => {
+    // make post req to db with sku number and quantity
   };
 
   return (
@@ -149,14 +155,14 @@ const Overview = () => {
               <select onClick={getSizes} onChange={selectSize} className="imgFormat" name="size">
                 {sizes.map((x) => <option value={x}>{x}</option>)}
               </select>
-              <select onClick={getQuantity} className="imgFormat" name="quantity">
-                {quantity < 0 ? <option>-</option> :
-                  quantity >= 15 ? [...Array(quantityMax),
+              <select onClick={getQuantities} onChange={selectQuantity} className="imgFormat" name="quantity">
+                {quantities < 0 ? <option>-</option> :
+                  quantities >= 15 ? [...Array(quantityMax),
                   ].map((undefined, i) => (
-                    <option>{i + 1}</option>
+                    <option value={i+1}>{i + 1}</option>
                   ))
-                    : [...Array(quantity),].map((undefined, i) => (
-                      <option>{i + 1}</option>
+                    : [...Array(quantities),].map((undefined, i) => (
+                      <option value={i+1}>{i + 1}</option>
                     ))}
               </select>
               <button onClick={favorite} style={{ padding: 10 }}>{isFavorited ?
@@ -165,7 +171,7 @@ const Overview = () => {
               </button>
             </S.Styles>
             <div style={{ marginTop: 5 }}>
-              <button className="bigText"><h3>ADD TO CART ++</h3></button>
+              <button className="bigText"><h3 onClick={addToCart}>ADD TO CART ++</h3></button>
             </div>
             {/* ^^ If the default ‘Select Size’ is currently
             selected: Clicking this button should open
