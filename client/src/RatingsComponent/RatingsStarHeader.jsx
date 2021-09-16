@@ -3,7 +3,7 @@ import { ProductContext } from '../contexts/ProductContext.jsx';
 
 const RatingsStarHeader = () => {
   const { ratingsScore } = useContext(ProductContext);
-
+  console.log(re)
   return (
     <>
       <span className="ratings-header-text">Ratings & Reviews</span>
