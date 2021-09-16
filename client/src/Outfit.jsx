@@ -4,12 +4,12 @@ import OutfitItems from './RelatedComponents/Outfit';
 
 const Outfit = (props) => {
   const { items } = OutfitItems;
-  // const carouselItems = Array.from(OutfitItems).slice(1,2);
   const { show } = props;
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(items.length);
-
+  const [outfitItems, setOutfitItems] = useState(items);
+  // console.log('items in state: ', outfitItems);
 
   // Set the length to match current children from props
   useEffect(() => {
@@ -28,8 +28,11 @@ const Outfit = (props) => {
     }
   };
 
-  const clicked = () => {
-    console.log('clicked');
+  const clicked = (event) => {
+    console.log('clicked', event.target.parentElement.parentElement.classList.value);
+    const clickedItem = event.target.parentElement.parentElement.classList.value;
+    const newItems = outfitItems.filter((item) => item.name !== clickedItem);
+    setOutfitItems(newItems);
   };
 
   return (
@@ -53,14 +56,14 @@ const Outfit = (props) => {
               style={{ transform: `translateX(-${currentIndex * (100 / show)}%)` }}
             >
               {/* start of item info */}
-                <div>
-                  <div><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ252uOeq8QHRIxDH7GfJ6xNI8NBZhirx1mZA&usqp=CAU' className="carouselImage" alt="remove"></img></div>
-                </div>
-              {items.map((item) => (
+              <div>
+                <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ252uOeq8QHRIxDH7GfJ6xNI8NBZhirx1mZA&usqp=CAU" className="carouselImage" alt="remove" /></div>
+              </div>
+              {outfitItems.map((item) => (
                 <>
-                  <div>
-                    <button>
-                      <FaTimes onClick={clicked}/>
+                  <div className={item.name}>
+                    <button onClick={clicked}>
+                      <FaTimes />
                     </button>
                     <img src={item.image} className="carouselImage" alt="related-item" />
                     <div>
