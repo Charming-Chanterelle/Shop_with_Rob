@@ -61,7 +61,7 @@ const Outfit = (props) => {
               {outfitItems.map((item) => (
                 <>
                   <div className={item.name}>
-                    <button onClick={clicked}>
+                    <button onClick={(event) => clicked(event)}>
                       <FaTimes />
                     </button>
                     <img src={item.image} className="carouselImage" alt="related-item" />

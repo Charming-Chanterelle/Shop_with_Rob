@@ -40,21 +40,22 @@ const getRatings = ({ avgRating }) => {
   return ratingsStorage;
 };
 
-const StarDisplay = () => {
-  const { product, styles, ratingsScore, loaded } = useContext(ProductContext);
+const StarDisplay = ({ stars }) => {
+  const { ratingsScore, loaded } = useContext(ProductContext);
   const [starRating, setStarRating] = useState([]);
+  const [starAttribute, setStarAttribute] = useState({ width: '15', height: '15' });
 
   useEffect(() => {
     if (loaded) {
-      console.log(ratingsScore);
       setStarRating(getRatings(ratingsScore));
+      setStarAttribute(stars);
     }
   }, [loaded]);
 
   if (loaded) {
     return (
       <>
-        {['100%', '100%', '100%', '40%', '0%'].map((rating, count) => <StarRating key={count} currentRating={rating} currentCount={count} />)}
+        {starRating.map((rating, count) => <StarRating key={count} currentRating={rating} currentCount={count} starProp={starAttribute} />)}
       </>
     );
   } else {
