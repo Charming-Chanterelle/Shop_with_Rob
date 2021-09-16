@@ -3,17 +3,23 @@ import axios from 'axios';
 
 export const ProductContext = createContext();
 const randID = Math.ceil(Math.random() * (9 - 0));
+
 const ProductContextProvider = ({ children }) => {
-  const [product, setProducts] = useState({});
-  const [styles, setStyles] = useState([]);
+  const [product, setProduct] = useState({});
+  const [styles, setStyle] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    console.log(window.location);
     axios.get('/api/products/?count=10')
       .then((products) => {
         axios.get(`/api/products/${products.data[randID].id}/style`)
           .then((style) => {
-            setProducts(products.data[randID]);
-            setStyles(style.data.results);
+            setProduct(products.data[randID]);
+            setStyle(style.data.results);
+          })
+          .then(() => {
+            setLoaded(true);
           })
           .catch((err) => {
             console.log('Product Style Error:', err);
@@ -25,7 +31,7 @@ const ProductContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <ProductContext.Provider value={{ product, styles }}>
+    <ProductContext.Provider value={{ product, styles, loaded }}>
       { children }
     </ProductContext.Provider>
   );
