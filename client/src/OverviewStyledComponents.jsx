@@ -4,8 +4,8 @@ export const Container = styles.div`
   display: grid;
   height: 80vh;
   color: black;
-  grid-template-rows: .275fr .275fr .275fr .2fr;
-  grid-template-columns: .3fr .3fr .2fr .2fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-areas:
     "main main side side"
     "main main side side"
@@ -14,24 +14,31 @@ export const Container = styles.div`
   padding: 0.25rem;
   grid-gap: 0.25rem;
   overflow: hidden;
+  border-radius: 5px;
     `;
 // grid areas:
 export const Main = styles.div`
   grid-area: main;
   position relative;
   overflow: hidden;
+  border-radius: 5px;
   `;
 export const Side = styles.div`
   grid-area: side;
   overflow: hidden;
+  border-radius: 5px;
   `;
 export const Content = styles.div`
   grid-area: content;
+  background-color: #eecf6b;
+  border-radius: 5px;
   `;
 export const Features = styles.div`
   grid-area: features;
-  border-left: 6px solid black;
   height: 100%;
+  border: 1px solid #FBD63F;
+  border-radius: 5px;
+  border-left: 6px solid #899499;
   `;
 // Smaller pieces:
   // main:
@@ -62,10 +69,12 @@ export const ImgCards = styles.div`
   flex-direction: column;
   top: 20%;
   `;
-export const ImgSample = styles.img`
+export const ImgSample = styles.button`
   grid-area: main;
   width: 40px;
   height: 40px;
+  background: url(${props => props.url}) no-repeat;
+  background-size: cover;
 `;
   // list:
 export const FeaturesList = styles.ul`
@@ -77,7 +86,7 @@ export const FeaturesList = styles.ul`
 export const Styles = styles.div`
   grid-area: side;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
   flex-flow: row wrap;
   padding: 10px;
@@ -86,9 +95,14 @@ export const Styles = styles.div`
   `;
 export const StylesButton = styles.button`
 grid-area: side;
+flex-basis: 20%;
 border-radius: 50%;
 color: #899499;
-  border: 1px solid black;
+  border: 3px solid #FBD63F;
   padding: 10px;
   margin: 10px;
+  width: 70px;
+  height: 70px;
+  background: url(${props => props.url}) no-repeat;
+  background-size: cover;
 `;

@@ -20,6 +20,6 @@ const RatingsSummaryReview = () => {
   )
 };
 
-{/* <RatingsSummaryChart /> */}
-{/* <RatingsSummarySlider /> */}
+{/* <RatingsSummaryChart /> */ }
+{/* <RatingsSummarySlider /> */ }
 export default RatingsSummaryReview;
