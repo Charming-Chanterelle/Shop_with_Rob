@@ -14,7 +14,7 @@ function App() {
   return (
     <ProductContextProvider>
       <NavBar />
-      {/* <Overview /> */}
+      <Overview />
       <Related show={3} />
       <Outfit show={3} />
       <Questions />
