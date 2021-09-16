@@ -1,6 +1,7 @@
 /* eslint-disable import/extensions */
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import axios from 'axios';
+import { ProductContext } from './contexts/ProductContext.jsx';
 
 import ReviewAction from './RatingsComponent/ReviewAction.jsx';
 import RatingsSearch from './RatingsComponent/RatingsSearch.jsx';
@@ -8,7 +9,10 @@ import RatingsContent from './RatingsComponent/RatingsContent.jsx';
 import RatingsStarHeader from './RatingsComponent/RatingsStarHeader.jsx';
 import RatingsSummaryReview from './RatingsComponent/RatingsSummaryReview.jsx';
 
+
+
 class Ratings extends Component {
+
   constructor() {
     super();
     this.state = {
@@ -22,7 +26,6 @@ class Ratings extends Component {
     this.getProductRatings = this.getProductRatings.bind(this);
     this.handleFilterData = this.handleFilterData.bind(this);
   }
-
   componentDidMount() {
     this.getProductRatings();
   }
@@ -48,7 +51,7 @@ class Ratings extends Component {
   }
   // look into retis
   // elastic search db
-  // 
+  //
   getProductRatings(count = 2, sort = 'relevant') {
     const { product_id } = this.state;
 
@@ -74,7 +77,7 @@ class Ratings extends Component {
 
   render() {
     const { ratings, total_ratings_count, showMoreRatings } = this.state;
-
+    console.log(total_ratings_count);
     return (
       <>
         <div className="ratingsContainer">

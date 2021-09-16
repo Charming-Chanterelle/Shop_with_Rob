@@ -2,8 +2,10 @@
 /* eslint-disable react/button-has-type */
 import React, { useState, useEffect, useContext } from 'react';
 import { ProductContext } from './contexts/ProductContext.jsx';
+
 // icons
 import { FaStar, FaStarHalfAlt, FaRegStar, FaChevronCircleRight, FaChevronCircleLeft, FaFacebookSquare, FaTwitterSquare, FaPinterestSquare, FaCheck } from 'react-icons/fa';
+
 // styled comps
 import * as S from './OverviewStyledComponents.jsx';
 // import product from './OverviewTESTproductReg.js';
@@ -13,7 +15,7 @@ import * as S from './OverviewStyledComponents.jsx';
 const Overview = () => {
   // get new style by id
 
-  const { product, styles, loaded } = useContext(ProductContext);
+  const { product, styles, ratingsScore, loaded } = useContext(ProductContext);
 
   // const [currentStyle, setCurrentStyle] = useState(
   //   styles.filter((x) => x['default?'] === true)[0],
@@ -26,17 +28,19 @@ const Overview = () => {
   // const [isFavorited, setIsFavorited] = useState(false);
 
   useEffect(() => {
-    // if (loaded) {
-    //   const theStyle = (ID) => styles.filter((x) => x.style_id === ID)[0];
-    //   // // start with default style (obj)
+    if (loaded) {
+      // const theStyle = (ID) => styles.filter((x) => x.style_id === ID)[0];
+      // // // start with default style (obj)
 
-    //   // reveiws info
-    //   const reviews = [{
-    //     1: 5, 2: 0, 3: 1, 4: 20, 5: 10,
-    //   }];
-    //   setCurrentSku(styles.sku);
-    // }
+      // // reveiws info
+      // const reviews = [{
+      //   1: 5, 2: 0, 3: 1, 4: 20, 5: 10,
+      // }];
+      // setCurrentSku(styles.sku);
+      console.log(ratingsScore);
+    }
   }, [loaded]);
+  console.log(ratingsScore);
 
   // current sku (obj of objs) for dropdown and cart
 

@@ -1,9 +1,7 @@
 /* eslint-disable import/no-named-as-default */
 /* eslint-disable import/extensions */
-import React, { Component, useContext } from 'react';
-import ProductContextProvider, { ProductContext } from './contexts/ProductContext.jsx';
-import ProductStyleContextProvider from './contexts/ProductStyleContext.jsx';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import ProductContextProvider from './contexts/ProductContext.jsx';
 // import { FaThumbsUp } from '@fortawesome/free-brands-svg-icons';
 import NavBar from './NavBar.jsx';
 import Overview from './Overview.jsx';
@@ -15,22 +13,18 @@ import Outfit from './Outfit.jsx';
 function App() {
   return (
     <ProductContextProvider>
-      {/* {loaded ? */}
-      {/* <ProductStyleContextProvider> */}
-        {/* <NavBar /> */}
-        <Overview />
-        {/* <Related show={3} />
-        <Outfit show={3} />
-        <Questions />
-        <Ratings /> */}
-      {/* </ProductStyleContextProvider> */}
-      {/* : <div>Loading</div>
-      } */}
+      {/* <NavBar /> */}
+      {/* <Overview /> */}
+      {/* <Related show={3} />
+      <Outfit show={3} />
+      <Questions /> */}
+      {/* <Ratings /> */}
     </ProductContextProvider>
   );
 }
 
 export default App;
+
 //ProductContextProvider
 // { product !== {} &&
 // <Overview product={product} styles={product_styles} stars={meta_ratings.ratings} />}
