@@ -10,6 +10,7 @@ import productStyle from './OverviewTESTstyle.js';
 
 // params: product obj, all_styles arr, ratings arr
 const Overview = () => {
+  const quantityMax = 15;
   // get new style by id
   const theStyle = (ID) => productStyle.results.filter((x) => x.style_id === ID)[0];
   // start with default style (obj)
@@ -22,7 +23,8 @@ const Overview = () => {
   }];
   // current sku (obj of objs) for dropdown and cart
   const [sizes, setSizes] = useState(['Select Size']);
-  const [quantities, setQuantities] = useState(['-']);
+  const [size, setSize] = useState('');
+  const [quantity, setQuantity] = useState(-1);
   // star button state
   const [isFavorited, setIsFavorited] = useState(false);
   // image counter
@@ -53,25 +55,28 @@ const Overview = () => {
     setCurrent(event.target.value);
     setMainImg(currentStyle.photos[event.target.value].url);
   };
-  const getSkus = (event) => {
+  // when change style, should have skuID saved
+  // shows list of options in dropdown
+  const getSizes = () => {
     // first touch
     if (sizes.includes('Select Size')) {
       const newSizes = [];
+      setQuantity(1);
       Object.values(currentStyle.skus).forEach((x) => {
         if (x.quantity > 0) {
           newSizes.push(x.size);
         }
       });
       newSizes.length > 0 ? setSizes(newSizes) : setSizes(['OUT OF STOCK']);
-      // } else { // selecting size
-      //   // save event - spec sku number
-      //   setQuantities('1');
-      //   // const newQuantities = [];
-      //   // Object.values(currentStyle.skus).forEach((x) => {
-      //   //   newQuantities.push(x.quantity.toString());
-      //   // });
-      //   // setQuantities(newQuantities);
     }
+  };
+  const getQuantity = () => {
+    const theQuantity = Object.values(currentStyle.skus).filter((x) => x.size === size);
+    setQuantity(theQuantity[0].quantity);
+  };
+  const selectSize = (event) => {
+    console.log("HERE", event.target.value);
+    setSize(event.target.value);
   };
 
   return (
@@ -140,20 +145,19 @@ const Overview = () => {
                     <FaCheck style={{ color: "yellow" }} />}
                 </S.StylesButton>)}
             </S.Styles>
-            {/* change  */}
             <S.Styles>
-              <select onClick={getSkus} className="imgFormat" name="size">
-                {sizes.map((x) => <option>{x}</option>)}
+              <select onClick={getSizes} onChange={selectSize} className="imgFormat" name="size">
+                {sizes.map((x) => <option value={x}>{x}</option>)}
               </select>
-              <select className="imgFormat" name="quantity">
-                {quantities.map((x) => <option>{x}</option>)}
-                {/* {
-                  <option>-</option>
-                  <option>15</option>
-                  If the size has not been selected, then the quantity dropdown will display ‘-’
-                  and the dropdown will be disabled.
-                  Once a size has been selected, the dropdown should default to 1.
-                } */}
+              <select onClick={getQuantity} className="imgFormat" name="quantity">
+                {quantity < 0 ? <option>-</option> :
+                  quantity >= 15 ? [...Array(quantityMax),
+                  ].map((undefined, i) => (
+                    <option>{i + 1}</option>
+                  ))
+                    : [...Array(quantity),].map((undefined, i) => (
+                      <option>{i + 1}</option>
+                    ))}
               </select>
               <button onClick={favorite} style={{ padding: 10 }}>{isFavorited ?
                 <FaStar /> :
