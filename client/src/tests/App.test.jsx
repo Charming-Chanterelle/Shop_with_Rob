@@ -5,7 +5,7 @@ import { render, cleanup, fireEvent } from '@testing-library/react';
 import App from '../App';
 import Overview from '../Overview.jsx';
 
-afterEach(cleanup);
+// afterEach(cleanup);
 
 // describe('Overview tests', () => {
 //   it('should find Hello', () => {
