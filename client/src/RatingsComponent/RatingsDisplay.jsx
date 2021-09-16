@@ -12,7 +12,8 @@ class RatingsDisplay extends Component {
   render() {
     const { reviews } = this.state;
     const { rating, reviewer_name, summary, body, helpfulness, response } = reviews;
-
+    const bodyLen = body.split(' ').length;
+    console.log(bodyLen);
     return (
       <>
         <div className="ratings-content-container">
@@ -32,5 +33,16 @@ class RatingsDisplay extends Component {
   }
 
 };
+
+// The text submitted as part of the review will be between 50 and 1000 characters long.
+
+// Users should be able to submit up to 5 images along with a single review.
+
+// By default the first 250 characters of the review should display.  If the review is longer than 250 characters, below the body a link reading “Show more” will appear.  Upon clicking this link, the review tile should expand and the rest of the review should display.
+
+// Any images that were submitted as part of the review should appear as thumbnails below the review text. Upon clicking a thumbnail, the image should open in a modal window, displaying at full resolution.  The only functionality available within this modal should be the ability to close the window.
+
+// Recommend - If the reviewer recommends buying the product, the text “I recommend this product” and a checkmark icon will display below the review.  If the reviewer does not recommend the product, nothing will display here.
+
 
 export default RatingsDisplay;

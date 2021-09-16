@@ -12,14 +12,21 @@ import Outfit from './Outfit.jsx';
 
 function App() {
   return (
-    <ProductContextProvider>
-      {/* <NavBar /> */}
-      {/* <Overview /> */}
-      {/* <Related show={3} />
-      <Outfit show={3} />
-      <Questions /> */}
-      {/* <Ratings /> */}
-    </ProductContextProvider>
+    // <ProductContextProvider>
+    //   {/* <NavBar /> */}
+    // <Overview />
+    //   {/* <Related show={3} />
+    //   <Outfit show={3} />
+    //   <Questions /> */}
+    // <Ratings />
+    // </ProductContextProvider>
+     <ProductContextProvider>
+        <Ratings />
+     </ProductContextProvider>
+    //  <ProductContextProvider>
+    //     <Overview />
+    //  </ProductContextProvider>
+    // <Overview />
   );
 }
 

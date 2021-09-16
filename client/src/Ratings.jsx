@@ -77,7 +77,7 @@ class Ratings extends Component {
 
   render() {
     const { ratings, total_ratings_count, showMoreRatings } = this.state;
-    console.log(total_ratings_count);
+    
     return (
       <>
         <div className="ratingsContainer">
