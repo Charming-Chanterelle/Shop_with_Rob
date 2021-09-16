@@ -46,7 +46,9 @@ class Ratings extends Component {
     }
     this.getProductRatings(count);
   }
-
+  // look into retis
+  // elastic search db
+  // 
   getProductRatings(count = 2, sort = 'relevant') {
     const { product_id } = this.state;
 

@@ -1,7 +1,7 @@
 /* eslint-disable import/no-named-as-default */
 /* eslint-disable import/extensions */
-import React, { Component, createContext } from 'react';
-import ProductContextProvider from './contexts/ProductContext.jsx';
+import React, { Component, useContext } from 'react';
+import ProductContextProvider, { ProductContext } from './contexts/ProductContext.jsx';
 import ProductStyleContextProvider from './contexts/ProductStyleContext.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { FaThumbsUp } from '@fortawesome/free-brands-svg-icons';
@@ -15,6 +15,7 @@ import Outfit from './Outfit.jsx';
 function App() {
   return (
     <ProductContextProvider>
+      {/* {loaded ? */}
       {/* <ProductStyleContextProvider> */}
         {/* <NavBar /> */}
         <Overview />
@@ -23,6 +24,8 @@ function App() {
         <Questions />
         <Ratings /> */}
       {/* </ProductStyleContextProvider> */}
+      {/* : <div>Loading</div>
+      } */}
     </ProductContextProvider>
   );
 }
