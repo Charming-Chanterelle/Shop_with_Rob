@@ -16,6 +16,13 @@ const Outfit = (props) => {
     setLength(items.length);
   }, [items]);
 
+  // useEffect(() => {
+  //   function clicked(event) {
+  //   const clickedItem = event.target.parentElement.parentElement.classList.value;
+  //   const newItems = outfitItems.filter((item) => item.name !== clickedItem);
+  //   setOutfitItems(newItems); [outfitItems]);
+  // };
+
   const next = () => {
     if (currentIndex < (length - show)) {
       setCurrentIndex((prevState) => prevState + 1);
@@ -29,6 +36,7 @@ const Outfit = (props) => {
   };
 
   const clicked = (event) => {
+    console.log('clicked');
     const clickedItem = event.target.parentElement.parentElement.classList.value;
     const newItems = outfitItems.filter((item) => item.name !== clickedItem);
     setOutfitItems(newItems);
