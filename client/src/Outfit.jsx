@@ -29,7 +29,6 @@ const Outfit = (props) => {
   };
 
   const clicked = (event) => {
-    console.log('clicked', event.target.parentElement.parentElement.classList.value);
     const clickedItem = event.target.parentElement.parentElement.classList.value;
     const newItems = outfitItems.filter((item) => item.name !== clickedItem);
     setOutfitItems(newItems);
@@ -41,7 +40,7 @@ const Outfit = (props) => {
       <div className="carousel-container">
         <div className="carousel-wrapper">
           {
-                  currentIndex > 0
+                  (currentIndex > 0 && outfitItems.length > 0)
                   && (
                   <button type="button" onClick={prev} className="left-arrow">
                     &lt;
@@ -91,7 +90,7 @@ const Outfit = (props) => {
           </div>
           {/* You can alwas change the content of the button to other things */}
           {
-                  currentIndex < (length - show)
+                  (currentIndex < (length - show) && outfitItems.length > 0)
                   && (
                   <button type="button" onClick={next} className="right-arrow">
                     &gt;
