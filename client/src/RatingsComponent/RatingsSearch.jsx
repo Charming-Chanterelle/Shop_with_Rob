@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ProductContext } from '../contexts/ProductContext.jsx';
 
 const RatingsSearch = ({ totalRatings, handleFilterData }) => {
+  const { ratingsScore } = useContext(ProductContext);
+  const { numberOfRatings } = ratingsScore;
+
   const onDropDownSelect = (event) => {
     event.preventDefault();
     handleFilterData(event.target.value);
@@ -9,7 +13,7 @@ const RatingsSearch = ({ totalRatings, handleFilterData }) => {
   return (
     <>
       <label htmlFor="ratingsSearch">
-        {totalRatings}
+        {numberOfRatings}
         <span> reviews, sorted by </span>
       </label>
       <select

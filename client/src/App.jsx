@@ -12,91 +12,15 @@ import Outfit from './Outfit.jsx';
 
 function App() {
   return (
-    // <ProductContextProvider>
-    //   {/* <NavBar /> */}
-    // <Overview />
-    //   {/* <Related show={3} />
-    //   <Outfit show={3} />
-    //   <Questions /> */}
-    // <Ratings />
-    // </ProductContextProvider>
-     <ProductContextProvider>
-        <Ratings />
-     </ProductContextProvider>
-    //  <ProductContextProvider>
-    //     <Overview />
-    //  </ProductContextProvider>
-    // <Overview />
+    <ProductContextProvider>
+      <NavBar />
+      {/* <Overview /> */}
+      <Related show={3} />
+      <Outfit show={3} />
+      <Questions />
+      <Ratings />
+    </ProductContextProvider>
   );
 }
 
 export default App;
-
-//ProductContextProvider
-// { product !== {} &&
-// <Overview product={product} styles={product_styles} stars={meta_ratings.ratings} />}
-
-
-// class App extends Component {
-//   constructor() {
-//     super();
-//     this.state = {
-// import productz from './OverviewTESTproductReg.js'; //
-// import style from './OverviewTESTstyle.js';
-
-// const productContext = createContext();
-
-// class productContextProvider extends Component {
-
-//     state = {
-//       product: {},
-//       product_styles: [], // all styles for this product
-//       // (needed like this for overview if want overview to
-//       // easily have the array to choose which style is
-//       // rendered. Will need Overview to pass currentStyle to Related)
-//       meta_ratings: {},
-//     };
-//   }
-
-//   componentDidMount() {
-//     const randID = Math.ceil(Math.random() * (9 - 0));
-//     axios.get('/api/products/?count=10')
-//       .then((products) => {
-//         const product = products.data[randID];
-//         console.log(product);
-//         return [product, product.id];
-//       })
-//       .then(([product, ID]) => {
-//         axios.all([
-//           axios.get(`/api/products/${ID}/style`),
-//           axios.get(`/api/reviews/meta/?product_id=${ID}`),
-//         ])
-//           .then(axios.spread((data1, data2) => {
-//             this.setState({
-//               product, product_styles: data1.data.results, meta_ratings: data2.data,
-//             });
-//             console.log('HERE');
-//           }))
-//           .catch((err) => {
-//             console.log('here is error', err);
-//           });
-//       })
-//       .catch((err) => {
-//         console.log('error in client styles/ratings GET', err);
-//       });
-//   }
-
-//   render() {
-//     const { product, product_styles, meta_ratings } = this.state;
-//     return (
-//       <div id="app">
-//         <NavBar />
-//         <Overview product={product} styles={product_styles} stars={meta_ratings.ratings} />
-//         <Related show={3} />
-//         <Outfit show={3} />
-//         <Questions />
-//         <Ratings />
-//       </div>
-//     );
-//   }
-// }

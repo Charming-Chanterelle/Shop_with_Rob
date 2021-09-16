@@ -3,12 +3,13 @@ import { ProductContext } from '../contexts/ProductContext.jsx';
 
 const RatingsStarHeader = () => {
   const { ratingsScore } = useContext(ProductContext);
-  console.log(re)
+  const { avgRating } = ratingsScore;
+  console.log(ratingsScore);
   return (
     <>
       <span className="ratings-header-text">Ratings & Reviews</span>
       <div className="ratings-header-container">
-        <span className="ratings-header-figure">{parseFloat(ratingsScore.avgRating).toFixed(1)}</span>
+        <span className="ratings-header-figure">{parseFloat(avgRating).toFixed(1)}</span>
         <div className="ratings-header-stars">
 
         </div>

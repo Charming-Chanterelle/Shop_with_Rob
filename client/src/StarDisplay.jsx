@@ -4,13 +4,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { ProductContext } from './contexts/ProductContext.jsx';
 import StarRating from './StarRating.jsx';
 
-// styled comps
-import * as S from './OverviewStyledComponents.jsx';
-// import product from './OverviewTESTproductReg.js';
-// import productStyle from './OverviewTESTstyle.js';
-
-// params: product obj, all_styles arr, ratings arr
-
 const getRatings = ({ avgRating }) => {
   const ratings = Number(avgRating);
   let ratingsStorage = [];
@@ -48,11 +41,7 @@ const getRatings = ({ avgRating }) => {
 };
 
 const StarDisplay = () => {
-  // get new style by id
-
-  const {
-    product, styles, ratingsScore, loaded,
-  } = useContext(ProductContext);
+  const { product, styles, ratingsScore, loaded } = useContext(ProductContext);
   const [starRating, setStarRating] = useState([]);
 
   useEffect(() => {
