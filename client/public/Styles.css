@@ -600,26 +600,3 @@ grid-template-areas:
 .review-product-star:hover{
   background-color: black;
 }
-
-
-.svg-inline--fa  {
-  height: 36px;
-  width: 31px;
-  /* position: absolute; */
-  overflow: hidden;
-}
-
-.single-star-fill {
-  /* position: relative; */
-  display: inline-block;
-  height: 36px;
-  background-color: #333333;
-}
-
-.single-star-container {
-  height: 36px;
-  width: 31px;
-  display: inline-block;
-  overflow: hidden;
-}
-

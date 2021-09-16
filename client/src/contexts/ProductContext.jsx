@@ -8,12 +8,16 @@ const getAverageRating = ({ ratings }) => {
   // We want to get the total reviews and the average of the reviews.
   const weight = Object.keys(ratings);
   if (weight.length === 0) {
-    return {};
+    return {
+      avgRating: 0,
+      numberOfRatings: 0,
+    };
   }
   const rating = Object.values(ratings);
 
   let numberOfRatings = 0;
   let avgRating = 0;
+  let ratingsPercent = {};
 
   for (let i = 0; i < weight.length; i++) {
     const currentRating = Number(rating[i]);
@@ -24,11 +28,20 @@ const getAverageRating = ({ ratings }) => {
       avgRating += (currentRating * currentWeight);
     }
   }
+
+  for (let j = 0; j < weight.length; j++) {
+    const ratingPercent = Number(rating[j]);
+    const weightPercent = weight[j];
+    if (ratingPercent !== 0) {
+      ratingsPercent[weightPercent] = parseFloat(ratingPercent / numberOfRatings).toFixed(2);
+    }
+  }
   avgRating /= numberOfRatings;
 
   const ratingsObj = {
     avgRating,
     numberOfRatings,
+    ratingsPercent,
   };
 
   return ratingsObj;
@@ -50,22 +63,21 @@ const ProductContextProvider = ({ children }) => {
       })
       .then(([currentProduct, ID]) => {
         axios.all([
-          axios.get(`/api/products/${ID}/style`),
-          axios.get(`/api/reviews/meta/?product_id=${ID}`),
+          axios.get(`/api/products/48445/style`),
+          axios.get(`/api/reviews/meta/?product_id=48445`),
         ])
           .then(axios.spread((style, metaReview) => {
-            console.log(currentProduct);
             setProduct(currentProduct);
             setStyle(style.data.results);
             setMeta(metaReview.data);
             setRatingScore(getAverageRating(metaReview.data));
           }))
+          .then(() => {
+            setLoaded(true);
+          })
           .catch((err) => {
             console.log('here is error', err);
           });
-      })
-      .then(() => {
-        setLoaded(true);
       })
       .catch((err) => {
         console.log('error in client styles/ratings GET', err);
@@ -83,20 +95,3 @@ const ProductContextProvider = ({ children }) => {
 };
 
 export default ProductContextProvider;
-
-// .then((products) => {
-//   axios.get(`/api/products/${products.data[randID].id}/style`)
-//     .then((style) => {
-//       setProduct(products.data[randID]);
-//       setStyle(style.data.results);
-//     })
-//     .then(() => {
-//       setLoaded(true);
-//     })
-//     .catch((err) => {
-//       console.log('Product Style Error:', err);
-//     });
-// })
-// .catch((err) => {
-//   console.log('Product Context Error:', err);
-// });
