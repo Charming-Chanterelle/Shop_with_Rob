@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { ProductContext } from './contexts/ProductContext.jsx';
 // icons
-import { FaStar, FaStarHalfAlt, FaRegStar, FaChevronCircleRight, FaChevronCircleLeft, FaFacebookSquare, FaTwitterSquare, FaPinterestSquare, FaCheck, FaRegSmileBeam } from 'react-icons/fa';
+import { FaStar, FaRegStar, FaChevronCircleRight, FaChevronCircleLeft, FaFacebookSquare, FaTwitterSquare, FaPinterestSquare, FaCheck, FaRegSmileBeam } from 'react-icons/fa';
 // styled comps
 import * as S from './OverviewStyledComponents.jsx';
 import product from './OverviewTESTproductReg.js';
@@ -38,6 +38,9 @@ const Overview = () => {
   const [current, setCurrent] = useState(0);
   const [mainImg, setMainImg] = useState(currentStyle.photos[current].url);
   const { length } = currentStyle.photos;
+  const setTheMain = () => {
+    setMainImg(currentStyle.photos[current].url);
+  };
   const prevSlide = () => {
     setCurrent(current === 0 ? length - 1 : current - 1);
   };
@@ -49,8 +52,13 @@ const Overview = () => {
     // if already selected, do nothing
     currentStyle.id !== event.target.value ?
       setCurrentStyle(theStyle(parseInt(event.target.value, 10))) : null;
-    setMainImg(currentStyle.photos[current].url);
   };
+  useEffect(() => {
+    setTheMain();
+  }, [current]);
+  useEffect(() => {
+    setTheMain();
+  }, [currentStyle]);
   // star button click handler
   const favorite = () => {
     setIsFavorited(!isFavorited);
@@ -60,7 +68,7 @@ const Overview = () => {
   // };
   const imgOnClick = (event) => { // PROBLEM
     setCurrent(event.target.value);
-    setMainImg(currentStyle.photos[event.target.value].url);
+    setMainImg(currentStyle.photos[current].url);
   };
   // when change style, should have skuID saved
   // shows list of options in dropdown
@@ -89,6 +97,11 @@ const Overview = () => {
   };
   const addToCart = () => {
     // make post req to db with sku number and quantity
+    // quantity and size are avail
+  };
+  const earlyCart = () => {
+    // open the size dropdown, and a message should appear above the dropdown stating
+    // “Please select size”
   };
 
   return (
@@ -167,7 +180,9 @@ const Overview = () => {
               </button>
             </S.Styles>
             <div style={{ marginTop: 5 }}>
-              <button onClick={addToCart} className="bigText"><h3>ADD TO CART ++</h3></button>
+              {!sizes.includes('OUT OF STOCK')
+                && <button onClick={sizes === ['Select Size'] ? earlyCart : addToCart}
+                  className="bigText"><h3>ADD TO CART ++</h3></button>}
             </div>
             {/* ^^ If the default ‘Select Size’ is currently
             selected: Clicking this button should open
