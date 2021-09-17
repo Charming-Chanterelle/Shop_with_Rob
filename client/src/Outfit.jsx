@@ -16,13 +16,6 @@ const Outfit = (props) => {
     setLength(items.length);
   }, [items]);
 
-  // useEffect(() => {
-  //   function clicked(event) {
-  //   const clickedItem = event.target.parentElement.parentElement.classList.value;
-  //   const newItems = outfitItems.filter((item) => item.name !== clickedItem);
-  //   setOutfitItems(newItems); [outfitItems]);
-  // };
-
   const next = () => {
     if (currentIndex < (length - show)) {
       setCurrentIndex((prevState) => prevState + 1);
@@ -35,9 +28,7 @@ const Outfit = (props) => {
     }
   };
 
-  const clicked = (event) => {
-    console.log(event.target.parentElement.parentElement.classList.value);
-    const clickedItem = event.target.parentElement.parentElement.classList.value;
+  const clicked = (clickedItem) => {
     const newItems = outfitItems.filter((item) => item.name !== clickedItem);
     setOutfitItems(newItems);
   };
@@ -69,7 +60,7 @@ const Outfit = (props) => {
               {outfitItems.map((item) => (
                 <>
                   <div className={item.name}>
-                    <button onClick={clicked}>
+                    <button onClick={() => clicked(item.name)}>
                       <FaTimes />
                     </button>
                     <img src={item.image} className="carouselImage" alt="related-item" />
