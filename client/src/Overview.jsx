@@ -98,6 +98,14 @@ const Overview = () => {
   const addToCart = () => {
     // make post req to db with sku number and quantity
     // quantity and size are avail
+    let theKey = 0;
+    for (var key in currentStyle.skus) {
+      if (currentStyle.skus[key].size === size) {
+      //what about repeated sizes? should be fine since should depleat first skus then next for sizes so it ends up closer to only having one sku per size
+        theKey = key;
+      }
+    };
+    alert(quantity + ' ' + size + 's are POSTed to your cart! SKU number: ' + theKey);
   };
   const earlyCart = () => {
     // open the size dropdown, and a message should appear above the dropdown stating
