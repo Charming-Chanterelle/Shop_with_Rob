@@ -33,6 +33,6 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: npm start
-      - run: npm run react-dev
+      # - run: npm start
+      # - run: npm run react-dev
       - run: npm test
