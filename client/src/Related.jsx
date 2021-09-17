@@ -24,6 +24,7 @@ const Related = (props) => {
     const promises = [];
     axios.get(`/api/products/${overviewID}/related`)
       .then((response) => {
+        console.log(response.data);
         setRelatedIDs(response.data);
         // eslint-disable-next-line no-plusplus
 
@@ -31,25 +32,25 @@ const Related = (props) => {
 
         // Promise.all(promises).then(() => console.log(related));
       })
-      .then((response) => {
-        for (let i = 0; i < relatedIDs; i++) {
-          // promises.push(
-          axios.get(`/api/products/${relatedIDs[i]}`)
-            .then((response2) => {
-              console.log('response: ', response2.data);
-              related.push(response2.data);
-            })
-            .catch((err) => {
-              console.log('could not get object of related items');
-            });
-        }
-        setRelatedItems(related);
-      })
+      // .then((response) => {
+      //   for (let i = 0; i < relatedIDs; i++) {
+      //     // promises.push(
+      //     axios.get(`/api/products/${relatedIDs[i]}`)
+      //       .then((response2) => {
+      //         console.log('response: ', response2.data);
+      //         related.push(response2.data);
+      //       })
+      //       .catch((err) => {
+      //         console.log('could not get object of related items');
+      //       });
+      //   }
+      //   setRelatedItems(related);
+      // })
       .catch((err) => {
         console.log('error');
       });
   };
-  useEffect(getRelatedProductIds);
+  // useEffect(getRelatedProductIds);
   const next = () => {
     if (currentIndex < (length - show)) {
       setCurrentIndex((prevState) => prevState + 1);
