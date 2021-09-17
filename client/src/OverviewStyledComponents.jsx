@@ -2,7 +2,7 @@ import styles from 'styled-components';
 // entire component level:
 export const Container = styles.div`
   display: grid;
-  height: 80vh;
+  height: 100vh;
   color: black;
   grid-template-rows: 1fr 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr;

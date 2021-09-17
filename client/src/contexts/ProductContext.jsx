@@ -55,7 +55,7 @@ const ProductContextProvider = ({ children }) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    console.log(window.location);
+    // console.log(window.location);
     axios.get('/api/products/?count=10')
       .then((products) => {
         const currentProduct = products.data[randID];
