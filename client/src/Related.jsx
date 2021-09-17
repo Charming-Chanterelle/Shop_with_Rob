@@ -12,7 +12,7 @@ const Related = (props) => {
   const [length, setLength] = useState(items.length);
   const [showModal, setShowModal] = useState(false);
   const [overviewID, setOverviewID] = useState('48445');
-  const [relatedIDs, setRelatedIDs] = useState([]);
+  // const [relatedIDs, setRelatedIDs] = useState([]);
   const [relatedItems, setRelatedItems] = useState([]);
 
   useEffect(() => {
@@ -20,12 +20,23 @@ const Related = (props) => {
   }, [items]);
 
   const getRelatedProductIds = () => {
-    const related = [];
-    const promises = [];
+    // const related = [];
+    // const promises = [];
     axios.get(`/api/products/${overviewID}/related`)
       .then((response) => {
         console.log(response.data);
-        setRelatedIDs(response.data);
+        // setRelatedIDs(response.data);
+        const productIDs = response.data;
+        return productIDs.map((id) => (
+          [axios.get(`/api/products/${id}`), axios.get(`/api/products/${id}/style`)]
+        ));
+        // have array of IDs
+        // create array of promises with style request and product request
+        // resolve promises
+        // manipulate into desired format
+        // want array of item objects and style objects
+
+
         // eslint-disable-next-line no-plusplus
 
         // );
