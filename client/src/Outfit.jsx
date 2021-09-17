@@ -36,7 +36,7 @@ const Outfit = (props) => {
   };
 
   const clicked = (event) => {
-    console.log('clicked');
+    console.log(event.target.parentElement.parentElement.classList.value);
     const clickedItem = event.target.parentElement.parentElement.classList.value;
     const newItems = outfitItems.filter((item) => item.name !== clickedItem);
     setOutfitItems(newItems);
