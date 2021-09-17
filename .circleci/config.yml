@@ -28,8 +28,10 @@ jobs:
   build:
     docker:
       - image: circleci/node:14.17.1
-    # working_directory: ~/Shop_with_Rob/package.json
+    working_directory: ~/Shop_with_Rob
 
     steps:
-      # - run: npm install
+      - run: npm install
+      - run: npm start
+      - run: npm run react-dev
       - run: npm test
