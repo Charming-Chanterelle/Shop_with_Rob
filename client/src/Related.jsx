@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaRegStar } from 'react-icons/fa';
+import axios from 'axios';
 import RelatedItems from './RelatedComponents/RelatedItems';
 import ComparisonModal from './RelatedComponents/ComparisonModal.jsx';
 
@@ -10,11 +11,45 @@ const Related = (props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(items.length);
   const [showModal, setShowModal] = useState(false);
+  const [overviewID, setOverviewID] = useState('48445');
+  const [relatedIDs, setRelatedIDs] = useState([]);
+  const [relatedItems, setRelatedItems] = useState([]);
 
   useEffect(() => {
     setLength(items.length);
   }, [items]);
 
+  const getRelatedProductIds = () => {
+    const related = [];
+    const promises = [];
+    axios.get(`/api/products/${overviewID}/related`)
+      .then((response) => {
+        setRelatedIDs(response.data);
+        // eslint-disable-next-line no-plusplus
+
+        // );
+
+        // Promise.all(promises).then(() => console.log(related));
+      })
+      .then((response) => {
+        for (let i = 0; i < relatedIDs; i++) {
+          // promises.push(
+          axios.get(`/api/products/${relatedIDs[i]}`)
+            .then((response2) => {
+              console.log('response: ', response2.data);
+              related.push(response2.data);
+            })
+            .catch((err) => {
+              console.log('could not get object of related items');
+            });
+        }
+        setRelatedItems(related);
+      })
+      .catch((err) => {
+        console.log('error');
+      });
+  };
+  useEffect(getRelatedProductIds);
   const next = () => {
     if (currentIndex < (length - show)) {
       setCurrentIndex((prevState) => prevState + 1);
