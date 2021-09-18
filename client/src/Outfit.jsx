@@ -50,16 +50,16 @@ const Outfit = (props) => {
           <div
             className="carousel-content-wrapper"
           >
-            <s.Card
-              className={`carousel-content`}
+            <div
+              className={`carousel-content show-${show}`}
               style={{ transform: `translateX(-${currentIndex * (100 / show)}%)` }}
             >
               {/* start of item info */}
-              <div>
+              <s.Card>
                 <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ252uOeq8QHRIxDH7GfJ6xNI8NBZhirx1mZA&usqp=CAU" className="carouselImage" alt="remove" /></div>
-              </div>
+              </s.Card>
               {outfitItems.map((item) => (
-                <>
+                <s.Card>
                   <div className={item.name}>
                     <button onClick={() => clicked(item.name)}>
                       <FaTimes />
@@ -82,11 +82,11 @@ const Outfit = (props) => {
                       {item.rating}
                     </div>
                   </div>
-                </>
+                </s.Card>
               ))}
 
               {/* end of item info  */}
-            </s.Card>
+            </div>
           </div>
           {/* You can alwas change the content of the button to other things */}
           {
