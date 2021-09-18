@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import OutfitItems from './RelatedComponents/Outfit';
+import * as s from './RelatedComponents/RelatedStyles.jsx';
 
 const Outfit = (props) => {
   const { items } = OutfitItems;
@@ -49,8 +50,8 @@ const Outfit = (props) => {
           <div
             className="carousel-content-wrapper"
           >
-            <div
-              className={`carousel-content show-${show}`}
+            <s.Card
+              className={`carousel-content`}
               style={{ transform: `translateX(-${currentIndex * (100 / show)}%)` }}
             >
               {/* start of item info */}
@@ -85,7 +86,7 @@ const Outfit = (props) => {
               ))}
 
               {/* end of item info  */}
-            </div>
+            </s.Card>
           </div>
           {/* You can alwas change the content of the button to other things */}
           {
