@@ -3,6 +3,7 @@ import { FaRegStar } from 'react-icons/fa';
 import axios from 'axios';
 import RelatedItems from './RelatedComponents/RelatedItems';
 import ComparisonModal from './RelatedComponents/ComparisonModal.jsx';
+import * as s from './RelatedComponents/RelatedStyles.jsx';
 
 const Related = (props) => {
   const { items } = RelatedItems;
@@ -29,39 +30,37 @@ const Related = (props) => {
         const productIDs = response.data;
         return productIDs.map((id) => (
           [axios.get(`/api/products/${id}`), axios.get(`/api/products/${id}/style`)]
+
         ));
-        // have array of IDs
-        // create array of promises with style request and product request
-        // resolve promises
-        // manipulate into desired format
-        // want array of item objects and style objects
-
-
-        // eslint-disable-next-line no-plusplus
-
-        // );
-
-        // Promise.all(promises).then(() => console.log(related));
       })
-      // .then((response) => {
-      //   for (let i = 0; i < relatedIDs; i++) {
-      //     // promises.push(
-      //     axios.get(`/api/products/${relatedIDs[i]}`)
-      //       .then((response2) => {
-      //         console.log('response: ', response2.data);
-      //         related.push(response2.data);
-      //       })
-      //       .catch((err) => {
-      //         console.log('could not get object of related items');
-      //       });
-      //   }
-      //   setRelatedItems(related);
-      // })
+      .then((second) => {
+        console.log('second: ', second);
+        // starting with an array of three nested arrays
+        // create empty starting array
+        // map over second
+        // concatenate with starting array
+        // end with a singular array
+        second.map((promise) => {
+
+        })
+        const merged = [].concat.spread([], second);
+        console.log(merged);
+        return merged;
+      })
+
+
+    // have array of IDs
+    // create array of promises with style request and product request
+    // resolve promises
+    // manipulate into desired format
+    // want array of item objects and style objects
+
       .catch((err) => {
         console.log('error');
       });
   };
-  // useEffect(getRelatedProductIds);
+
+  useEffect(getRelatedProductIds, []);
   const next = () => {
     if (currentIndex < (length - show)) {
       setCurrentIndex((prevState) => prevState + 1);
@@ -95,8 +94,8 @@ const Related = (props) => {
           <div
             className="carousel-content-wrapper"
           >
-            <div
-              className={`carousel-content show-${show}`}
+            <s.Card
+              className={`carousel-content`}
               style={{ transform: `translateX(-${currentIndex * (100 / show)}%)` }}
             >
               {/* start of item info */}
@@ -134,7 +133,7 @@ const Related = (props) => {
               ))}
 
               {/* end of item info  */}
-            </div>
+            </s.Card>
           </div>
           {
                   currentIndex < (length - show)
