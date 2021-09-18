@@ -42,7 +42,7 @@ const Related = (props) => {
         // end with a singular array
         second.map((promise) => {
 
-        })
+        });
         const merged = [].concat.spread([], second);
         console.log(merged);
         return merged;
@@ -91,7 +91,7 @@ const Related = (props) => {
                   </button>
                   )
               }
-          <div
+          <s.CardWrapper
             className="carousel-content-wrapper"
           >
             <div
@@ -134,7 +134,7 @@ const Related = (props) => {
 
               {/* end of item info  */}
             </div>
-          </div>
+          </s.CardWrapper>
           {
                   currentIndex < (length - show)
                   && (

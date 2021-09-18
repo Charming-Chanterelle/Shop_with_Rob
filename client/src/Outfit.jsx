@@ -18,7 +18,7 @@ const Outfit = (props) => {
   }, [items]);
 
   const next = () => {
-    if (currentIndex < (length - show)) {
+    if (currentIndex < (length + 1 - show)) {
       setCurrentIndex((prevState) => prevState + 1);
     }
   };
@@ -90,7 +90,7 @@ const Outfit = (props) => {
           </div>
           {/* You can alwas change the content of the button to other things */}
           {
-                  (currentIndex < (length - show) && outfitItems.length > 0)
+                  (currentIndex < (length + 1 - show) && outfitItems.length > 0)
                   && (
                   <button type="button" onClick={next} className="right-arrow">
                     &gt;
