@@ -94,13 +94,13 @@ const Related = (props) => {
           <div
             className="carousel-content-wrapper"
           >
-            <s.Card
-              className={`carousel-content`}
+            <div
+              className={`carousel-content show-${show}`}
               style={{ transform: `translateX(-${currentIndex * (100 / show)}%)` }}
             >
               {/* start of item info */}
               {items.map((item) => (
-                <>
+                <s.Card>
                   <div>
                     <div>
                       <button onClick={() => setShowModal(true)} type="button">
@@ -129,11 +129,11 @@ const Related = (props) => {
                       {item.rating}
                     </div>
                   </div>
-                </>
+                </s.Card>
               ))}
 
               {/* end of item info  */}
-            </s.Card>
+            </div>
           </div>
           {
                   currentIndex < (length - show)
