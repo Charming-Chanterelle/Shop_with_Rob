@@ -11,8 +11,10 @@ export const Container = styles.div`
     "main main side side"
     "main main side side"
     "content content features features";
-  padding: 0.25rem;
-  grid-gap: 0.25rem;
+  padding-left: 200px;
+  padding-right: 200px;
+  row-gap: 10px;
+  column-gap: 30px;
   overflow: hidden;
   border-radius: 5px;
     `;
