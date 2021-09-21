@@ -48,11 +48,8 @@ const RatingsStarDisplay = ({ id, stars, starRatings }) => {
         {starRating.map((rating, count) => <StarRating key={count + ratingsID} currentRating={rating} currentCount={count + ratingsID} starProp={starAttribute} />)}
       </>
     );
-  } else {
-    return (
-      <div>loading...</div>
-    )
   }
+  return null;
 };
 // 0 40 62 100
 export default RatingsStarDisplay;

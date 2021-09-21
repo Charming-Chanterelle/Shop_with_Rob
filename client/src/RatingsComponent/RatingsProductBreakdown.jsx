@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ProductContext } from '../contexts/ProductContext.jsx';
-import RatingsSummaryChart from './Review_Breakdown/RatingsSummaryChart.jsx'
-import RatingsSummarySlider from './Review_Breakdown/RatingsSummarySlider.jsx'
+import * as RC from './RatingsComponentStyledComponent.jsx';
+import RatingsSummaryChart from './Review_Breakdown/RatingsSummaryChart.jsx';
+import RatingsSummarySlider from './Review_Breakdown/RatingsSummarySlider.jsx';
 
 const getPercentRecommend = ({ recommended }) => {
   const recommend = Number(recommended.true);
@@ -10,7 +11,7 @@ const getPercentRecommend = ({ recommended }) => {
   return percentRecommend;
 };
 
-const RatingsSummaryReview = ({ onStarFilter, onStarUnfilter }) => {
+const RatingsProductBreakdown = ({ onStarFilter, onStarUnfilter }) => {
   const { meta, loaded } = useContext(ProductContext);
   const [percentRecommended, setPercentRecommended] = useState(0);
 
@@ -22,27 +23,27 @@ const RatingsSummaryReview = ({ onStarFilter, onStarUnfilter }) => {
 
   return (
     <>
-      <div className="ratings-summary-review">
-        <div className="ratings-summary-text">
-          <span>
+      <RC.RatingsBreakdownContainer>
+        <RC.PercentRecommend>
+          <RC.RatingsBreakdownText>
             {percentRecommended}
             % of reviews recommend this product
-          </span>
-        </div>
-        <div className="ratings-summary-chart">
+          </RC.RatingsBreakdownText>
+        </RC.PercentRecommend>
+        <RC.StarReviewBreakdown>
           <RatingsSummaryChart
             onStarFilter={onStarFilter}
             onStarUnfilter={onStarUnfilter}
           />
-        </div>
-        <div className="ratings-summary-slider">
+        </RC.StarReviewBreakdown>
+        <RC.ProductCharacterSlider>
           <RatingsSummarySlider />
-        </div>
-      </div>
+        </RC.ProductCharacterSlider>
+      </RC.RatingsBreakdownContainer>
     </>
-  )
+  );
 };
 
 {/* <RatingsSummaryChart /> */ }
 {/* <RatingsSummarySlider /> */ }
-export default RatingsSummaryReview;
+export default RatingsProductBreakdown;

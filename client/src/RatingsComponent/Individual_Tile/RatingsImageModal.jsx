@@ -1,21 +1,25 @@
 import React from 'react';
+import * as RIT from './IndividualTileStyledComponent.jsx';
 
-const RatingsImageModal = (props) => {
-
-  return (
-    <>
-      <div className={`modal-image ${props.imageShow ? 'show' : ''}`}>
-        <div className="modal-image-content">
-          <div className="modal-image-body">
-            <img src={props.url} className="ratings-modal-image"/>
-          </div>
-          <div className="modal-image-footer">
-            <button className="submitButton" style={{ "cursor":"pointer" }} onClick={props.onSubmit}>Close</button>
-          </div>
-        </div>
-      </div>
-    </>
-  )
-};
+const RatingsImageModal = ({ imageShow, url, onSubmit }) => (
+  <>
+    <RIT.ImageModalContainer show={imageShow}>
+      <RIT.ImageModalContent>
+        <RIT.ImageModalBody>
+          <RIT.ModalImage
+            src={url}
+          />
+        </RIT.ImageModalBody>
+        <RIT.ImageModalFooter>
+          <RIT.Button
+            onClick={onSubmit}
+          >
+            Close
+          </RIT.Button>
+        </RIT.ImageModalFooter>
+      </RIT.ImageModalContent>
+    </RIT.ImageModalContainer>
+  </>
+);
 
 export default RatingsImageModal;

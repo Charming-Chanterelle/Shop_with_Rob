@@ -7,7 +7,7 @@ const getCharacterScore = ({ characteristics }) => {
   if (Object.keys(characteristics).length === 0) {
     return null;
   }
-	// eslint-disable-next-line guard-for-in
+  // eslint-disable-next-line guard-for-in
   // eslint-disable-next-line no-restricted-syntax
   for (const key in characteristics) {
     const characterData = {};
@@ -40,7 +40,15 @@ const RatingsSummarySlider = () => {
   if (loaded) {
     return (
       <>
-        {characterScores.map((score) => <RatingsSliderDisplay key={score} scores={score} characteristic={characterBank[score.key]} />)}
+        {
+          characterScores.map((score) => (
+            <RatingsSliderDisplay
+              key={score}
+              scores={score}
+              characteristic={characterBank[score.key]}
+            />
+          ))
+        }
       </>
     );
   }

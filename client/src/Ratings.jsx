@@ -1,15 +1,13 @@
 /* eslint-disable import/extensions */
-import React, { Component, useContext } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
-import { ProductContext } from './contexts/ProductContext.jsx';
+import * as R from './RatingsStyledComponents.jsx';
 
 import ReviewAction from './RatingsComponent/ReviewAction.jsx';
-import RatingsSearch from './RatingsComponent/RatingsSearch.jsx';
+import RatingsFilter from './RatingsComponent/RatingsFilter.jsx';
 import RatingsContent from './RatingsComponent/RatingsContent.jsx';
 import RatingsStarHeader from './RatingsComponent/RatingsStarHeader.jsx';
-import RatingsSummaryReview from './RatingsComponent/RatingsSummaryReview.jsx';
-
-
+import RatingsProductBreakdown from './RatingsComponent/RatingsProductBreakdown.jsx';
 
 class Ratings extends Component {
   constructor() {
@@ -31,7 +29,7 @@ class Ratings extends Component {
     this.onStarFilter = this.onStarFilter.bind(this);
     this.onStarUnfilter = this.onStarUnfilter.bind(this);
   }
-  
+
   componentDidMount() {
     this.getProductRatings();
   }
@@ -134,40 +132,37 @@ class Ratings extends Component {
     const { ratings, product_id, total_ratings_count, showMoreRatings } = this.state;
     return (
       <>
-        <div className="ratingsContainer">
-          <div className="stars">
+        <R.Container>
+          <R.Stars>
             <RatingsStarHeader />
-          </div>
-          <div className="filter">
-            <RatingsSearch
+          </R.Stars>
+          <R.Filter>
+            <RatingsFilter
               totalRatings={total_ratings_count}
               handleFilterData={this.handleFilterData}
             />
-          </div>
-          <div className="reviews">
-            <div>
-              <RatingsSummaryReview
-                onStarFilter={this.onStarFilter}
-                onStarUnfilter={this.onStarUnfilter}
-              />
-            </div>
-          </div>
-          <div className="temp" />
-          <div className="content">
+          </R.Filter>
+          <R.Reviews>
+            <RatingsProductBreakdown
+              onStarFilter={this.onStarFilter}
+              onStarUnfilter={this.onStarUnfilter}
+            />
+          </R.Reviews>
+          <R.Content>
             <RatingsContent
               ratingsList={ratings}
               productID={product_id}
               onUpdateReview={this.onUpdateReview}
             />
-          </div>
-          <div className="reviewAction">
+          </R.Content>
+          <R.ReviewAction>
             <ReviewAction
               moreRatings={showMoreRatings}
               onAddReview={this.onAddReview}
               onDisplayMoreReviews={this.onDisplayMoreReviews}
             />
-          </div>
-        </div>
+          </R.ReviewAction>
+        </R.Container>
       </>
     );
   }
