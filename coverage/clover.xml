@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1632186196029" clover="3.2.0">
-  <project timestamp="1632186196029" name="All files">
+<coverage generated="1632242113035" clover="3.2.0">
+  <project timestamp="1632242113035" name="All files">
     <metrics statements="442" coveredstatements="406" conditionals="11" coveredconditionals="7" methods="8" coveredmethods="4" elements="461" coveredelements="417" complexity="0" loc="442" ncloc="442" packages="3" files="6" classes="6"/>
     <package name="src">
       <metrics statements="164" coveredstatements="129" conditionals="8" coveredconditionals="6" methods="7" coveredmethods="3"/>
-      <file name="RatingsAPITest.js" path="/Users/savs/Desktop/SEI/fec/client/src/RatingsAPITest.js">
+      <file name="RatingsAPITest.js" path="/Users/bryanna/Desktop/HRsprints/Shop_with_Rob/client/src/RatingsAPITest.js">
         <metrics statements="11" coveredstatements="9" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -18,7 +18,7 @@
         <line num="10" count="0" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
       </file>
-      <file name="Related.jsx" path="/Users/savs/Desktop/SEI/fec/client/src/Related.jsx">
+      <file name="Related.jsx" path="/Users/bryanna/Desktop/HRsprints/Shop_with_Rob/client/src/Related.jsx">
         <metrics statements="153" coveredstatements="120" conditionals="6" coveredconditionals="4" methods="6" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -177,7 +177,7 @@
     </package>
     <package name="src.RatingsComponent">
       <metrics statements="111" coveredstatements="111" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="RatingsDummyData.js" path="/Users/savs/Desktop/SEI/fec/client/src/RatingsComponent/RatingsDummyData.js">
+      <file name="RatingsDummyData.js" path="/Users/bryanna/Desktop/HRsprints/Shop_with_Rob/client/src/RatingsComponent/RatingsDummyData.js">
         <metrics statements="111" coveredstatements="111" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -294,7 +294,7 @@
     </package>
     <package name="src.RelatedComponents">
       <metrics statements="167" coveredstatements="166" conditionals="3" coveredconditionals="1" methods="1" coveredmethods="1"/>
-      <file name="ComparisonModal.jsx" path="/Users/savs/Desktop/SEI/fec/client/src/RelatedComponents/ComparisonModal.jsx">
+      <file name="ComparisonModal.jsx" path="/Users/bryanna/Desktop/HRsprints/Shop_with_Rob/client/src/RelatedComponents/ComparisonModal.jsx">
         <metrics statements="51" coveredstatements="50" conditionals="3" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -348,7 +348,7 @@
         <line num="50" count="1" type="stmt"/>
         <line num="51" count="1" type="stmt"/>
       </file>
-      <file name="RelatedItems.js" path="/Users/savs/Desktop/SEI/fec/client/src/RelatedComponents/RelatedItems.js">
+      <file name="RelatedItems.js" path="/Users/bryanna/Desktop/HRsprints/Shop_with_Rob/client/src/RelatedComponents/RelatedItems.js">
         <metrics statements="72" coveredstatements="72" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -423,7 +423,7 @@
         <line num="71" count="1" type="stmt"/>
         <line num="72" count="1" type="stmt"/>
       </file>
-      <file name="RelatedStyles.jsx" path="/Users/savs/Desktop/SEI/fec/client/src/RelatedComponents/RelatedStyles.jsx">
+      <file name="RelatedStyles.jsx" path="/Users/bryanna/Desktop/HRsprints/Shop_with_Rob/client/src/RelatedComponents/RelatedStyles.jsx">
         <metrics statements="44" coveredstatements="44" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>

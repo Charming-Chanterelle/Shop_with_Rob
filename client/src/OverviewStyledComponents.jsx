@@ -11,8 +11,8 @@ export const Container = styles.div`
     "main main side side"
     "main main side side"
     "content content features features";
-  padding-left: 200px;
-  padding-right: 200px;
+  padding-left: 150px;
+  padding-right: 150px;
   row-gap: 10px;
   column-gap: 30px;
   overflow: hidden;
@@ -34,26 +34,32 @@ export const Content = styles.div`
   grid-area: content;
   background-color: #eecf6b;
   border-radius: 5px;
+  padding: 10px;
+  box-shadow: 2px 2px 2px 1px #d3d3d3;
   `;
 export const Features = styles.div`
   grid-area: features;
-  height: 100%;
+  height: 60%;
   border: 1px solid #FBD63F;
   border-radius: 5px;
   border-left: 6px solid #899499;
+  padding: 10px;
   `;
 // Smaller pieces:
   // main:
 export const LeftArrow = styles.button`
   grid-area: main;
   position: absolute;
+  border-radius: 50%;
   z-index: 1000;
   top: 80%;
   left: 5%;
   `;
+
 export const RightArrow = styles.button`
   grid-area: main;
   position: absolute;
+  border-radius: 50%;
   top: 80%;
   right: 5%;
   `;
@@ -107,4 +113,5 @@ color: #899499;
   height: 70px;
   background: url(${props => props.url}) no-repeat;
   background-size: cover;
+  box-shadow: 2px 2px 2px 1px #d3d3d3;
 `;
