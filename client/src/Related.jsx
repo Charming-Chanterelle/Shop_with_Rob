@@ -102,7 +102,7 @@ const Related = (props) => {
               {/* start of item info */}
               {items.map((item) => (
                 <s.Card>
-                  <div>
+                  <s.CardText>
                     <div>
                       <s.RoundButton onClick={() => setShowModal(true)} type="button">
                         <FaRegStar />
@@ -129,7 +129,7 @@ const Related = (props) => {
                       Rating:
                       {item.rating}
                     </div>
-                  </div>
+                  </s.CardText>
                 </s.Card>
               ))}
 

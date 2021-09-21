@@ -1,6 +1,7 @@
 .carouselImage {
-  height: 100px;
-  width: 100px
+  height: 100%;
+  width: 150px;
+  border-radius: 5px
 }
 
 .carousel-container {
@@ -45,7 +46,7 @@
 }
 
 .carousel-content.show-3 > * {
-  width: calc(80% / 3);
+  width: calc(100% / 3);
 }
 
 .carousel-content.show-4 > * {
