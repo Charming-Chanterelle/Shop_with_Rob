@@ -89,7 +89,7 @@ const Outfit = (props) => {
             </div>
           </s.CardWrapper>
           {
-                  (currentIndex < (length + 1 - show) && outfitItems.length > 0)
+                  (currentIndex < (length + 1 - show) && outfitItems.length + 1 >= show)
                   && (
                   <s.RoundButton type="button" onClick={next} className="right-arrow">
                     &gt;

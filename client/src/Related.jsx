@@ -13,7 +13,7 @@ const Related = (props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(items.length);
   const [showModal, setShowModal] = useState(false);
-  const [overviewID, setOverviewID] = useState('48445');
+  const [overviewID, setOverviewID] = useState('48434');
   // const [relatedIDs, setRelatedIDs] = useState([]);
   const [relatedItems, setRelatedItems] = useState([]);
 
@@ -32,9 +32,6 @@ const Related = (props) => {
       })
       .then((second) =>
         // starting with an array of three nested arrays
-        // create empty starting array
-        // map over second
-        // concatenate with starting array
         // end with a singular array
         Promise.all(second.map((promises) =>
           // console.log('promise data: ', Promise.all(promises));
@@ -44,13 +41,10 @@ const Related = (props) => {
         // need data from nested array
         // eslint-disable-next-line implicit-arrow-linebreak
         resolved.map((array) => [array[0].data, array[1].data.results]))
-      .then((fourth) => {
-        console.log('fourth then: ', fourth);
-        return fourth.map((array) => ({
-          product: array[0],
-          styles: array[1],
-        }));
-      })
+      .then((fourth) => fourth.map((array) => ({
+        product: array[0],
+        styles: array[1],
+      })))
       .then((fifth) => {
         console.log(fifth);
         setRelatedItems(fifth);
@@ -138,7 +132,7 @@ const Related = (props) => {
                         Rating:
                         {` ${item.product.rating}`}
                       </div>
-                    </ s.CardText>
+                    </s.CardText>
                   </div>
                 </s.Card>
               ))}
@@ -147,7 +141,8 @@ const Related = (props) => {
             </div>
           </s.CardWrapper>
           {
-                  currentIndex < (length - show)
+                  // currentIndex < (length - show)
+                  (currentIndex < (length - show) && relatedItems.length >= show)
                   && (
                   <s.RoundButton type="button" onClick={next} className="right-arrow">
                     &gt;
