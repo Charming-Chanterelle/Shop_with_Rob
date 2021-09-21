@@ -22,6 +22,7 @@ export const Card = styles.div`
 
 export const RoundButton = styles.button`
   background-color:#FBD63F;
+  float: right;
   border: none;
   border-radius: 50%;
   color:#000000;
