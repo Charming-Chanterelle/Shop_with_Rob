@@ -1,11 +1,11 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-undef */
-import React from 'react';
-import { render, cleanup, fireEvent } from '@testing-library/react';
-import App from '../App';
-import Overview from '../Overview.jsx';
+// /* eslint-disable import/no-unresolved */
+// /* eslint-disable no-undef */
+// import React from 'react';
+// import { render, cleanup, fireEvent } from '@testing-library/react';
+// import App from '../App';
+// import Overview from '../Overview.jsx';
 
-// afterEach(cleanup);
+// // afterEach(cleanup);
 
 // describe('Overview tests', () => {
 //   it('should find Hello', () => {
