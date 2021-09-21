@@ -49,7 +49,7 @@ const Overview = () => {
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
   };
-  // click a style button
+  // click a style buttons
   const styleOnClick = (event) => {
     // if already selected, do nothing
     currentStyle.id !== event.target.value ?
@@ -98,6 +98,10 @@ const Overview = () => {
     setQuantity(event.target.value);
   };
 
+  // useEffect(() => {
+  //   getQuantities();
+  // }, [size]);
+
   // make post req to db with sku number and quantity
   const addToCart = () => {
     let id;
@@ -125,7 +129,6 @@ const Overview = () => {
   // const makeBig = (e) => {
   //   e.currentTarget.style = { transform: 'scale(1.25)' };
   // };
-
   return (
     <>
       <S.Container>

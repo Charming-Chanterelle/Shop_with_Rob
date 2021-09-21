@@ -1,23 +1,23 @@
-const product =
-{
-  "id": 48435,
-  "campus": "hr-sfo",
-  "name": "Slacker's Slacks",
-  "slogan": "Comfortable for everything, or nothing",
-  "description": "I'll tell you how great they are after I nap for a bit.",
-  "category": "Pants",
-  "default_price": "65.00",
-  "created_at": "2021-09-09T19:03:37.378Z",
-  "updated_at": "2021-09-09T19:03:37.378Z",
-  "features": [
-      {
-          "feature": "Fabric",
-          "value": "99% Cotton 1% Elastic"
-      },
-      {
-          "feature": "Cut",
-          "value": "Loose"
-      }
-  ]
+const product = {
+  id: 48434,
+  campus: 'hr-sfo',
+  name: 'Morning Joggers',
+  slogan: 'Make yourself a morning person',
+  description: "Whether you're a morning person or not.  Whether you're gym bound or not.  Everyone looks good in joggers.",
+  category: 'Pants',
+  default_price: '40.00',
+  created_at: '2021-09-09T19:03:37.378Z',
+  updated_at: '2021-09-09T19:03:37.378Z',
+  features: [
+    {
+      feature: 'Fabric',
+      value: '100% Cotton',
+    },
+    {
+      feature: 'Cut',
+      value: 'Skinny',
+    },
+  ],
 };
+
 export default product;

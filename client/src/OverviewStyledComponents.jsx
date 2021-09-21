@@ -55,7 +55,6 @@ export const LeftArrow = styles.button`
   top: 80%;
   left: 5%;
   `;
-
 export const RightArrow = styles.button`
   grid-area: main;
   position: absolute;
@@ -66,7 +65,7 @@ export const RightArrow = styles.button`
 export const BigImg = styles.img`
   grid-area: main;
   height: 100%;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   `;
 export const ImgCards = styles.div`
