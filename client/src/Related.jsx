@@ -48,7 +48,6 @@ const Related = (props) => {
         return merged;
       })
 
-
     // have array of IDs
     // create array of promises with style request and product request
     // resolve promises

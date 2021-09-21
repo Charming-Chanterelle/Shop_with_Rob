@@ -40,5 +40,7 @@ export const CardWrapper = styles.div`
   `;
 
 export const CardText = styles.div`
-  float: bottom;
+  position: relative;
+  bottom: 0;
+  left: 0;
   `;
