@@ -3,7 +3,7 @@
 import React, { useContext } from 'react';
 import { render, screen, cleanup } from '@testing-library/react';
 // import 'jest-dom/extend-expect';
-import { ProductContext } from '../contexts/ProductContext';
+import ProductContextProvider from '../contexts/ProductContext.jsx';
 
 // import ReviewAction from '../RatingsComponent/ReviewAction';
 // import App from '../App';
@@ -11,9 +11,21 @@ import ReviewAction from '../RatingsComponent/ReviewAction';
 
 afterEach(cleanup);
 
-describe('Ratings', () => {
-  test('renders Ratings component', () => {
-    const { getByText } = render(<ReviewAction />);
+describe('Ratings User Action', () => {
+  test('Has More Reviews Button when there are more reviews to show', () => {
+    const { getByText } = render(
+      <ProductContextProvider>
+        <ReviewAction moreRatings={ true } />
+      </ProductContextProvider>,
+    );
     expect(getByText('More Reviews')).toBeDefined();
+  });
+  test('Has the ability to Add a review', () => {
+    const { getByText } = render(
+      <ProductContextProvider>
+        <ReviewAction />
+      </ProductContextProvider>,
+    );
+    expect(getByText('Add A Review +')).toBeDefined();
   });
 });

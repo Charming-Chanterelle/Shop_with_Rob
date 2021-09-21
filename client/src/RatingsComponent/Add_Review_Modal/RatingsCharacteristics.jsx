@@ -1,21 +1,25 @@
+/* eslint-disable import/extensions */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
 import React, { useState, useContext, useEffect } from 'react';
 import { ProductContext } from '../../contexts/ProductContext.jsx';
-import CharacterDisplay from './RatingsCharacteristicsDisplay.jsx'
+import * as RAR from './AddReviewModalStyledComponent.jsx';
+import CharacterDisplay from './RatingsCharacteristicsDisplay.jsx';
 
 const getCharacterID = (characteristics) => {
   if (Object.keys(characteristics).length === 0) {
     return null;
   }
 
-  let characterData = {};
+  const characterData = {};
 
-	for(let key in characteristics) {
+  for (const key in characteristics) {
     characterData[key] = characteristics[key].id;
-	}
-	return characterData;
+  }
+  return characterData;
 };
 
-const RatingsCharacteristics = ({getCharacteristic}) => {
+const RatingsCharacteristics = ({ getCharacteristic }) => {
   const { meta, loaded } = useContext(ProductContext);
   const [characters, setCharacter] = useState([]);
   const [characterID, setCharacterID] = useState({});
@@ -48,11 +52,13 @@ const RatingsCharacteristics = ({getCharacteristic}) => {
       <>
         {characters.map((character) => (
           <>
-            <p key={characterBank[character]}>
+            <RAR.RatingsCharacteristicText
+              key={characterBank[character]}
+            >
               {character}
               :
-            </p>
-            <div className="modal-ratings-characteristics">
+            </RAR.RatingsCharacteristicText>
+            <RAR.RatingsCharacterContainer>
               {characterBank[character].map((currentCharacter, index) => (
                 <CharacterDisplay
                   key={character + currentCharacter}
@@ -62,7 +68,7 @@ const RatingsCharacteristics = ({getCharacteristic}) => {
                   onChangeCharacteristic={characterData}
                 />
               ))}
-            </div>
+            </RAR.RatingsCharacterContainer>
           </>
         ))}
       </>

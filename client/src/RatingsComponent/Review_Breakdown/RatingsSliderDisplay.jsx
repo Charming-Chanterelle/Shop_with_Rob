@@ -1,23 +1,39 @@
 import React from 'react';
+import * as RB from './ReviewBreakdownStyledComponent.jsx';
 
 const RatingsSliderDisplay = ({ scores, characteristic }) => {
   const { key, value } = scores;
   return (
     <>
-      <div className="ratings-summary-slider-container">
-          <p className="slider-name">{key}</p>
-          <input type="range"  name={key}
-            min="1" max="5" value={value} step="any" className="slider" readOnly/>
-          <div className="ticks">
-            <span className="tick"></span>
-            <span className="tick"></span>
-          </div>
-          <div className="slider-text">
-            <span className="slider-one">{characteristic[0]}</span>
-            <span className="slider-two">{characteristic[1]}</span>
-            <span className="slider-three">{characteristic[2]}</span>
-          </div>
-      </div>
+      <RB.ProductCharacterContainer>
+        <RB.CharacteristicName>
+          {key}
+        </RB.CharacteristicName>
+        <RB.Slider
+          type="range"
+          name={key}
+          min="1"
+          max="5"
+          value={value}
+          step="any"
+          readOnly
+        />
+        <RB.TickContainer>
+          <RB.TickMark />
+          <RB.TickMark />
+        </RB.TickContainer>
+        <RB.SliderTextContainer>
+          <RB.SliderTextOne>
+            {characteristic[0]}
+          </RB.SliderTextOne>
+          <RB.SliderTextTwo>
+            {characteristic[1]}
+          </RB.SliderTextTwo>
+          <RB.SliderTextThree>
+            {characteristic[2]}
+          </RB.SliderTextThree>
+        </RB.SliderTextContainer>
+      </RB.ProductCharacterContainer>
     </>
   );
 };

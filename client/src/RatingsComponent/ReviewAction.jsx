@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import AddReviewModal from './Add_Review_Modal/AddReviewModal.jsx';
+import * as RC from './RatingsComponentStyledComponent.jsx';
 
-const ReviewAction = ({ onAddReview, onDisplayMoreReviews, moreRatings}) => {
+const ReviewAction = ({ onAddReview, onDisplayMoreReviews, moreRatings }) => {
   const [show, setShow] = useState(false);
 
   const onReviewSubmit = (userReview) => {
@@ -16,9 +17,24 @@ const ReviewAction = ({ onAddReview, onDisplayMoreReviews, moreRatings}) => {
 
   return (
     <>
-      {moreRatings ? <button type="button" style={{ "margin": "15px", "cursor":"pointer" }} onClick={(e) => handleMoreReviews(e)}>More Reviews</button> : <> </>}
-      {/* <button type="button" style={{ "cursor":"pointer" }} onClick={() => setShow(true)}>Add A Review +</button>
-      <AddReviewModal onReviewSubmit={onReviewSubmit} show={show} /> */}
+      {moreRatings
+        ? (
+          <RC.RatingsAndReviewAction
+            onClick={(e) => handleMoreReviews(e)}
+          >
+            More Reviews
+          </RC.RatingsAndReviewAction>
+        )
+        : <> </>}
+      <RC.RatingsAndReviewAction
+        onClick={() => setShow(true)}
+      >
+        Add A Review +
+      </RC.RatingsAndReviewAction>
+      <AddReviewModal
+        onReviewSubmit={onReviewSubmit}
+        show={show}
+      />
     </>
   );
 };

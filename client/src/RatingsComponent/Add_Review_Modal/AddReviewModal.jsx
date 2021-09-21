@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
-import RatingsCharacteristics from './RatingsCharacteristics.jsx'
+import * as RAR from './AddReviewModalStyledComponent.jsx';
+import RatingsCharacteristics from './RatingsCharacteristics.jsx';
 import ModalStarRating from './ModalStarRating.jsx';
 // Use HTML Data valid first. CSS first
 const AddReviewModal = ({ show, onReviewSubmit }) => {
@@ -81,26 +82,38 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
 
   return (
     <>
-      <div className={`modal ${show ? 'show' : ''}`}>
-        <div className="modal-content">
-          <div className="modal-header">
-            <h2 className="modal-title">Write Your Review</h2>
-            <h3 className="modal-subtitle">About the product</h3>
-          </div>
-          <div className="modal-body">
-            <div className="input-text-container">
-              <label htmlFor={name}>Nickname*</label>
-              <input
+      <RAR.AddReviewContainer show={show}>
+        <RAR.Content>
+          <RAR.Header>
+            <RAR.Title>
+              Write Your Review
+            </RAR.Title>
+            <RAR.Subtitle>
+              About the product
+            </RAR.Subtitle>
+          </RAR.Header>
+          <RAR.Body>
+            <RAR.BodyTextInputContainer>
+              <RAR.Label
+                htmlFor={name}
+              >
+                Nickname*
+              </RAR.Label>
+              <RAR.BodyTextInput
                 type="text"
                 maxLength="60"
                 value={nickname}
                 placeholder="Example: jackson11!"
                 onChange={(e) => setNickname(e.target.value)}
               />
-            </div>
-            <div className="input-text-container">
-              <label htmlFor={name}>Email*</label>
-              <input
+            </RAR.BodyTextInputContainer>
+            <RAR.BodyTextInputContainer>
+              <RAR.Label
+                htmlFor={name}
+              >
+                Email*
+              </RAR.Label>
+              <RAR.BodyTextInput
                 type="text"
                 name="email"
                 maxLength="60"
@@ -108,10 +121,12 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
                 placeholder="Example: jackson11@email.com"
                 onChange={(e) => setEmail(e.target.value)}
               />
-            </div>
-            <div className="product-rating-container">
-              <label className="product-rating-label">Would you recommend this product?*</label>
-              <div className="product-rating-icon">
+            </RAR.BodyTextInputContainer>
+            <RAR.BodyRecommend>
+              <RAR.Label>
+                Would you recommend this product?*
+              </RAR.Label>
+              <RAR.BodyRecommendIcon>
                 <FaRegThumbsUp
                   style={{ paddingRight: '15px', cursor: 'pointer', fill: thumbsUp }}
                   onClick={onThumbsUp}
@@ -120,11 +135,13 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
                   style={{ cursor: 'pointer', fill: thumbsDown }}
                   onClick={onThumbsDown}
                 />
-              </div>
-            </div>
-            <div className="product-rating-container">
-              <label className="product-rating-label">Overall rating*</label>
-              <div className="product-star-icon">
+              </RAR.BodyRecommendIcon>
+            </RAR.BodyRecommend>
+            <RAR.BodyRating>
+              <RAR.Label>
+                Overall rating*
+              </RAR.Label>
+              <RAR.BodyRatingIcon>
                 {stars.map((star) => (
                   <ModalStarRating
                     key={star}
@@ -136,13 +153,19 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
                     onSaveRating={onSaveRating}
                   />
                 ))}
-                {displayStarText ? <span style={{ paddingLeft: '15px' }}>{starText[rating - 1]}</span> : null}
-              </div>
-            </div>
+                {displayStarText ? (
+                  <RAR.BodyRatingText>
+                    {starText[rating - 1]}
+                  </RAR.BodyRatingText>
+                ) : null }
+              </RAR.BodyRatingIcon>
+            </RAR.BodyRating>
             <RatingsCharacteristics getCharacteristic={getCharacteristic} />
-            <div className="input-text-container">
-              <label htmlFor={name}>Review Summary*</label>
-              <textarea
+            <RAR.BodySummary>
+              <RAR.Label htmlFor={name}>
+                Review Summary*
+              </RAR.Label>
+              <RAR.BodySummaryText
                 type="text"
                 rows="3"
                 columns="50"
@@ -152,10 +175,12 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
                 placeholder="Example: Best purchase ever!"
                 onChange={(e) => setSumary(e.target.value)}
               />
-            </div>
-            <div className="input-text-container">
-              <label htmlFor={name}>Review Body*</label>
-              <textarea
+            </RAR.BodySummary>
+            <RAR.BodyFullReview>
+              <RAR.Label htmlFor={name}>
+                Review Body*
+              </RAR.Label>
+              <RAR.BodyFullReviewText
                 type="text"
                 rows="8"
                 columns="50"
@@ -165,30 +190,30 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
                 placeholder="Why did you like the product or not?"
                 onChange={(e) => setBody(e.target.value)}
               />
-            </div>
-            <div className="input-text-container">
-              <label htmlFor={name}>Upload your photos</label>
-              <input
+            </RAR.BodyFullReview>
+            <RAR.BodyImageContainer>
+              <RAR.Label htmlFor={name}>
+                Upload your photos
+              </RAR.Label>
+              <RAR.BodyImageInput
                 type="file"
                 accept=".png, .jpg, .jpeg"
                 multiple
                 onChange={(e) => setPhotos(e.target.files)}
               />
-            </div>
-          </div>
-          <div className="modal-footer">
-            <button
-              className="submitButton"
-              style={{ "cursor":"pointer" }}
+            </RAR.BodyImageContainer>
+          </RAR.Body>
+          <RAR.Footer>
+            <RAR.SubmitReview
               onClick={submitReview}
             >
               Submit
-            </button>
-          </div>
-        </div>
-      </div>
+            </RAR.SubmitReview>
+          </RAR.Footer>
+        </RAR.Content>
+      </RAR.AddReviewContainer>
     </>
-  )
+  );
 };
 
 export default AddReviewModal;
