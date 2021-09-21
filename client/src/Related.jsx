@@ -41,9 +41,9 @@ const Related = (props) => {
           Promise.all(promises))))
       .then((resolved) =>
         // have array of arrays
-        resolved.map((array) => [array[0].data, array[1].data.results]),
         // need data from nested array
-      )
+        // eslint-disable-next-line implicit-arrow-linebreak
+        resolved.map((array) => [array[0].data, array[1].data.results]))
       .then((fourth) => {
         console.log('fourth then: ', fourth);
         return fourth.map((array) => ({
@@ -52,7 +52,8 @@ const Related = (props) => {
         }));
       })
       .then((fifth) => {
-        console.log('fifth: ', fifth);
+        console.log(fifth);
+        setRelatedItems(fifth);
       })
 
     // have array of IDs
@@ -106,7 +107,7 @@ const Related = (props) => {
               style={{ transform: `translateX(-${currentIndex * (100 / show)}%)` }}
             >
               {/* start of item info */}
-              {items.map((item) => (
+              {relatedItems.map((item) => (
                 <s.Card>
                   <s.CardText>
                     <div>
@@ -118,22 +119,23 @@ const Related = (props) => {
                         showModal={showModal}
                       />
                     </div>
-                    <img src={item.image} className="carouselImage" alt="related-item" />
+                    <img src={item.styles[0].photos[0].thumbnail_url} className="carouselImage" alt="related-item" />
                     <div className="bigText">
-                      {/* Name: */}
-                      {item.name}
+                      <b>
+                        {item.product.name}
+                      </b>
                     </div>
                     <div className="bigText">
                       Category:
-                      {item.category}
+                      {` ${item.product.category}`}
                     </div>
                     <div className="bigText">
                       Price:
-                      {`$${item.price}`}
+                      {` $${item.product.default_price}`}
                     </div>
                     <div className="bigText">
                       Rating:
-                      {item.rating}
+                      {` ${item.product.rating}`}
                     </div>
                   </s.CardText>
                 </s.Card>
