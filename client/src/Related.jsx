@@ -80,15 +80,16 @@ const Related = (props) => {
 
   return (
     <>
-      <h1 className="bigText">Related Items</h1>
+      {/* <h1 className="bigText">Related Items</h1> */}
       <div className="carousel-container">
+        <h1 className="bigText">Related Items</h1>
         <div className="carousel-wrapper">
           {
                   currentIndex > 0
                   && (
-                  <button type="button" onClick={prev} className="left-arrow">
+                  <s.RoundButton type="button" onClick={prev} className="left-arrow">
                     &lt;
-                  </button>
+                  </s.RoundButton>
                   )
               }
           <s.CardWrapper
@@ -103,28 +104,28 @@ const Related = (props) => {
                 <s.Card>
                   <div>
                     <div>
-                      <button onClick={() => setShowModal(true)} type="button">
+                      <s.RoundButton onClick={() => setShowModal(true)} type="button">
                         <FaRegStar />
-                      </button>
+                      </s.RoundButton>
                       <ComparisonModal
                         onClose={() => setShowModal(false)}
                         showModal={showModal}
                       />
                     </div>
                     <img src={item.image} className="carouselImage" alt="related-item" />
-                    <div>
+                    <div className="bigText">
                       {/* Name: */}
                       {item.name}
                     </div>
-                    <div>
+                    <div className="bigText">
                       Category:
                       {item.category}
                     </div>
-                    <div>
+                    <div className="bigText">
                       Price:
                       {`$${item.price}`}
                     </div>
-                    <div>
+                    <div className="bigText">
                       Rating:
                       {item.rating}
                     </div>
@@ -138,9 +139,9 @@ const Related = (props) => {
           {
                   currentIndex < (length - show)
                   && (
-                  <button type="button" onClick={next} className="right-arrow">
+                  <s.RoundButton type="button" onClick={next} className="right-arrow">
                     &gt;
-                  </button>
+                  </s.RoundButton>
                   )
               }
         </div>
