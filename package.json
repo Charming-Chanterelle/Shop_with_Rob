@@ -3,19 +3,6 @@
   "version": "1.0.0",
   "description": "To use this repo:",
   "main": "index.js",
-  "jest": {
-    "verbose": true,
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ],
-    "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules/react/",
-      "<rootDir>/node_modules/react-dom/",
-      "<rootDir>/node_modules/react-addons-test-utils/"
-    ],
-    "testEnvironment": "jsdom"
-  },
   "scripts": {
     "test": "jest",
     "start": "node server/server.js",

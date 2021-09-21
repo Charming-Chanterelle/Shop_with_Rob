@@ -6,13 +6,13 @@
 
 // afterEach(cleanup);
 
-// describe('Related Items', () => {
-//   it('should have "Related Items" header', () => {
-//     const { getByText } = render(<Related />);
-//     expect(getByText('Related Items')).toBeDefined();
-//   });
-//   it('should include an individual container for each carousel element', () => {
-//     const { getByTestId } = render(<Related />);
-//     expect(getByTestId('carousel-content-wrapper')).toBeDefined();
-//   });
-// });
+describe('Related Items', () => {
+  it('should have "Related Items" header', () => {
+    const { getByText } = render(<Related />);
+    expect(getByText('Related Items')).toBeDefined();
+  });
+  // it('should include an individual container for each carousel element', () => {
+  //   const { getByTestId } = render(<Related />);
+  //   expect(getByTestId('carousel-content-wrapper')).toBeDefined();
+  // });
+});
