@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
 /* eslint-disable react/button-has-type */
+import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
 import { ProductContext } from './contexts/ProductContext.jsx';
 // icons
@@ -38,6 +39,7 @@ const Overview = () => {
   const [current, setCurrent] = useState(0);
   const [mainImg, setMainImg] = useState(currentStyle.photos[current].url);
   const { length } = currentStyle.photos;
+
   const setTheMain = () => {
     setMainImg(currentStyle.photos[current].url);
   };
@@ -66,9 +68,9 @@ const Overview = () => {
   // top ratings score click handler
   // const jumpToRatings = () => {
   // };
-  const imgOnClick = (event) => { // PROBLEM
+  const imgOnClick = (event) => {
     setCurrent(event.target.value);
-    setMainImg(currentStyle.photos[current].url);
+    // setMainImg(currentStyle.photos[current].url);
   };
   // when change style, should have skuID saved
   // shows list of options in dropdown
@@ -95,39 +97,46 @@ const Overview = () => {
   const selectQuantity = (event) => {
     setQuantity(event.target.value);
   };
+
+  // make post req to db with sku number and quantity
   const addToCart = () => {
-    // make post req to db with sku number and quantity
-    // quantity and size are avail
-    let theKey = 0;
+    let id;
     for (var key in currentStyle.skus) {
       if (currentStyle.skus[key].size === size) {
-      //what about repeated sizes? should be fine since should depleat first skus then next for sizes so it ends up closer to only having one sku per size
-        theKey = key;
+        //what about repeated sizes? should be fine since should depleat first skus then next for sizes so it ends up closer to only having one sku per size
+        id = key;
       }
     };
-    alert(quantity + ' ' + size + 's are POSTed to your cart! SKU number: ' + theKey);
+    for (var i = 0; i < quantity; i++) {
+      axios.post('/api/cart', { sku_id: id })
+        .then((x) => {
+          console.log(x);
+        })
+        .catch((x) => {
+          alert("We're sorry. There's been an error. Please try refreshing the page or contacting our customer service.");
+        });
+    }
+    // trigger products update to remove sku quantity
   };
   const earlyCart = () => {
     // open the size dropdown, and a message should appear above the dropdown stating
     // “Please select size”
   };
+  // const makeBig = (e) => {
+  //   e.currentTarget.style = { transform: 'scale(1.25)' };
+  // };
 
   return (
     <>
       <S.Container>
         <S.Main>
           <S.LeftArrow onClick={prevSlide}><FaChevronCircleLeft /></S.LeftArrow>
-          {/* {currentStyle.photos.map((x, i) => {
-            if (i === current) {
-              return <S.BigImg className="imgFormat" src={x.url} alt="pic" />;
-            }
-          })} */}
           <S.BigImg className="imgFormat" src={mainImg} alt="pic" />
           <S.ImgCards>
-            {/* issue here vv */}
+            {/* issue here for onClicks vv */}
             {currentStyle.photos.map((x, i) => {
               if (i === current) {
-                return <S.ImgSample onClick={imgOnClick} className="imgFormat" url={x.thumbnail_url} value={i} style={{ border: "3px solid #FBD63F" }} />;
+                return <S.ImgSample onClick={imgOnClick} className="imgFormat" url={x.thumbnail_url} value={i} style={{ border: '3px solid #FBD63F' }} />;
               } return <S.ImgSample onClick={imgOnClick} className="imgFormat" url={x.thumbnail_url} value={i} />;
             })}
           </S.ImgCards>
@@ -135,27 +144,25 @@ const Overview = () => {
         </S.Main>
         <S.Content>
           <h2 className="bigText">{product.slogan}</h2>
-          <p>{product.description}</p>
-          <FaFacebookSquare />
-          <FaTwitterSquare />
-          <FaPinterestSquare />
+          <p className="bigText">{product.description}</p>
         </S.Content>
         <S.Side>
           <div>
-            <StarDisplay stars={{ width: '20', height: '20' }} style={{ float: "right" }} />
+            <StarDisplay stars={{ width: '20', height: '20' }} style={{ float: 'right' }} />
             <span>Read all [#] reviews&nbsp;&nbsp;&nbsp;</span>
-            <h4 className="subText">{product.category}</h4>
-            <h1 className="bigText">{product.name}</h1>
+            <h4 className="subText"
+              style={{ margin: 0, padding: 0, paddingTop: 10 }}>{product.category}</h4>
+            <h1 className="bigText" style={{ margin: 0, padding: 0 }}>{product.name}</h1>
 
             {currentStyle.sale_price !== null ?
               <h2>
-                <strike style={{ color: "red" }}>${currentStyle.original_price}</strike>
+                <strike style={{ color: 'red' }}>${currentStyle.original_price}</strike>
                 &nbsp;&nbsp;SALE:&nbsp;${currentStyle.sale_price}
               </h2> :
               <h2>${currentStyle.original_price}</h2>}
           </div>
           <div>
-            <h3 className="bigText" style={{ fontWeight: "bold" }}>
+            <h3 className="bigText" style={{ fontWeight: 'bold' }}>
               Choose your style:&nbsp;
               {currentStyle.name}
             </h3>
@@ -165,7 +172,7 @@ const Overview = () => {
                   url={x.photos[0].thumbnail_url}
                   value={x.style_id}>
                   {x === currentStyle &&
-                    <FaCheck style={{ color: "yellow" }} />}
+                    <FaCheck style={{ color: 'yellow' }} />}
                 </S.StylesButton>)}
             </S.Styles>
             <S.Styles>
@@ -182,7 +189,7 @@ const Overview = () => {
                       <option value={i + 1}>{i + 1}</option>
                     ))}
               </select>
-              <button onClick={favorite} style={{ padding: 10 }}>{isFavorited ?
+              <button onClick={favorite} style={{ padding: 10, borderRadius: '50%', boxShadow: "2px 2px 2px 1px #d3d3d3" }}>{isFavorited ?
                 <FaStar /> :
                 <FaRegStar />}
               </button>
@@ -190,7 +197,7 @@ const Overview = () => {
             <div style={{ marginTop: 5 }}>
               {!sizes.includes('OUT OF STOCK')
                 && <button onClick={sizes === ['Select Size'] ? earlyCart : addToCart}
-                  className="bigText"><h3>ADD TO CART ++</h3></button>}
+                  className="bigText" style={{ boxShadow: "2px 2px 2px 1px #d3d3d3" }}><h3>ADD TO CART ++</h3></button>}
             </div>
             {/* ^^ If the default ‘Select Size’ is currently
             selected: Clicking this button should open
@@ -204,11 +211,14 @@ const Overview = () => {
         </S.Side>
         <S.Features>
           <S.FeaturesList>
-            <li className="bigText" style={{ listStyleType: "none", marginBottom: 7, fontStyle: "italic" }}><FaRegSmileBeam style={{ color: "#c48f35" }} />&nbsp;&nbsp;110% Satisfaction Guaranteed*</li>
+            <li className="bigText" style={{ listStyleType: 'none', marginBottom: 7, fontStyle: 'italic' }}><FaRegSmileBeam style={{ color: '#c48f35' }} />&nbsp;&nbsp;110% Satisfaction Guaranteed*</li>
             {product.features.map((x) => {
-              return <li className="bigText" style={{ listStyleType: "none", marginBottom: 7, fontStyle: "italic" }}><FaRegSmileBeam style={{ color: "#c48f35" }} />&nbsp;&nbsp;{x.feature}: {x.value}</li>;
+              return <li className="bigText" style={{ listStyleType: 'none', marginBottom: 7, fontStyle: 'italic' }}><FaRegSmileBeam style={{ color: '#c48f35' }} />&nbsp;&nbsp;{x.feature}: {x.value}</li>;
             })}
           </S.FeaturesList>
+          <FaFacebookSquare style={{ color: "#899499", height: 20, width: 20, borderRadius: "5%", boxShadow: "2px 2px 2px 1px #d3d3d3" }}/>
+          <FaTwitterSquare style={{ color: "#899499", height: 20, width: 20, boxShadow: "2px 2px 2px 1px #d3d3d3" }}/>
+          <FaPinterestSquare style={{ color: "#899499", height: 20, width: 20, boxShadow: "2px 2px 2px 1px #d3d3d3" }}/>
         </S.Features>
       </S.Container>
     </>
