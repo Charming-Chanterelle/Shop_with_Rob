@@ -4,6 +4,7 @@ import axios from 'axios';
 import RelatedItems from './RelatedComponents/RelatedItems';
 import ComparisonModal from './RelatedComponents/ComparisonModal.jsx';
 import * as s from './RelatedComponents/RelatedStyles.jsx';
+import { ProductContext } from './contexts/ProductContext.jsx';
 
 const Related = (props) => {
   const { items } = RelatedItems;
@@ -21,31 +22,37 @@ const Related = (props) => {
   }, [items]);
 
   const getRelatedProductIds = () => {
-    // const related = [];
-    // const promises = [];
     axios.get(`/api/products/${overviewID}/related`)
       .then((response) => {
-        console.log(response.data);
-        // setRelatedIDs(response.data);
         const productIDs = response.data;
         return productIDs.map((id) => (
           [axios.get(`/api/products/${id}`), axios.get(`/api/products/${id}/style`)]
 
         ));
       })
-      .then((second) => {
-        console.log('second: ', second);
+      .then((second) =>
         // starting with an array of three nested arrays
         // create empty starting array
         // map over second
         // concatenate with starting array
         // end with a singular array
-        second.map((promise) => {
-
-        });
-        const merged = [].concat.spread([], second);
-        console.log(merged);
-        return merged;
+        Promise.all(second.map((promises) =>
+          // console.log('promise data: ', Promise.all(promises));
+          Promise.all(promises))))
+      .then((resolved) =>
+        // have array of arrays
+        resolved.map((array) => [array[0].data, array[1].data.results]),
+        // need data from nested array
+      )
+      .then((fourth) => {
+        console.log('fourth then: ', fourth);
+        return fourth.map((array) => ({
+          product: array[0],
+          styles: array[1],
+        }));
+      })
+      .then((fifth) => {
+        console.log('fifth: ', fifth);
       })
 
     // have array of IDs
@@ -55,7 +62,7 @@ const Related = (props) => {
     // want array of item objects and style objects
 
       .catch((err) => {
-        console.log('error');
+        console.log('error getting related items: ', err);
       });
   };
 
