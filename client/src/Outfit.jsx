@@ -88,7 +88,6 @@ const Outfit = (props) => {
               {/* end of item info  */}
             </div>
           </div>
-          {/* You can alwas change the content of the button to other things */}
           {
                   (currentIndex < (length + 1 - show) && outfitItems.length > 0)
                   && (
