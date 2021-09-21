@@ -155,8 +155,8 @@ const Overview = () => {
               <h2>${currentStyle.original_price}</h2>}
           </div>
           <div>
-            <h3 className="bigText">
-              Choose your style:
+            <h3 className="bigText" style={{ fontWeight: "bold" }}>
+              Choose your style:&nbsp;
               {currentStyle.name}
             </h3>
             <S.Styles>
