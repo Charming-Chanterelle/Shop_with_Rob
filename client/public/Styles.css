@@ -1,10 +1,12 @@
 .carouselImage {
-  height: 100px;
-  width: 100px
+  height: 100%;
+  width: 150px;
+  border-radius: 5px
 }
 
 .carousel-container {
-  width: 100%;
+  padding-left: 200px;
+  padding-right: 200px;
   display: flex;
   flex-direction: column;
 }
@@ -124,7 +126,7 @@ button {
 }
 
 .bigText {
-  font-family: 'Major Mono Display', monospace;
+  font-family: 'Poppins', sans-serif;
 }
 
 .subText {
