@@ -109,7 +109,7 @@ const Related = (props) => {
               {/* start of item info */}
               {relatedItems.map((item) => (
                 <s.Card>
-                  <s.CardText>
+                  <div>
                     <div>
                       <s.RoundButton onClick={() => setShowModal(true)} type="button">
                         <FaRegStar />
@@ -120,24 +120,26 @@ const Related = (props) => {
                       />
                     </div>
                     <img src={item.styles[0].photos[0].thumbnail_url} className="carouselImage" alt="related-item" />
-                    <div className="bigText">
-                      <b>
-                        {item.product.name}
-                      </b>
-                    </div>
-                    <div className="bigText">
-                      Category:
-                      {` ${item.product.category}`}
-                    </div>
-                    <div className="bigText">
-                      Price:
-                      {` $${item.product.default_price}`}
-                    </div>
-                    <div className="bigText">
-                      Rating:
-                      {` ${item.product.rating}`}
-                    </div>
-                  </s.CardText>
+                    <s.CardText>
+                      <div className="bigText">
+                        <b>
+                          {item.product.name}
+                        </b>
+                      </div>
+                      <div className="bigText">
+                        Category:
+                        {` ${item.product.category}`}
+                      </div>
+                      <div className="bigText">
+                        Price:
+                        {` $${item.product.default_price}`}
+                      </div>
+                      <div className="bigText">
+                        Rating:
+                        {` ${item.product.rating}`}
+                      </div>
+                    </ s.CardText>
+                  </div>
                 </s.Card>
               ))}
 

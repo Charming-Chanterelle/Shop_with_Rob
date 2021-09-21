@@ -47,7 +47,7 @@ const Outfit = (props) => {
                   </s.RoundButton>
                   )
               }
-          <div
+          <s.CardWrapper
             className="carousel-content-wrapper"
           >
             <div
@@ -87,7 +87,7 @@ const Outfit = (props) => {
 
               {/* end of item info  */}
             </div>
-          </div>
+          </s.CardWrapper>
           {
                   (currentIndex < (length + 1 - show) && outfitItems.length > 0)
                   && (
