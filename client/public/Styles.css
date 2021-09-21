@@ -4,7 +4,8 @@
 }
 
 .carousel-container {
-  width: 100%;
+  padding-left: 200px;
+  padding-right: 200px;
   display: flex;
   flex-direction: column;
 }
@@ -44,7 +45,7 @@
 }
 
 .carousel-content.show-3 > * {
-  width: calc(100% / 3);
+  width: calc(80% / 3);
 }
 
 .carousel-content.show-4 > * {
@@ -124,7 +125,7 @@ button {
 }
 
 .bigText {
-  font-family: 'Major Mono Display', monospace;
+  font-family: 'Poppins', sans-serif;
 }
 
 .subText {

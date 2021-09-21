@@ -36,15 +36,15 @@ const Outfit = (props) => {
 
   return (
     <>
-      <h1 className="bigText">Your Outfit</h1>
       <div className="carousel-container">
+        <h1 className="bigText">Your Outfit</h1>
         <div className="carousel-wrapper">
           {
                   (currentIndex > 0 && outfitItems.length > 0)
                   && (
-                  <button type="button" onClick={prev} className="left-arrow">
+                  <s.RoundButton type="button" onClick={prev} className="left-arrow">
                     &lt;
-                  </button>
+                  </s.RoundButton>
                   )
               }
           <div
@@ -61,23 +61,23 @@ const Outfit = (props) => {
               {outfitItems.map((item) => (
                 <s.Card>
                   <div className={item.name}>
-                    <button onClick={() => clicked(item.name)}>
+                    <s.RoundButton onClick={() => clicked(item.name)}>
                       <FaTimes />
-                    </button>
+                    </s.RoundButton>
                     <img src={item.image} className="carouselImage" alt="related-item" />
-                    <div>
+                    <div className="bigText">
                       {/* Name: */}
                       {item.name}
                     </div>
-                    <div>
+                    <div className="bigText">
                       Category:
                       {item.category}
                     </div>
-                    <div>
+                    <div className="bigText">
                       Price:
                       {`$${item.price}`}
                     </div>
-                    <div>
+                    <div className="bigText">
                       Rating:
                       {item.rating}
                     </div>
@@ -92,9 +92,9 @@ const Outfit = (props) => {
           {
                   (currentIndex < (length + 1 - show) && outfitItems.length > 0)
                   && (
-                  <button type="button" onClick={next} className="right-arrow">
+                  <s.RoundButton type="button" onClick={next} className="right-arrow">
                     &gt;
-                  </button>
+                  </s.RoundButton>
                   )
               }
         </div>
