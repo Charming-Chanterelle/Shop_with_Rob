@@ -55,7 +55,6 @@ const ProductContextProvider = ({ children }) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    console.log(window.location);
     axios.get('/api/products/?count=10')
       .then((products) => {
         const currentProduct = products.data[randID];
@@ -71,6 +70,8 @@ const ProductContextProvider = ({ children }) => {
             setStyle(style.data.results);
             setMeta(metaReview.data);
             setRatingScore(getAverageRating(metaReview.data));
+            window.location.hash = '48445';
+            console.log(window.location);
           }))
           .then(() => {
             setLoaded(true);
