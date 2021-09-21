@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import OutfitItems from './RelatedComponents/Outfit';
+import * as s from './RelatedComponents/RelatedStyles.jsx';
 
 const Outfit = (props) => {
   const { items } = OutfitItems;
@@ -16,15 +17,8 @@ const Outfit = (props) => {
     setLength(items.length);
   }, [items]);
 
-  // useEffect(() => {
-  //   function clicked(event) {
-  //   const clickedItem = event.target.parentElement.parentElement.classList.value;
-  //   const newItems = outfitItems.filter((item) => item.name !== clickedItem);
-  //   setOutfitItems(newItems); [outfitItems]);
-  // };
-
   const next = () => {
-    if (currentIndex < (length - show)) {
+    if (currentIndex < (length + 1 - show)) {
       setCurrentIndex((prevState) => prevState + 1);
     }
   };
@@ -35,24 +29,22 @@ const Outfit = (props) => {
     }
   };
 
-  const clicked = (event) => {
-    console.log('clicked');
-    const clickedItem = event.target.parentElement.parentElement.classList.value;
+  const clicked = (clickedItem) => {
     const newItems = outfitItems.filter((item) => item.name !== clickedItem);
     setOutfitItems(newItems);
   };
 
   return (
     <>
-      <h1 className="bigText">Your Outfit</h1>
       <div className="carousel-container">
+        <h1 className="bigText">Your Outfit</h1>
         <div className="carousel-wrapper">
           {
                   (currentIndex > 0 && outfitItems.length > 0)
                   && (
-                  <button type="button" onClick={prev} className="left-arrow">
+                  <s.RoundButton type="button" onClick={prev} className="left-arrow">
                     &lt;
-                  </button>
+                  </s.RoundButton>
                   )
               }
           <div
@@ -63,46 +55,45 @@ const Outfit = (props) => {
               style={{ transform: `translateX(-${currentIndex * (100 / show)}%)` }}
             >
               {/* start of item info */}
-              <div>
+              <s.Card>
                 <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ252uOeq8QHRIxDH7GfJ6xNI8NBZhirx1mZA&usqp=CAU" className="carouselImage" alt="remove" /></div>
-              </div>
+              </s.Card>
               {outfitItems.map((item) => (
-                <>
+                <s.Card>
                   <div className={item.name}>
-                    <button onClick={clicked}>
+                    <s.RoundButton onClick={() => clicked(item.name)}>
                       <FaTimes />
-                    </button>
+                    </s.RoundButton>
                     <img src={item.image} className="carouselImage" alt="related-item" />
-                    <div>
+                    <div className="bigText">
                       {/* Name: */}
                       {item.name}
                     </div>
-                    <div>
+                    <div className="bigText">
                       Category:
                       {item.category}
                     </div>
-                    <div>
+                    <div className="bigText">
                       Price:
                       {`$${item.price}`}
                     </div>
-                    <div>
+                    <div className="bigText">
                       Rating:
                       {item.rating}
                     </div>
                   </div>
-                </>
+                </s.Card>
               ))}
 
               {/* end of item info  */}
             </div>
           </div>
-          {/* You can alwas change the content of the button to other things */}
           {
-                  (currentIndex < (length - show) && outfitItems.length > 0)
+                  (currentIndex < (length + 1 - show) && outfitItems.length > 0)
                   && (
-                  <button type="button" onClick={next} className="right-arrow">
+                  <s.RoundButton type="button" onClick={next} className="right-arrow">
                     &gt;
-                  </button>
+                  </s.RoundButton>
                   )
               }
         </div>

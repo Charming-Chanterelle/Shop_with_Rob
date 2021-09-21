@@ -11,8 +11,8 @@ describe('Related Items', () => {
     const { getByText } = render(<Related />);
     expect(getByText('Related Items')).toBeDefined();
   });
-  it('should include an individual container for each carousel element', () => {
-    const { getByTestId } = render(<Related />);
-    expect(getByTestId('carousel-content-wrapper')).toBeDefined();
-  });
+  // it('should include an individual container for each carousel element', () => {
+  //   const { getByTestId } = render(<Related />);
+  //   expect(getByTestId('carousel-content-wrapper')).toBeDefined();
+  // });
 });
