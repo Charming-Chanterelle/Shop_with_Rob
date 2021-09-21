@@ -35,6 +35,24 @@ module.exports = {
       id: 48438,
 
     },
+    {
+      image: 'https://images.unsplash.com/photo-1561861422-a549073e547a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80',
+      category: 'Dress Shoes',
+      name: 'Blues Suede Shoes',
+      price: '120.00',
+      rating: 4.5,
+      id: 48438,
+
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1561861422-a549073e547a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80',
+      category: 'Dress Shoes',
+      name: 'Blues Suede Shoes',
+      price: '120.00',
+      rating: 4.5,
+      id: 48438,
+
+    },
     // {
     //   image:
     //   category:
