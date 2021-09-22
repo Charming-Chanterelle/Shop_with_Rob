@@ -13,7 +13,7 @@ const AnswerList = ({ questionId }) => {
       },
     })
       .then((response) => {
-        setAnswers(response.data.data.results);
+        setAnswers(response.data.results);
       })
       .catch((error) => (
         error
