@@ -53,9 +53,8 @@ const ProductContextProvider = ({ children }) => {
   const [meta, setMeta] = useState({});
   const [ratingsScore, setRatingScore] = useState({});
   const [loaded, setLoaded] = useState(false);
-
   useEffect(() => {
-    console.log(window.location);
+    // console.log(window.location);
     axios.get('/api/products/?count=10')
       .then((products) => {
         const currentProduct = products.data[randID];
@@ -63,14 +62,15 @@ const ProductContextProvider = ({ children }) => {
       })
       .then(([currentProduct, ID]) => {
         axios.all([
-          axios.get(`/api/products/48445/style`),
-          axios.get(`/api/reviews/meta/?product_id=48445`),
+          axios.get(`/api/products/${ID}/style`),
+          axios.get(`/api/reviews/meta/?product_id=${ID}`),
         ])
           .then(axios.spread((style, metaReview) => {
             setProduct(currentProduct);
             setStyle(style.data.results);
             setMeta(metaReview.data);
             setRatingScore(getAverageRating(metaReview.data));
+            window.location.hash = '48445';
           }))
           .then(() => {
             setLoaded(true);

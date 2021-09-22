@@ -4,6 +4,7 @@ import styles from 'styled-components';
 export const Card = styles.div`
   width: calc(100% / 4);
   height: 100%
+  text-align: center;
   display: flex;
   transition: all 250ms linear;
   -ms-overflow-style: none;
@@ -17,11 +18,13 @@ export const Card = styles.div`
   border: 1px solid #d3d3d3;
   box-shadow: 2px 2px 2px 1px #d3d3d3;
   margin: 0px 2px;
+  text-align: center;
 
   `;
 
 export const RoundButton = styles.button`
   background-color:#FBD63F;
+  float: right;
   border: none;
   border-radius: 50%;
   color:#000000;
@@ -40,5 +43,6 @@ export const CardWrapper = styles.div`
   `;
 
 export const CardText = styles.div`
-  float: bottom;
+  position: relative;
+  bottom: 0;
   `;
