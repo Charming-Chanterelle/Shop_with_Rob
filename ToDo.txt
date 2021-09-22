@@ -1,6 +1,0 @@
-Tuesday - Work on the form submission.
-        - Be able to use the post request for submission.
-
-Wed - Fix the ratings tile to include all clickable features. Be able to click on the report text and handle that event.
-    - Handle the word cap for the text(include the see more options).
-    - Create a new box for the reponse. See mockup for examples. 
