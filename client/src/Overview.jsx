@@ -2,7 +2,7 @@
 /* eslint-disable react/button-has-type */
 import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
-import { ProductContext } from './contexts/ProductContext.jsx';
+// import { ProductContext } from './contexts/ProductContext.jsx';
 // icons
 import { FaStar, FaRegStar, FaChevronCircleRight, FaChevronCircleLeft, FaFacebookSquare, FaTwitterSquare, FaPinterestSquare, FaCheck, FaRegSmileBeam } from 'react-icons/fa';
 // styled comps
@@ -13,14 +13,13 @@ import StarDisplay from './StarDisplay.jsx';
 
 // params: product obj, all_styles arr, ratings arr
 const Overview = () => {
-  // const { product, styles, ratingsScore, loaded } = useContext(ProductContext);
+  // const //{ product, styles, ratingsScore, loaded } = useContext(ProductContext);
 
-  // useEffect(() => {
+  // useEffect//(() => {
   //   if (loaded) {
 
   //   }
   // }, [loaded]);
-
   const quantityMax = 15;
   // get new style by id
   const theStyle = (ID) => productStyle.results.filter((x) => x.style_id === ID)[0];
@@ -136,7 +135,7 @@ const Overview = () => {
   };
 
   return (
-    <>
+    <div>
       <S.Container>
         <S.Main>
           <S.LeftArrow onClick={prevSlide}><FaChevronCircleLeft /></S.LeftArrow>
@@ -156,7 +155,7 @@ const Overview = () => {
         </S.Content>
         <S.Side>
           <div>
-            <StarDisplay stars={{ width: '20', height: '20' }} style={{ float: 'right' }} />
+            {/* <StarDisplay stars={{ width: '20', height: '20' }} style={{ float: 'right' }} /> */}
             <span>Read all [#] reviews&nbsp;&nbsp;&nbsp;</span>
             <h4 className="subText"
               style={{ margin: 0, padding: 0, paddingTop: 10 }}>{product.category}</h4>
@@ -235,7 +234,7 @@ const Overview = () => {
           <FaPinterestSquare style={{ color: "#899499", height: 20, width: 20, boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
         </S.Features>
       </S.Container>
-    </>
+    </div>
   );
 };
 
