@@ -52,22 +52,25 @@ const RatingsCharacteristics = ({ getCharacteristic }) => {
       <>
         {characters.map((character) => (
           <>
-            <RAR.RatingsCharacteristicText
-              key={characterBank[character]}
-            >
-              {character}
-              :
-            </RAR.RatingsCharacteristicText>
             <RAR.RatingsCharacterContainer>
-              {characterBank[character].map((currentCharacter, index) => (
-                <CharacterDisplay
-                  key={character + currentCharacter}
-                  currentCount={index + 1}
-                  currentCharacter={character}
-                  currentCharacteristics={currentCharacter}
-                  onChangeCharacteristic={characterData}
-                />
-              ))}
+              <RAR.RatingsCharacteristicText
+                key={characterBank[character]}
+              >
+                {character}
+                <RAR.BodyRequired>*</RAR.BodyRequired>
+                :
+              </RAR.RatingsCharacteristicText>
+              <RAR.RatingsCharacterRadioContainer>
+                {characterBank[character].map((currentCharacter, index) => (
+                  <CharacterDisplay
+                    key={character + currentCharacter}
+                    currentCount={index + 1}
+                    currentCharacter={character}
+                    currentCharacteristics={currentCharacter}
+                    onChangeCharacteristic={characterData}
+                  />
+                ))}
+              </RAR.RatingsCharacterRadioContainer>
             </RAR.RatingsCharacterContainer>
           </>
         ))}

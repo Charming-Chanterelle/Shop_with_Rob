@@ -13,51 +13,76 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
   const [summary, setSumary] = useState('');
   const [body, setBody] = useState('');
   const [recommend, setRecommend] = useState(false);
+  const [isRecommendSelected, setIsRecommendSelected] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [onHoverStarRating, setHoverStarRating] = useState(0);
   const [rating, setStarRating] = useState(0);
   const [displayStarText, setDisplayText] = useState(false);
   const [characteristics, setCharacteristic] = useState({});
+  const [dataChecker, setDataChecker] = useState(true);
 
   // Figure a way to make this a ternary operation.
   const [thumbsUp, setThumbsUp] = useState('black');
   const [thumbsDown, setThumbsDown] = useState('black');
 
+  const canSubmitReview = () => {
+    // const dataChecker = [];
+    let isDataCorrect = true;
+    if (nickname.length === 0 || email.length === 0 || body.length < 50 || !isRecommendSelected || rating === 0) {
+      isDataCorrect = false;
+      return isDataCorrect;
+    }
+
+    return isDataCorrect;
+  };
+
+  const testFunction = (e) => {
+    console.log(e);
+  }
+
   const submitReview = (event) => {
     event.preventDefault();
-    const newReview = {
-      nickname,
-      email,
-      recommend,
-      rating,
-      summary,
-      body,
-      photos,
-      characteristics,
-    };
+    console.log('From the submit Review');
+    console.log(dataChecker);
+    if (canSubmitReview()) {
+      const newReview = {
+        nickname,
+        email,
+        recommend,
+        rating,
+        summary,
+        body,
+        photos,
+        characteristics,
+      };
 
-    onReviewSubmit(newReview);
-    setNickname('');
-    setEmail('');
-    setSumary('');
-    setBody('');
-    setRecommend(false);
-    setHoverStarRating(0);
-    setStarRating(0);
-    setDisplayText(false);
-    setThumbsUp('black');
-    setThumbsDown('black');
-    setPhotos([]);
+      onReviewSubmit(newReview);
+      setNickname('');
+      setEmail('');
+      setSumary('');
+      setBody('');
+      setRecommend(false);
+      setHoverStarRating(0);
+      setStarRating(0);
+      setDisplayText(false);
+      setThumbsUp('black');
+      setThumbsDown('black');
+      setPhotos([]);
+    } else {
+      alert('Error in submission, please check');
+    }
   };
 
   const onThumbsUp = () => {
     setRecommend(true);
+    setIsRecommendSelected(true);
     setThumbsUp('blue');
     setThumbsDown('black');
   };
 
   const onThumbsDown = () => {
     setRecommend(false);
+    setIsRecommendSelected(true);
     setThumbsUp('black');
     setThumbsDown('blue');
   };
@@ -93,25 +118,32 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
             </RAR.Subtitle>
           </RAR.Header>
           <RAR.Body>
-            <RAR.BodyTextInputContainer>
+            <RAR.BodyTextNickname>
               <RAR.Label
                 htmlFor={name}
               >
-                Nickname*
+                Nickname
+                <RAR.BodyRequired>*</RAR.BodyRequired>
               </RAR.Label>
               <RAR.BodyTextInput
-                type="text"
+                type="blank"
+                minLength="2"
                 maxLength="60"
                 value={nickname}
                 placeholder="Example: jackson11!"
-                onChange={(e) => setNickname(e.target.value)}
+                onChange={(e) => {
+                  // testFunction(e);
+                  setNickname(e.target.value);
+                }}
+                // onChange={(e) => setNickname(e.target.value)}
               />
-            </RAR.BodyTextInputContainer>
-            <RAR.BodyTextInputContainer>
+            </RAR.BodyTextNickname>
+            <RAR.BodyTextEmail>
               <RAR.Label
                 htmlFor={name}
               >
-                Email*
+                Email
+                <RAR.BodyRequired>*</RAR.BodyRequired>
               </RAR.Label>
               <RAR.BodyTextInput
                 type="text"
@@ -121,10 +153,11 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
                 placeholder="Example: jackson11@email.com"
                 onChange={(e) => setEmail(e.target.value)}
               />
-            </RAR.BodyTextInputContainer>
+            </RAR.BodyTextEmail>
             <RAR.BodyRecommend>
               <RAR.Label>
-                Would you recommend this product?*
+                Would you recommend this product?
+                <RAR.BodyRequired>*</RAR.BodyRequired>
               </RAR.Label>
               <RAR.BodyRecommendIcon>
                 <FaRegThumbsUp
@@ -139,7 +172,8 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
             </RAR.BodyRecommend>
             <RAR.BodyRating>
               <RAR.Label>
-                Overall rating*
+                Overall rating
+                <RAR.BodyRequired>*</RAR.BodyRequired>
               </RAR.Label>
               <RAR.BodyRatingIcon>
                 {stars.map((star) => (
@@ -163,7 +197,7 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
             <RatingsCharacteristics getCharacteristic={getCharacteristic} />
             <RAR.BodySummary>
               <RAR.Label htmlFor={name}>
-                Review Summary*
+                Review Summary
               </RAR.Label>
               <RAR.BodySummaryText
                 type="text"
@@ -178,7 +212,8 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
             </RAR.BodySummary>
             <RAR.BodyFullReview>
               <RAR.Label htmlFor={name}>
-                Review Body*
+                Review Body
+                <RAR.BodyRequired>*</RAR.BodyRequired>
               </RAR.Label>
               <RAR.BodyFullReviewText
                 type="text"
