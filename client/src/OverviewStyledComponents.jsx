@@ -64,10 +64,15 @@ export const RightArrow = styles.button`
   `;
 export const BigImg = styles.img`
   grid-area: main;
-  height: 100%;
+  position: absolute;
+  right: 0;
+  overflow-x: hidden;
   background-size: contain;
   background-position: center;
+  align-self: center;
   `;
+  //height: 100%;
+
 export const ImgCards = styles.div`
   grid-area: main;
   position: absolute;

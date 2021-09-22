@@ -140,7 +140,7 @@ const Overview = () => {
       <S.Container>
         <S.Main>
           <S.LeftArrow onClick={prevSlide}><FaChevronCircleLeft /></S.LeftArrow>
-          <S.BigImg className="imgFormat" src={mainImg} alt="pic" />
+          <S.BigImg className="imgFormat" src={mainImg} alt="pic" style={{ alignSelf: 'center' }} />
           <S.ImgCards>
             {currentStyle.photos.map((x, i) => {
               if (i === current) {
