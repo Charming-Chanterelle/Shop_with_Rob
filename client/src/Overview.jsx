@@ -143,8 +143,8 @@ const Overview = () => {
           <S.ImgCards>
             {currentStyle.photos.map((x, i) => {
               if (i === current) {
-                return <S.ImgSample onClick={imgOnClick} className="imgFormat" url={x.thumbnail_url} value={i} style={{ border: '3px solid #FBD63F' }} />;
-              } return <S.ImgSample onClick={imgOnClick} className="imgFormat" url={x.thumbnail_url} value={i} />;
+                return <S.ImgSample key={x.thumbnail_url} onClick={imgOnClick} className="imgFormat" url={x.thumbnail_url} value={i} style={{ border: '3px solid #FBD63F' }} />;
+              } return <S.ImgSample key={x.thumbnail_url} onClick={imgOnClick} className="imgFormat" url={x.thumbnail_url} value={i} />;
             })}
           </S.ImgCards>
           <S.RightArrow onClick={nextSlide}><FaChevronCircleRight /></S.RightArrow>
@@ -174,7 +174,7 @@ const Overview = () => {
             </h3>
             <S.Styles>
               {productStyle.results.map((x) =>
-                <S.StylesButton onClick={styleOnClick}
+                <S.StylesButton key={x.style_id} onClick={styleOnClick}
                   url={x.photos[0].thumbnail_url}
                   value={x.style_id}
                   onMouseEnter={toggleHovered}
@@ -186,16 +186,16 @@ const Overview = () => {
             </S.Styles>
             <S.Styles>
               <select onClick={getSizes} onChange={selectSize} className="imgFormat" name="size">
-                {sizes.map((x) => <option value={x}>{x}</option>)}
+                {sizes.map((x) => <option key={x} value={x}>{x}</option>)}
               </select>
               <select onClick={getQuantities} onChange={selectQuantity} className="imgFormat" name="quantity">
                 {quantities < 0 ? <option>-</option> :
                   quantities >= 15 ? [...Array(quantityMax),
                   ].map((undefined, i) => (
-                    <option value={i + 1}>{i + 1}</option>
+                    <option key={i} value={i + 1}>{i + 1}</option>
                   ))
                     : [...Array(quantities),].map((undefined, i) => (
-                      <option value={i + 1}>{i + 1}</option>
+                      <option key={i} value={i + 1}>{i + 1}</option>
                     ))}
               </select>
               <button onClick={favorite} style={{ padding: 10, borderRadius: '50%', boxShadow: "2px 2px 2px 1px #d3d3d3" }}>{isFavorited ?
@@ -226,7 +226,7 @@ const Overview = () => {
           <S.FeaturesList>
             <li className="bigText" style={{ listStyleType: 'none', marginBottom: 7, fontStyle: 'italic' }}><FaRegSmileBeam style={{ color: '#c48f35' }} />&nbsp;&nbsp;110% Satisfaction Guaranteed*</li>
             {product.features.map((x) => {
-              return <li className="bigText" style={{ listStyleType: 'none', marginBottom: 7, fontStyle: 'italic' }}><FaRegSmileBeam style={{ color: '#c48f35' }} />&nbsp;&nbsp;{x.feature}: {x.value}</li>;
+              return <li key={x.value} className="bigText" style={{ listStyleType: 'none', marginBottom: 7, fontStyle: 'italic' }}><FaRegSmileBeam style={{ color: '#c48f35' }} />&nbsp;&nbsp;{x.feature}: {x.value}</li>;
             })}
           </S.FeaturesList>
           <FaFacebookSquare style={{ color: "#899499", height: 20, width: 20, borderRadius: "5%", boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
