@@ -70,10 +70,11 @@ const ProductContextProvider = ({ children }) => {
             setStyle(style.data.results);
             setMeta(metaReview.data);
             setRatingScore(getAverageRating(metaReview.data));
-            window.location.hash = '48445';
+
           }))
           .then(() => {
             setLoaded(true);
+            // window.location.hash = '48434';
           })
           .catch((err) => {
             console.log('here is error', err);

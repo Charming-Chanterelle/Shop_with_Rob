@@ -102,5 +102,3 @@ describe('Overview <></>s', () => {
   });
   // thumbnail has highlight when === main img
 });
-
-//hi

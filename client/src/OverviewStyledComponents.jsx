@@ -65,11 +65,8 @@ export const RightArrow = styles.button`
 export const BigImg = styles.img`
   grid-area: main;
   position: absolute;
-  right: 0;
   overflow-x: hidden;
-  background-size: contain;
-  background-position: center;
-  align-self: center;
+  background-size: cover !important;
   `;
   //height: 100%;
 

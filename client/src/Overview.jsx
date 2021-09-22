@@ -139,7 +139,7 @@ const Overview = () => {
       <S.Container>
         <S.Main>
           <S.LeftArrow onClick={prevSlide}><FaChevronCircleLeft /></S.LeftArrow>
-          <S.BigImg className="imgFormat" src={mainImg} alt="pic" style={{ alignSelf: 'center' }} />
+          <S.BigImg className="imgFormat" src={mainImg} alt="pic" />
           <S.ImgCards>
             {currentStyle.photos.map((x, i) => {
               if (i === current) {
@@ -155,7 +155,7 @@ const Overview = () => {
         </S.Content>
         <S.Side>
           <div>
-            {/* <StarDisplay stars={{ width: '20', height: '20' }} style={{ float: 'right' }} /> */}
+            <StarDisplay stars={{ width: '20', height: '20' }} style={{ float: 'right' }} />
             <span>Read all [#] reviews&nbsp;&nbsp;&nbsp;</span>
             <h4 className="subText"
               style={{ margin: 0, padding: 0, paddingTop: 10 }}>{product.category}</h4>
