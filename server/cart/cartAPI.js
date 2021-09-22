@@ -24,7 +24,7 @@ module.exports = {
   addToCart: (data, callback) => {
     const options = {
       method: 'post',
-      url: `${url}`,
+      url: `${url}/`,
       headers: {
         Authorization: config.TOKEN,
       },

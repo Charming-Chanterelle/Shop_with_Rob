@@ -124,13 +124,15 @@ button {
 .imgFormat {
   border-radius: 5px;
 }
-
+/*
+need to change naming */
 .bigText {
   font-family: 'Poppins', sans-serif;
 }
 
 .subText {
   color:#899499;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Either 3 or 5 */
