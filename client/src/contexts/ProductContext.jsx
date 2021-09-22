@@ -53,7 +53,6 @@ const ProductContextProvider = ({ children }) => {
   const [meta, setMeta] = useState({});
   const [ratingsScore, setRatingScore] = useState({});
   const [loaded, setLoaded] = useState(false);
-  console.log('IN the Product');
   useEffect(() => {
     axios.get('/api/products/?count=10')
       .then((products) => {
@@ -71,7 +70,6 @@ const ProductContextProvider = ({ children }) => {
             setMeta(metaReview.data);
             setRatingScore(getAverageRating(metaReview.data));
             window.location.hash = '48445';
-            console.log(window.location);
           }))
           .then(() => {
             setLoaded(true);

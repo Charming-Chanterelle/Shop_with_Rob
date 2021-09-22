@@ -58,8 +58,8 @@ class Ratings extends Component {
   //
 
   onAddReview(obj) {
-    console.log('In the ratings component')
-    console.log(obj);
+    // console.log('In the ratings component')
+    // console.log(obj);
     // Create post request to send back data.
   }
 
@@ -129,7 +129,6 @@ class Ratings extends Component {
   }
 
   render() {
-    console.log('ratings');
     const { ratings, product_id, total_ratings_count, showMoreRatings } = this.state;
     return (
       <>

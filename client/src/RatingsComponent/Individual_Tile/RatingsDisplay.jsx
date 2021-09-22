@@ -88,7 +88,6 @@ const RatingsDisplay = ({ ratingList, onUpdateReview, starKey }) => {
   };
 
   if (loaded) {
-    console.log('Ratings Display');
     return (
       <>
         <RIT.IndividualTileContainer>
