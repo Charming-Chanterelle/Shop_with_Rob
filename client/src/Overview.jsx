@@ -120,7 +120,8 @@ const Overview = () => {
           alert("We're sorry. There's been an error. Please try refreshing the page or contacting our customer service.");
         });
     }
-    // trigger products update to remove sku quantity
+    setSizes(['Select Size']);
+    setQuantities(['-']);
   };
   const earlyCart = () => {
     // open the size dropdown, and a message should appear above the dropdown stating
