@@ -13,12 +13,12 @@ import Outfit from './Outfit.jsx';
 function App() {
   return (
     <ProductContextProvider>
-      {/* <NavBar />
+      <NavBar />
       <Overview />
       <Related show={4} />
-      <Outfit show={4} /> */}
+      <Outfit show={4} />
       <Questions />
-      {/* <Ratings /> */}
+      <Ratings />
     </ProductContextProvider>
   );
 }

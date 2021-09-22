@@ -53,7 +53,6 @@ const ProductContextProvider = ({ children }) => {
   const [meta, setMeta] = useState({});
   const [ratingsScore, setRatingScore] = useState({});
   const [loaded, setLoaded] = useState(false);
-
   useEffect(() => {
     // console.log(window.location);
     axios.get('/api/products/?count=10')
@@ -71,6 +70,7 @@ const ProductContextProvider = ({ children }) => {
             setStyle(style.data.results);
             setMeta(metaReview.data);
             setRatingScore(getAverageRating(metaReview.data));
+            window.location.hash = '48445';
           }))
           .then(() => {
             setLoaded(true);
