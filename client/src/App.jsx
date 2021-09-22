@@ -17,7 +17,7 @@ function App() {
       <Overview />
       <Related show={4} />
       <Outfit show={4} />
-      <Questions />
+      {/* <Questions /> */}
       <Ratings />
     </ProductContextProvider>
   );
