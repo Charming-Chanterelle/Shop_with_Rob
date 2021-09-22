@@ -44,7 +44,7 @@ const App = ({ productId = 48432 }) => {
       },
     })
       .then((response) => {
-        setQuestions(response.data.data.results);
+        setQuestions(response.data.results);
       })
       .catch((error) => (
         error
@@ -98,7 +98,7 @@ const App = ({ productId = 48432 }) => {
 
   return (
     <Container>
-      <h1>Questions and Answers</h1>
+      <h1>Questions and Answers.</h1>
       <Search searchTerm={handleSearchTerm} searchQuestions={searchQuestions} questions={questions} />
       <QandAContainer questions={searchResults.length ? searchResults : questions} productName={productName} counter={counter} />
       <Buttons>

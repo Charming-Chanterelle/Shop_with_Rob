@@ -9,8 +9,8 @@ const QandAContainer = ({ questions, productName, counter }) => {
 
   return (
     <div>
-      {limitQuestions.map((question) => (
-        <QandAItem questions={question} productName={productName} />
+      {limitQuestions.map((question, index) => (
+        <QandAItem key={index} questions={question} productName={productName} />
       ))}
     </div>
   );
