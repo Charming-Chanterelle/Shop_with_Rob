@@ -18,8 +18,9 @@ module.exports = {
   },
   handleGetAnswers: (req, res) => {
     const query = !req.query.count ? !req.query.page ? '' : req.query : req.query;
+    const { question_id } = req.params;
 
-    createQuesion(question_id, query, (err, results) => {
+    getAnswers(question_id, query, (err, results) => {
       if (err) {
         res.status(404).send(err);
       } else {
@@ -30,7 +31,7 @@ module.exports = {
   handleAskQuestion: (req, res) => {
     const { body } = req;
 
-    getAnswers(body, (err, results) => {
+    createQuesion(body, (err, results) => {
       if (err) {
         res.status(404).send(err);
       } else {

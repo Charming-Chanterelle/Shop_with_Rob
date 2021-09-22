@@ -63,6 +63,15 @@ const RatingsDisplay = ({ ratingList, onUpdateReview, starKey }) => {
       setFullBody(bodyText);
     }
   }, [loaded]);
+
+  // useEffect(() => {
+  //   if (loaded) {
+  //     const { isSeeMore, bodyText } = getBodyText(body);
+  //     setSeeMore(isSeeMore);
+  //     setFullBody(bodyText);
+  //   }
+  // }, [fullBody, seeMore]);
+
   const onUserUpdate = (action) => {
     onUpdateReview(review_id, action);
     if (action === 'helpful') {
@@ -79,6 +88,7 @@ const RatingsDisplay = ({ ratingList, onUpdateReview, starKey }) => {
   };
 
   if (loaded) {
+    console.log('Ratings Display');
     return (
       <>
         <RIT.IndividualTileContainer>
@@ -95,11 +105,11 @@ const RatingsDisplay = ({ ratingList, onUpdateReview, starKey }) => {
             {summary}
           </RIT.Summary>
           <RIT.Body>
-            {body}
+            {fullBody}
             {seeMore
               ? (
                 <RIT.SeeMoreBodyText
-                  onClick={onSeeMore}
+                  onClick={() => onSeeMore()}
                 >
                   ...Read More
                 </RIT.SeeMoreBodyText>

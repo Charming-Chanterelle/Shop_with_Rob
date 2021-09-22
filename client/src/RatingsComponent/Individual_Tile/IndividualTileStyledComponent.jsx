@@ -36,7 +36,7 @@ export const UsernameText = styles.span`
 
 export const Summary = styles.div`
   grid-area: summary;
-  font-weight: bold;
+  text-decoration: underline;
 `;
 
 export const Body = styles.div`
@@ -74,11 +74,11 @@ export const ImageContainer = styles.div`
 
 export const Image = styles.img`
   grid-area: display-image;
+  margin: 5px;
   height: 75px;
   width: 75px;
   border-radius: 40%;
   border: 1px solid #e6ba0a;
-  padding-right: 20px;
   cursor: pointer;
 `;
 
@@ -96,12 +96,13 @@ export const HelpfulTextAction = styles.span`
   text-decoration: underline;
 `;
 
-export const ImageModal = styles.div`
-  height: 350px;
-  width: 350px;
-`;
+// export const ImageModal = styles.div`
+//   height: 350px;
+//   width: 350px;
+// `;
 
 export const ImageModalContainer = styles.div`
+  overflow-y: auto;
   position: fixed;
   left: 0;
   top: 0;
@@ -127,14 +128,16 @@ ${({ show }) => show && css`
 `;
 
 export const ImageModalContent = styles.div`
-  width: 350px;
-  height: 400px;
+  height: auto;
+  width: auto;
   background-color: rgb(255, 255, 255);
   transform: translateY(-200px);
   transition: all 0.4s ease-in-out;
   border: 3px solid #FBD63F;
   overflow-y: auto;
   transform: translateY(0);
+  background-size: cover;
+  background-position: center;
 `;
 
 export const ImageModalBody = styles.div`
@@ -154,8 +157,10 @@ export const ImageModalFooter = styles.div`
 `;
 
 export const ModalImage = styles.img`
-  height: 350px;
-  width: 350px;
+  margin: auto;
+  display: block;
+  width: 95%;
+  max-width: 1000px;
 `;
 
 export const Button = styles.button`
@@ -170,4 +175,5 @@ export const Button = styles.button`
   cursor: pointer;
   padding: 15px 8px 15px;
   margin: 15px;
+  width: 200px
 `;

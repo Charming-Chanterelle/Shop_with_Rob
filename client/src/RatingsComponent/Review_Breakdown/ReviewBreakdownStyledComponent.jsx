@@ -42,7 +42,7 @@ export const TickContainer = styles.span`
   display: flex;
   justify-content: space-around;
   padding: 32px;
-  z-index: 1;
+  // z-index: 1;
 `;
 
 export const TickMark = styles.span`

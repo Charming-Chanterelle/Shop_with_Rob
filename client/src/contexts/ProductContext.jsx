@@ -53,7 +53,7 @@ const ProductContextProvider = ({ children }) => {
   const [meta, setMeta] = useState({});
   const [ratingsScore, setRatingScore] = useState({});
   const [loaded, setLoaded] = useState(false);
-
+  console.log('IN the Product');
   useEffect(() => {
     axios.get('/api/products/?count=10')
       .then((products) => {
