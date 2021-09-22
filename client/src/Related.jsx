@@ -124,11 +124,6 @@ const Related = (props) => {
     }
   };
 
-  // const clicked = () => {
-  //   console.log('clicked');
-  //   setShowModal(true);
-  // };
-
   return (
     <>
       {/* <h1 className="bigText">Related Items</h1> */}
@@ -153,7 +148,7 @@ const Related = (props) => {
             >
               {/* start of item info */}
               {relatedItems.map((item) => (
-                <s.Card>
+                <s.Card key={item.product.name}>
                   <div>
                     <div>
                       <s.RoundButton onClick={() => setShowModal(true)} type="button">

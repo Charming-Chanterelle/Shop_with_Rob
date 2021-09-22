@@ -59,7 +59,7 @@ const Outfit = (props) => {
                 <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ252uOeq8QHRIxDH7GfJ6xNI8NBZhirx1mZA&usqp=CAU" className="carouselImage" alt="remove" /></div>
               </s.Card>
               {outfitItems.map((item) => (
-                <s.Card>
+                <s.Card key={item.name}>
                   <div className={item.name}>
                     <s.RoundButton onClick={() => clicked(item.name)}>
                       <FaTimes />
