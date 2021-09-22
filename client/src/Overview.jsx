@@ -39,6 +39,7 @@ const Overview = () => {
   const [current, setCurrent] = useState(0);
   const [mainImg, setMainImg] = useState(currentStyle.photos[current].url);
   const { length } = currentStyle.photos;
+  const [hovered, setHovered] = useState(false);
 
   const setTheMain = () => {
     setMainImg(currentStyle.photos[current].url);
@@ -97,7 +98,6 @@ const Overview = () => {
   const selectQuantity = (event) => {
     setQuantity(event.target.value);
   };
-
   // useEffect(() => {
   //   getQuantities();
   // }, [size]);
@@ -113,10 +113,10 @@ const Overview = () => {
     };
     for (var i = 0; i < quantity; i++) {
       axios.post('/api/cart', { sku_id: id })
-        .then((x) => {
-          console.log(x);
+        .then((response) => {
+          console.log(response);
         })
-        .catch((x) => {
+        .catch((err) => {
           alert("We're sorry. There's been an error. Please try refreshing the page or contacting our customer service.");
         });
     }
@@ -129,6 +129,11 @@ const Overview = () => {
   // const makeBig = (e) => {
   //   e.currentTarget.style = { transform: 'scale(1.25)' };
   // };
+
+  const toggleHovered = () => {
+    setHovered(!hovered);
+  };
+
   return (
     <>
       <S.Container>
@@ -136,7 +141,6 @@ const Overview = () => {
           <S.LeftArrow onClick={prevSlide}><FaChevronCircleLeft /></S.LeftArrow>
           <S.BigImg className="imgFormat" src={mainImg} alt="pic" />
           <S.ImgCards>
-            {/* issue here for onClicks vv */}
             {currentStyle.photos.map((x, i) => {
               if (i === current) {
                 return <S.ImgSample onClick={imgOnClick} className="imgFormat" url={x.thumbnail_url} value={i} style={{ border: '3px solid #FBD63F' }} />;
@@ -156,7 +160,6 @@ const Overview = () => {
             <h4 className="subText"
               style={{ margin: 0, padding: 0, paddingTop: 10 }}>{product.category}</h4>
             <h1 className="bigText" style={{ margin: 0, padding: 0 }}>{product.name}</h1>
-
             {currentStyle.sale_price !== null ?
               <h2>
                 <strike style={{ color: 'red' }}>${currentStyle.original_price}</strike>
@@ -165,7 +168,7 @@ const Overview = () => {
               <h2>${currentStyle.original_price}</h2>}
           </div>
           <div>
-            <h3 className="bigText" style={{ fontWeight: 'bold' }}>
+            <h3 className="bigText" style={{ fontWeight: 600 }}>
               Choose your style:&nbsp;
               {currentStyle.name}
             </h3>
@@ -173,7 +176,10 @@ const Overview = () => {
               {productStyle.results.map((x) =>
                 <S.StylesButton onClick={styleOnClick}
                   url={x.photos[0].thumbnail_url}
-                  value={x.style_id}>
+                  value={x.style_id}
+                  onMouseEnter={toggleHovered}
+                  onMouseLeave={toggleHovered}
+                  style={{ transform: `${hovered ? "scale(1.15, 1.15)" : "scale(1, 1)"}` }}>
                   {x === currentStyle &&
                     <FaCheck style={{ color: 'yellow' }} />}
                 </S.StylesButton>)}
@@ -200,7 +206,11 @@ const Overview = () => {
             <div style={{ marginTop: 5 }}>
               {!sizes.includes('OUT OF STOCK')
                 && <button onClick={sizes === ['Select Size'] ? earlyCart : addToCart}
-                  className="bigText" style={{ boxShadow: "2px 2px 2px 1px #d3d3d3" }}><h3>ADD TO CART ++</h3></button>}
+                  onMouseEnter={toggleHovered}
+                  onMouseLeave={toggleHovered}
+                  style={{ boxShadow: "2px 2px 2px 1px #d3d3d3", marginLeft: 10, transform: `${hovered ? "scale(1.15, 1.15)" : "scale(1, 1)"}` }}
+                  className="bigText">
+                  <h3>ADD TO CART ++</h3></button>}
             </div>
             {/* ^^ If the default ‘Select Size’ is currently
             selected: Clicking this button should open
@@ -219,9 +229,9 @@ const Overview = () => {
               return <li className="bigText" style={{ listStyleType: 'none', marginBottom: 7, fontStyle: 'italic' }}><FaRegSmileBeam style={{ color: '#c48f35' }} />&nbsp;&nbsp;{x.feature}: {x.value}</li>;
             })}
           </S.FeaturesList>
-          <FaFacebookSquare style={{ color: "#899499", height: 20, width: 20, borderRadius: "5%", boxShadow: "2px 2px 2px 1px #d3d3d3" }}/>
-          <FaTwitterSquare style={{ color: "#899499", height: 20, width: 20, boxShadow: "2px 2px 2px 1px #d3d3d3" }}/>
-          <FaPinterestSquare style={{ color: "#899499", height: 20, width: 20, boxShadow: "2px 2px 2px 1px #d3d3d3" }}/>
+          <FaFacebookSquare style={{ color: "#899499", height: 20, width: 20, borderRadius: "5%", boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
+          <FaTwitterSquare style={{ color: "#899499", height: 20, width: 20, boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
+          <FaPinterestSquare style={{ color: "#899499", height: 20, width: 20, boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
         </S.Features>
       </S.Container>
     </>

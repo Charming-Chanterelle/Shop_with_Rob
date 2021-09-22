@@ -27,7 +27,7 @@ export const Main = styles.div`
   `;
 export const Side = styles.div`
   grid-area: side;
-  overflow: hidden;
+  overflow-y: scroll;
   border-radius: 5px;
   `;
 export const Content = styles.div`
