@@ -14,16 +14,20 @@ const Related = (props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(items.length);
   const [showModal, setShowModal] = useState(false);
-  // const [overviewID, setOverviewID] = useState('48434');
+  // const [overviewID, setOverviewID] = useState(productID);
   const [relatedItems, setRelatedItems] = useState([]);
 
-  useEffect(() => {
-    setLength(items.length);
-  }, [items]);
+  const { productID, changeHash, styles } = useContext(ProductContext);
 
-  const { productID, changeHash } = useContext(ProductContext);
+
+
+
+  // useEffect(() => {
+  //   setOverviewID(overviewID);
+  // }, [productID]);
 
   const getRelatedProducts = () => {
+    console.log('styles: ', styles);
     axios.get(`/api/products/${productID}/related`)
       .then((response) => {
         const productIDs = response.data;
@@ -35,20 +39,17 @@ const Related = (props) => {
       .then((second) =>
         // starting with an array of three nested arrays
         // end with a singular array
-        Promise.all(second.map((promises) =>
-          Promise.all(promises))))
+        Promise.all(second.map((promises) => Promise.all(promises))))
       .then((resolved) =>
         // have array of arrays
         // need data from nested array
         // eslint-disable-next-line implicit-arrow-linebreak
         resolved.map((array) => [array[0].data, array[1].data.results, array[2].data.ratings]))
-      .then((fourth) =>
-        fourth.map((array) =>
-          ({
-            product: array[0],
-            styles: array[1],
-            reviews: getAverageRating(array[2]).avgRating,
-          })))
+      .then((fourth) => fourth.map((array) => ({
+        product: array[0],
+        styles: array[1],
+        reviews: getAverageRating(array[2]).avgRating,
+      })))
       .then((fifth) => {
         // console.log(fifth);
         setRelatedItems(fifth);
@@ -65,7 +66,11 @@ const Related = (props) => {
       });
   };
 
-  useEffect(getRelatedProducts, []);
+  useEffect(() => {
+    getRelatedProducts();
+  }, [productID]);
+
+  // useEffect(getRelatedProducts, []);
   const next = () => {
     if (currentIndex < (length - show)) {
       setCurrentIndex((prevState) => prevState + 1);

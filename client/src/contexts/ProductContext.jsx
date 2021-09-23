@@ -60,7 +60,7 @@ const ProductContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    window.location.hash = productID;
+
     axios.get(`/api/products/${productID}`)
       .then((response) => {
         const currentProduct = response.data;
@@ -79,6 +79,7 @@ const ProductContextProvider = ({ children }) => {
           }))
           .then(() => {
             setLoaded(true);
+            window.location.hash = productID;
           })
           .catch((err) => {
             console.log('here is error', err);
