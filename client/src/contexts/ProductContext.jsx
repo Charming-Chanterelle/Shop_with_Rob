@@ -11,13 +11,14 @@ const getAverageRating = ({ ratings }) => {
     return {
       avgRating: 0,
       numberOfRatings: 0,
+      ratingsPercent: 0,
     };
   }
   const rating = Object.values(ratings);
 
   let numberOfRatings = 0;
   let avgRating = 0;
-  let ratingsPercent = {};
+  const ratingsPercent = {};
 
   for (let i = 0; i < weight.length; i++) {
     const currentRating = Number(rating[i]);
