@@ -66,9 +66,9 @@ export const BigImg = styles.img`
   grid-area: main;
   position: absolute;
   overflow-x: hidden;
-  background-size: cover !important;
+  height: 100%;
+  background-size: contain;
   `;
-  //height: 100%;
 
 export const ImgCards = styles.div`
   grid-area: main;

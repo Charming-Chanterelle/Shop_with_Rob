@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 export const ProductContext = createContext();
-const randID = Math.ceil(Math.random() * (9 - 0));
+const randID = 48434;
 
 const getAverageRating = ({ ratings }) => {
   // We want to get the total reviews and the average of the reviews.
@@ -55,10 +55,10 @@ const ProductContextProvider = ({ children }) => {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     // console.log(window.location);
-    axios.get('/api/products/?count=10')
+    axios.get(`/api/products/${randID}`)
       .then((products) => {
-        const currentProduct = products.data[randID];
-        return [currentProduct, currentProduct.id];
+        const currentProduct = products.data;
+        return [currentProduct, randID];
       })
       .then(([currentProduct, ID]) => {
         axios.all([
@@ -70,11 +70,11 @@ const ProductContextProvider = ({ children }) => {
             setStyle(style.data.results);
             setMeta(metaReview.data);
             setRatingScore(getAverageRating(metaReview.data));
-
+            //window.location.hash = '48434';
           }))
           .then(() => {
             setLoaded(true);
-            // window.location.hash = '48434';
+
           })
           .catch((err) => {
             console.log('here is error', err);
