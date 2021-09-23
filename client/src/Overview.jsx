@@ -11,6 +11,7 @@ import { ProductContext } from './contexts/ProductContext.jsx';
 import * as S from './OverviewStyledComponents.jsx';
 import StarDisplay from './StarDisplay.jsx';
 
+<<<<<<< HEAD
 // const test = (currentStyle) => {
 //   const testOne = styles.filter((x) => x['default?'] === true)[0];
 //   return testOne;
@@ -24,6 +25,14 @@ const Overview = () => {
   const [current, setCurrent] = useState(0);
   const [currentStyle, setCurrentStyle] = useState({});
   const [mainImg, setMainImg] = useState('');
+=======
+const Overview = () => {
+  const { product, styles, ratingsScore, loaded } = useContext(ProductContext);
+
+  const [current, setCurrent] = useState(0);
+  const [currentStyle, setCurrentStyle] = useState({});
+  const [mainImg, setMainImg] = useState(null);
+>>>>>>> d3cb22f19dfb74dd5d489cb4dfbabe88482ab988
   const [length, setLength] = useState(0);
   const quantityMax = 15;
 
