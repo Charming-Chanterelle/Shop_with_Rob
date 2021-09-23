@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaRegStar } from 'react-icons/fa';
 import axios from 'axios';
 import RelatedItems from './RelatedComponents/RelatedItems';
@@ -14,13 +14,16 @@ const Related = (props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(items.length);
   const [showModal, setShowModal] = useState(false);
-  const [overviewID, setOverviewID] = useState('48434');
+  // const [overviewID, setOverviewID] = useState('48434');
   // const [relatedIDs, setRelatedIDs] = useState([]);
   const [relatedItems, setRelatedItems] = useState([]);
 
   useEffect(() => {
     setLength(items.length);
   }, [items]);
+
+  const { productID } = useContext(ProductContext);
+  console.log('ID: ', productID);
 
   const getAverageRating = (ratings) => {
     // We want to get the total reviews and the average of the reviews.
@@ -66,7 +69,7 @@ const Related = (props) => {
   };
 
   const getRelatedProducts = () => {
-    axios.get(`/api/products/${overviewID}/related`)
+    axios.get(`/api/products/${productID}/related`)
       .then((response) => {
         const productIDs = response.data;
         return productIDs.map((id) => (
