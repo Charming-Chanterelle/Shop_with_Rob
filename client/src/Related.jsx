@@ -15,7 +15,6 @@ const Related = (props) => {
   const [length, setLength] = useState(items.length);
   const [showModal, setShowModal] = useState(false);
   // const [overviewID, setOverviewID] = useState('48434');
-  // const [relatedIDs, setRelatedIDs] = useState([]);
   const [relatedItems, setRelatedItems] = useState([]);
 
   useEffect(() => {
