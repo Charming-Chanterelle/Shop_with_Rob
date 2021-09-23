@@ -60,15 +60,11 @@ const ProductContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // console.log(window.location);
-    // console.log(productID);
     window.location.hash = productID;
     axios.get(`/api/products/${productID}`)
       .then((response) => {
         const currentProduct = response.data;
-        // console.log('current: ', response.data);
         setProduct(currentProduct);
-        // return [currentProduct, currentProduct.id];
         return currentProduct;
       })
       .then(() => {
@@ -77,12 +73,9 @@ const ProductContextProvider = ({ children }) => {
           axios.get(`/api/reviews/meta/?product_id=${productID}`),
         ])
           .then(axios.spread((style, metaReview) => {
-            // setProduct(currentProduct);
             setStyle(style.data.results);
             setMeta(metaReview.data);
             setRatingScore(getAverageRating(metaReview.data));
-            // console.log('hash: ', window.location.hash);
-            // window.location.hash = '48445';
           }))
           .then(() => {
             setLoaded(true);

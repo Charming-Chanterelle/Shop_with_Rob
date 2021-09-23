@@ -23,8 +23,6 @@ const Related = (props) => {
   }, [items]);
 
   const { productID, changeHash } = useContext(ProductContext);
-  // console.log('ID: ', productID);
-
 
   const getRelatedProducts = () => {
     axios.get(`/api/products/${productID}/related`)
@@ -39,7 +37,6 @@ const Related = (props) => {
         // starting with an array of three nested arrays
         // end with a singular array
         Promise.all(second.map((promises) =>
-          // console.log('promise data: ', Promise.all(promises));
           Promise.all(promises))))
       .then((resolved) =>
         // have array of arrays
@@ -47,7 +44,6 @@ const Related = (props) => {
         // eslint-disable-next-line implicit-arrow-linebreak
         resolved.map((array) => [array[0].data, array[1].data.results, array[2].data.ratings]))
       .then((fourth) =>
-        // console.log('fourth: ', fourth);
         fourth.map((array) =>
           ({
             product: array[0],
@@ -85,7 +81,6 @@ const Related = (props) => {
 
   return (
     <>
-      {/* <h1 className="bigText">Related Items</h1> */}
       <div className="carousel-container">
         <h1 className="bigText">Related Items</h1>
         <div className="carousel-wrapper">
@@ -146,7 +141,6 @@ const Related = (props) => {
             </div>
           </s.CardWrapper>
           {
-                  // currentIndex < (length - show)
                   (currentIndex < (length - show) && relatedItems.length >= show)
                   && (
                   <s.RoundButton type="button" onClick={next} className="right-arrow">
