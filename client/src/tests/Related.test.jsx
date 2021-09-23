@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* eslint-disable no-undef */
 import React from 'react';
 import { render, screen, cleanup } from '@testing-library/react';
@@ -6,13 +5,6 @@ import axios from 'axios';
 import Related, { getRelatedProducts } from "../Related.jsx"
 // import 'jest-dom/extend-expect';
 import 'regenerator-runtime/runtime';
-=======
-// import React from 'react';
-
-// import { render, screen, cleanup } from '@testing-library/react';
-// import 'jest-dom/extend-expect';
-// import Related from '../Related';
->>>>>>> e8a9447b4edc2ae996c16ed1ebe26d89deac9e19
 
 // afterEach(cleanup);
 

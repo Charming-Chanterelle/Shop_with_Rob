@@ -15,8 +15,8 @@ function App() {
     <ProductContextProvider>
       <NavBar />
       <Overview />
-      <Related show={4} />
-      <Outfit show={4} />
+      {/* <Related show={4} />
+      <Outfit show={4} /> */}
       {/* <Questions /> */}
       {/* <Ratings /> */}
     </ProductContextProvider>

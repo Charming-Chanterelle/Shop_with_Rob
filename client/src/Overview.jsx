@@ -63,11 +63,11 @@ const Overview = () => {
   //   setMainImg(currentStyle.photos[current].url);
   // };
   const prevSlide = () => {
-    console.log('pre previous: ', current)
+    //console.log('pre previous: ', current)
     setCurrent(current === 0 ? length - 1 : current - 1);
   };
   const nextSlide = () => {
-    console.log('pre next: ', current)
+    //console.log('pre next: ', current)
     setCurrent(current === length - 1 ? 0 : current + 1);
   };
   // click a style button
@@ -134,7 +134,7 @@ const Overview = () => {
     for (var i = 0; i < quantity; i++) {
       axios.post('/api/cart', { sku_id: id })
         .then((response) => {
-          console.log(response);
+          //console.log(response);
         })
         .catch((err) => {
           alert("We're sorry. There's been an error. Please try refreshing the page or contacting our customer service.");
