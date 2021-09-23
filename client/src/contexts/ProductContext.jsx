@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 export const ProductContext = createContext();
-const randID = Math.ceil(Math.random() * (9 - 0));
+const randID = 48584;
 
 const getAverageRating = ({ ratings }) => {
   // We want to get the total reviews and the average of the reviews.
