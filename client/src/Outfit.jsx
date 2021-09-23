@@ -47,7 +47,7 @@ const Outfit = (props) => {
                   </s.RoundButton>
                   )
               }
-          <div
+          <s.CardWrapper
             className="carousel-content-wrapper"
           >
             <div
@@ -59,7 +59,7 @@ const Outfit = (props) => {
                 <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ252uOeq8QHRIxDH7GfJ6xNI8NBZhirx1mZA&usqp=CAU" className="carouselImage" alt="remove" /></div>
               </s.Card>
               {outfitItems.map((item) => (
-                <s.Card>
+                <s.Card key={item.name}>
                   <div className={item.name}>
                     <s.RoundButton onClick={() => clicked(item.name)}>
                       <FaTimes />
@@ -87,9 +87,9 @@ const Outfit = (props) => {
 
               {/* end of item info  */}
             </div>
-          </div>
+          </s.CardWrapper>
           {
-                  (currentIndex < (length + 1 - show) && outfitItems.length > 0)
+                  (currentIndex < (length + 1 - show) && outfitItems.length + 1 >= show)
                   && (
                   <s.RoundButton type="button" onClick={next} className="right-arrow">
                     &gt;
