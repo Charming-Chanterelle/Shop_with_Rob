@@ -13,7 +13,7 @@ class Ratings extends Component {
   constructor() {
     super();
     this.state = {
-      product_id: 48445,
+      product_id: Number(window.location.hash.replace('#', '')),
       ratings: [],
       ratingsCopy: [],
       starFilter: [],
@@ -130,41 +130,44 @@ class Ratings extends Component {
 
   render() {
     const { ratings, product_id, total_ratings_count, showMoreRatings } = this.state;
-    return (
-      <>
-        <R.Container>
-          <R.Stars>
-            <RatingsStarHeader />
-          </R.Stars>
-          <R.Filter>
-            <RatingsFilter
-              totalRatings={total_ratings_count}
-              handleFilterData={this.handleFilterData}
-            />
-          </R.Filter>
-          <R.Reviews>
-            <RatingsProductBreakdown
-              onStarFilter={this.onStarFilter}
-              onStarUnfilter={this.onStarUnfilter}
-            />
-          </R.Reviews>
-          <R.Content>
-            <RatingsContent
-              ratingsList={ratings}
-              productID={product_id}
-              onUpdateReview={this.onUpdateReview}
-            />
-          </R.Content>
-          <R.ReviewAction>
-            <ReviewAction
-              moreRatings={showMoreRatings}
-              onAddReview={this.onAddReview}
-              onDisplayMoreReviews={this.onDisplayMoreReviews}
-            />
-          </R.ReviewAction>
-        </R.Container>
-      </>
-    );
+    if(ratings.length !== 0) {
+      return (
+        <>
+          <R.Container>
+            <R.Stars>
+              <RatingsStarHeader />
+            </R.Stars>
+            <R.Filter>
+              <RatingsFilter
+                totalRatings={total_ratings_count}
+                handleFilterData={this.handleFilterData}
+              />
+            </R.Filter>
+            <R.Reviews>
+              <RatingsProductBreakdown
+                onStarFilter={this.onStarFilter}
+                onStarUnfilter={this.onStarUnfilter}
+              />
+            </R.Reviews>
+            <R.Content>
+              <RatingsContent
+                ratingsList={ratings}
+                productID={product_id}
+                onUpdateReview={this.onUpdateReview}
+              />
+            </R.Content>
+            <R.ReviewAction>
+              <ReviewAction
+                moreRatings={showMoreRatings}
+                onAddReview={this.onAddReview}
+                onDisplayMoreReviews={this.onDisplayMoreReviews}
+              />
+            </R.ReviewAction>
+          </R.Container>
+        </>
+      );
+    }
+    return <div>No Reviews yet</div>;
   }
 }
 

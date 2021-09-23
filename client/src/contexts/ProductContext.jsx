@@ -11,13 +11,14 @@ const getAverageRating = ({ ratings }) => {
     return {
       avgRating: 0,
       numberOfRatings: 0,
+      ratingsPercent: 0,
     };
   }
   const rating = Object.values(ratings);
 
   let numberOfRatings = 0;
   let avgRating = 0;
-  let ratingsPercent = {};
+  const ratingsPercent = {};
 
   for (let i = 0; i < weight.length; i++) {
     const currentRating = Number(rating[i]);
@@ -53,23 +54,38 @@ const ProductContextProvider = ({ children }) => {
   const [meta, setMeta] = useState({});
   const [ratingsScore, setRatingScore] = useState({});
   const [loaded, setLoaded] = useState(false);
+  const [productID, setproductID] = useState(48445);
+  // 48434
+  const testID = (test) => {
+    setproductID(test);
+  };
+
   useEffect(() => {
-    axios.get('/api/products/?count=10')
-      .then((products) => {
-        const currentProduct = products.data[randID];
-        return [currentProduct, currentProduct.id];
+    // console.log(window.location);
+    // console.log(productID);
+    window.location.hash = productID;
+    console.log('This is the product ID', productID)
+    axios.get(`/api/products/${productID}`)
+      .then((response) => {
+        const currentProduct = response.data;
+        console.log('current: ', currentProduct);
+        setProduct(currentProduct);
+        // return [currentProduct, currentProduct.id];
+        return currentProduct;
       })
-      .then(([currentProduct, ID]) => {
+      .then(() => {
         axios.all([
-          axios.get(`/api/products/48445/style`),
-          axios.get(`/api/reviews/meta/?product_id=48445`),
+          axios.get(`/api/products/${productID}/style`),
+          axios.get(`/api/reviews/meta/?product_id=${productID}`),
         ])
           .then(axios.spread((style, metaReview) => {
-            setProduct(currentProduct);
+            console.log('im meta', metaReview.data);
+            // setProduct(currentProduct);
             setStyle(style.data.results);
             setMeta(metaReview.data);
             setRatingScore(getAverageRating(metaReview.data));
-            window.location.hash = '48445';
+            // console.log('hash: ', window.location.hash);
+            // window.location.hash = '48445';
           }))
           .then(() => {
             setLoaded(true);
@@ -81,11 +97,11 @@ const ProductContextProvider = ({ children }) => {
       .catch((err) => {
         console.log('error in client styles/ratings GET', err);
       });
-  }, []);
+  }, [productID]);
 
   return (
     <ProductContext.Provider value={{
-      product, styles, meta, ratingsScore, loaded,
+      product, styles, meta, ratingsScore, loaded, productID, testID,
     }}
     >
       { children }
