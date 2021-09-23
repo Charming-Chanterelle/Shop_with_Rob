@@ -25,48 +25,6 @@ const Related = (props) => {
   const { productID, changeHash } = useContext(ProductContext);
   // console.log('ID: ', productID);
 
-  const getAverageRating = (ratings) => {
-    // We want to get the total reviews and the average of the reviews.
-    const weight = Object.keys(ratings);
-    if (weight.length === 0) {
-      return {
-        avgRating: 0,
-        numberOfRatings: 0,
-      };
-    }
-    const rating = Object.values(ratings);
-
-    let numberOfRatings = 0;
-    let avgRating = 0;
-    const ratingsPercent = {};
-
-    for (let i = 0; i < weight.length; i++) {
-      const currentRating = Number(rating[i]);
-      const currentWeight = Number(weight[i]);
-
-      if (currentRating !== 0) {
-        numberOfRatings += currentRating;
-        avgRating += (currentRating * currentWeight);
-      }
-    }
-
-    for (let j = 0; j < weight.length; j++) {
-      const ratingPercent = Number(rating[j]);
-      const weightPercent = weight[j];
-      if (ratingPercent !== 0) {
-        ratingsPercent[weightPercent] = parseFloat(ratingPercent / numberOfRatings).toFixed(2);
-      }
-    }
-    avgRating /= numberOfRatings;
-
-    const ratingsObj = {
-      avgRating,
-      numberOfRatings,
-      ratingsPercent,
-    };
-
-    return ratingsObj;
-  };
 
   const getRelatedProducts = () => {
     axios.get(`/api/products/${productID}/related`)
@@ -200,6 +158,49 @@ const Related = (props) => {
       </div>
     </>
   );
+};
+
+const getAverageRating = (ratings) => {
+  // We want to get the total reviews and the average of the reviews.
+  const weight = Object.keys(ratings);
+  if (weight.length === 0) {
+    return {
+      avgRating: 0,
+      numberOfRatings: 0,
+    };
+  }
+  const rating = Object.values(ratings);
+
+  let numberOfRatings = 0;
+  let avgRating = 0;
+  const ratingsPercent = {};
+
+  for (let i = 0; i < weight.length; i++) {
+    const currentRating = Number(rating[i]);
+    const currentWeight = Number(weight[i]);
+
+    if (currentRating !== 0) {
+      numberOfRatings += currentRating;
+      avgRating += (currentRating * currentWeight);
+    }
+  }
+
+  for (let j = 0; j < weight.length; j++) {
+    const ratingPercent = Number(rating[j]);
+    const weightPercent = weight[j];
+    if (ratingPercent !== 0) {
+      ratingsPercent[weightPercent] = parseFloat(ratingPercent / numberOfRatings).toFixed(2);
+    }
+  }
+  avgRating /= numberOfRatings;
+
+  const ratingsObj = {
+    avgRating,
+    numberOfRatings,
+    ratingsPercent,
+  };
+
+  return ratingsObj;
 };
 
 export default Related;
