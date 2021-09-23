@@ -17,7 +17,7 @@ const Related = (props) => {
   // const [overviewID, setOverviewID] = useState(productID);
   const [relatedItems, setRelatedItems] = useState([]);
 
-  const { productID, changeHash, styles } = useContext(ProductContext);
+  const { productID, changeHash } = useContext(ProductContext);
 
 
 
@@ -27,7 +27,7 @@ const Related = (props) => {
   // }, [productID]);
 
   const getRelatedProducts = () => {
-    console.log('styles: ', styles);
+    // axios.get(`/api/products/${productID}/related`)
     axios.get(`/api/products/${productID}/related`)
       .then((response) => {
         const productIDs = response.data;

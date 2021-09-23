@@ -53,7 +53,7 @@ const ProductContextProvider = ({ children }) => {
   const [meta, setMeta] = useState({});
   const [ratingsScore, setRatingScore] = useState({});
   const [loaded, setLoaded] = useState(false);
-  const [productID, setproductID] = useState(48434);
+  const [productID, setproductID] = useState(48432);
 
   const changeHash = (hash) => {
     setproductID(hash);
