@@ -103,6 +103,11 @@ export const BodyTextNickname = style.div`
   flex-direction: column;
 `;
 
+export const BodyTextWarning = style.span`
+  font-size: 11px;
+  color: red;
+`;
+
 export const BodyTextEmail = style.div`
   grid-area: email;
   // grid-area: nickname;

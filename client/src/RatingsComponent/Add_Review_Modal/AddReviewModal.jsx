@@ -137,6 +137,9 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
                 }}
                 // onChange={(e) => setNickname(e.target.value)}
               />
+              <RAR.BodyTextWarning>
+                For privacy reasons, do not use your full name or email address
+              </RAR.BodyTextWarning>
             </RAR.BodyTextNickname>
             <RAR.BodyTextEmail>
               <RAR.Label
@@ -153,6 +156,9 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
                 placeholder="Example: jackson11@email.com"
                 onChange={(e) => setEmail(e.target.value)}
               />
+              <RAR.BodyTextWarning>
+                For authentication reasons, you will not be emailed
+              </RAR.BodyTextWarning>
             </RAR.BodyTextEmail>
             <RAR.BodyRecommend>
               <RAR.Label>
