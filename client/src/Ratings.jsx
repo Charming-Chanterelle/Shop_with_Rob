@@ -8,7 +8,7 @@ import RatingsFilter from './RatingsComponent/RatingsFilter.jsx';
 import RatingsContent from './RatingsComponent/RatingsContent.jsx';
 import RatingsStarHeader from './RatingsComponent/RatingsStarHeader.jsx';
 import RatingsProductBreakdown from './RatingsComponent/RatingsProductBreakdown.jsx';
-
+// Number(window.location.hash.replace('#', ''))
 class Ratings extends Component {
   constructor() {
     super();
@@ -103,6 +103,13 @@ class Ratings extends Component {
       starFilter: [],
     });
   }
+  // 48442
+  // 48443
+  // 48444
+  // 48445
+  // 48446
+  // 48447
+  // 48450
 
   getProductRatings(count = 2, sort = 'relevant') {
     const { product_id } = this.state;

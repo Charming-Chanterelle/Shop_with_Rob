@@ -76,10 +76,13 @@ export const Image = styles.img`
   grid-area: display-image;
   margin: 5px;
   height: 75px;
-  width: 75px;
-  border-radius: 40%;
+  width: 90px;
+  // border-radius: 40%;
   border: 1px solid #e6ba0a;
   cursor: pointer;
+  flex-basis: 20%;
+  border-radius: 50%;
+  box-shadow: 2px 2px 2px 1px #d3d3d3;
 `;
 
 export const Helpful = styles.div`

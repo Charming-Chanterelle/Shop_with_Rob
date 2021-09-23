@@ -54,21 +54,18 @@ const ProductContextProvider = ({ children }) => {
   const [meta, setMeta] = useState({});
   const [ratingsScore, setRatingScore] = useState({});
   const [loaded, setLoaded] = useState(false);
-  const [productID, setproductID] = useState(48445);
-  // 48434
+  const [productID, setproductID] = useState(48432);
+  // 48432
+  // 48446
   const testID = (test) => {
     setproductID(test);
   };
 
   useEffect(() => {
-    // console.log(window.location);
-    // console.log(productID);
     window.location.hash = productID;
-    console.log('This is the product ID', productID)
     axios.get(`/api/products/${productID}`)
       .then((response) => {
         const currentProduct = response.data;
-        console.log('current: ', currentProduct);
         setProduct(currentProduct);
         // return [currentProduct, currentProduct.id];
         return currentProduct;
