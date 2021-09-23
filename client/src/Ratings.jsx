@@ -13,7 +13,7 @@ class Ratings extends Component {
   constructor() {
     super();
     this.state = {
-      product_id: 48445,
+      product_id: Number(window.location.hash.replace('#', '')),
       ratings: [],
       ratingsCopy: [],
       starFilter: [],

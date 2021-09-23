@@ -22,7 +22,7 @@ const Related = (props) => {
     setLength(items.length);
   }, [items]);
 
-  const { productID } = useContext(ProductContext);
+  const { productID, testID } = useContext(ProductContext);
   console.log('ID: ', productID);
 
   const getAverageRating = (ratings) => {
@@ -91,8 +91,6 @@ const Related = (props) => {
       .then((fourth) =>
         // console.log('fourth: ', fourth);
         fourth.map((array) =>
-          // let rating = array[2];
-          // const avg = ((1*))
           ({
             product: array[0],
             styles: array[1],
@@ -130,6 +128,9 @@ const Related = (props) => {
   return (
     <>
       {/* <h1 className="bigText">Related Items</h1> */}
+      <div onClick={()=>testID(48433)}>
+        Test
+      </div>
       <div className="carousel-container">
         <h1 className="bigText">Related Items</h1>
         <div className="carousel-wrapper">

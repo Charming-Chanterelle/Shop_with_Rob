@@ -53,12 +53,17 @@ const ProductContextProvider = ({ children }) => {
   const [meta, setMeta] = useState({});
   const [ratingsScore, setRatingScore] = useState({});
   const [loaded, setLoaded] = useState(false);
-  const [productID, setproductID] = useState('48434');
+  const [productID, setproductID] = useState(48434);
+
+  const testID = (test) => {
+    setproductID(test);
+  };
+
   useEffect(() => {
     // console.log(window.location);
     // console.log(productID);
     window.location.hash = productID;
-    axios.get('/api/products/48434')
+    axios.get(`/api/products/${productID}`)
       .then((response) => {
         const currentProduct = response.data;
         // console.log('current: ', response.data);
@@ -89,11 +94,11 @@ const ProductContextProvider = ({ children }) => {
       .catch((err) => {
         console.log('error in client styles/ratings GET', err);
       });
-  }, []);
+  }, [productID]);
 
   return (
     <ProductContext.Provider value={{
-      product, styles, meta, ratingsScore, loaded, productID,
+      product, styles, meta, ratingsScore, loaded, productID, testID,
     }}
     >
       { children }
