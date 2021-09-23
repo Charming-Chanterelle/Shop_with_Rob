@@ -22,8 +22,8 @@ const Related = (props) => {
     setLength(items.length);
   }, [items]);
 
-  const { productID, testID } = useContext(ProductContext);
-  console.log('ID: ', productID);
+  const { productID, changeHash } = useContext(ProductContext);
+  // console.log('ID: ', productID);
 
   const getAverageRating = (ratings) => {
     // We want to get the total reviews and the average of the reviews.
@@ -128,9 +128,6 @@ const Related = (props) => {
   return (
     <>
       {/* <h1 className="bigText">Related Items</h1> */}
-      <div onClick={()=>testID(48433)}>
-        Test
-      </div>
       <div className="carousel-container">
         <h1 className="bigText">Related Items</h1>
         <div className="carousel-wrapper">
@@ -152,7 +149,7 @@ const Related = (props) => {
             >
               {/* start of item info */}
               {relatedItems.map((item) => (
-                <s.Card key={item.product.name}>
+                <s.Card key={item.product.name} onClick={() => changeHash(item.product.id)}>
                   <div>
                     <div>
                       <s.RoundButton onClick={() => setShowModal(true)} type="button">

@@ -55,8 +55,8 @@ const ProductContextProvider = ({ children }) => {
   const [loaded, setLoaded] = useState(false);
   const [productID, setproductID] = useState(48434);
 
-  const testID = (test) => {
-    setproductID(test);
+  const changeHash = (hash) => {
+    setproductID(hash);
   };
 
   useEffect(() => {
@@ -98,7 +98,7 @@ const ProductContextProvider = ({ children }) => {
 
   return (
     <ProductContext.Provider value={{
-      product, styles, meta, ratingsScore, loaded, productID, testID,
+      product, styles, meta, ratingsScore, loaded, productID, changeHash,
     }}
     >
       { children }
