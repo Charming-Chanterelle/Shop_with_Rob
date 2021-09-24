@@ -6,6 +6,7 @@ module.exports = {
 
     if (query === '') {
       res.status(406).send('Needs a valid product id');
+      return;
     }
 
     getQuestions(query, (err, results) => {
