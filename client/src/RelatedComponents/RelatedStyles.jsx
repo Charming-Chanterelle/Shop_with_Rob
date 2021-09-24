@@ -2,7 +2,8 @@
 import styles from 'styled-components';
 
 export const Card = styles.div`
-  width: calc(100% / 4);
+  width: 20%
+  // width: calc((100% - (300px)) / 4);
   height: 100%
   text-align: center;
   display: flex;

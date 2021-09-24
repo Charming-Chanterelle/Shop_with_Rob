@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React, { useContext, useEffect, useState } from 'react';
-import { FaRegStar } from 'react-icons/fa';
+import { FaRegStar, FaChevronCircleRight, FaChevronCircleLeft } from 'react-icons/fa';
 import axios from 'axios';
 import RelatedItems from './RelatedComponents/RelatedItems';
 import ComparisonModal from './RelatedComponents/ComparisonModal.jsx';
@@ -8,23 +8,22 @@ import * as s from './RelatedComponents/RelatedStyles.jsx';
 import { ProductContext } from './contexts/ProductContext.jsx';
 
 const Related = (props) => {
-  const { items } = RelatedItems;
+  // const { items } = RelatedItems;
   const { show } = props;
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [length, setLength] = useState(items.length);
   const [showModal, setShowModal] = useState(false);
   // const [overviewID, setOverviewID] = useState(productID);
   const [relatedItems, setRelatedItems] = useState([]);
 
   const { productID, changeHash } = useContext(ProductContext);
 
+  useEffect(() => {
+    setLength(relatedItems.length);
+  }, [relatedItems]);
 
 
 
-  // useEffect(() => {
-  //   setOverviewID(overviewID);
-  // }, [productID]);
 
   const getRelatedProducts = () => {
     // axios.get(`/api/products/${productID}/related`)
@@ -51,7 +50,7 @@ const Related = (props) => {
         reviews: getAverageRating(array[2]).avgRating,
       })))
       .then((fifth) => {
-        // console.log(fifth);
+        console.log(fifth.length);
         setRelatedItems(fifth);
       })
 
@@ -66,9 +65,14 @@ const Related = (props) => {
       });
   };
 
+  const [length, setLength] = useState(relatedItems.length);
+
+
   useEffect(() => {
     getRelatedProducts();
   }, [productID]);
+
+
 
   // useEffect(getRelatedProducts, []);
   const next = () => {
@@ -92,7 +96,7 @@ const Related = (props) => {
                   currentIndex > 0
                   && (
                   <s.RoundButton type="button" onClick={prev} className="left-arrow">
-                    &lt;
+                  <FaChevronCircleLeft></FaChevronCircleLeft>
                   </s.RoundButton>
                   )
               }
@@ -148,7 +152,7 @@ const Related = (props) => {
                   (currentIndex < (length - show) && relatedItems.length >= show)
                   && (
                   <s.RoundButton type="button" onClick={next} className="right-arrow">
-                    &gt;
+                    <FaChevronCircleRight></FaChevronCircleRight>
                   </s.RoundButton>
                   )
               }
