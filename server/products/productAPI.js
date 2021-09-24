@@ -6,6 +6,7 @@ const config = require('../../config.js');
 const client = Redis.createClient();
 
 const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-sfo/products';
+const TTL = 3600;
 
 module.exports = {
   getProducts: (query, callback) => {
@@ -26,7 +27,7 @@ module.exports = {
       });
   },
   getProductByID: (id, callback) => {
-    client.get(`product_id-${id}`, (error, product) => {
+    client.get(`productID_${id}`, (error, product) => {
       if (error) {
         callback(error);
       } else if (product !== null) {
@@ -40,11 +41,7 @@ module.exports = {
         };
         axios(options)
           .then((results) => {
-            // 48432
-            // 48433
-            // 48434
-            // 48435
-            client.setex(`product_id-${id}`, 3600, JSON.stringify(results.data));
+            client.setex(`productID_${id}`, TTL, JSON.stringify(results.data));
             callback(null, results.data);
           })
           .catch((err) => {
@@ -54,35 +51,51 @@ module.exports = {
     });
   },
   getProductStyle: (id, callback) => {
-    const options = {
-      url: `${url}/${id}/styles`,
-      headers: {
-        Authorization: config.TOKEN,
-      },
-    };
-
-    axios(options)
-      .then((results) => {
-        callback(null, results.data);
-      })
-      .catch((err) => {
-        callback(err);
-      });
+    client.get(`product_style_${id}`, (error, style) => {
+      if (error) {
+        callback(error);
+      } else if (style !== null) {
+        callback(null, JSON.parse(style));
+      } else {
+        const options = {
+          url: `${url}/${id}/styles`,
+          headers: {
+            Authorization: config.TOKEN,
+          },
+        };
+        axios(options)
+          .then((results) => {
+            client.setex(`product_style_${id}`, TTL, JSON.stringify(results.data));
+            callback(null, results.data);
+          })
+          .catch((err) => {
+            callback(err);
+          });
+      }
+    });
   },
   getRelatedProducts: (id, callback) => {
-    const options = {
-      url: `${url}/${id}/related`,
-      headers: {
-        Authorization: config.TOKEN,
-      },
-    };
-
-    axios(options)
-      .then((results) => {
-        callback(null, results.data);
-      })
-      .catch((err) => {
-        callback(err);
-      });
+    client.get(`related_product_${id}`, (error, related) => {
+      if (error) {
+        callback(error);
+      } else if (related !== null) {
+        callback(null, JSON.parse(related));
+      } else {
+        const options = {
+          url: `${url}/${id}/related`,
+          headers: {
+            Authorization: config.TOKEN,
+          },
+        };
+        axios(options)
+          .then((results) => {
+            client.setex(`related_product_${id}`, TTL, JSON.stringify(results.data));
+            callback(null, results.data);
+          })
+          .catch((err) => {
+            callback(err);
+          });
+      }
+    });
   },
 };
