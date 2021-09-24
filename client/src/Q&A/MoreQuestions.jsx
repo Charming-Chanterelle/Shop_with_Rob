@@ -6,8 +6,6 @@ const Button = styled.button`
   padding: 1em;
   width: 200px;
   cursor: pointer;
-  background-color: #C7CFB7;
-  color: #525252;
 `;
 
 const MoreQuestions = ({ noQuestions, incrementQuestionCount }) => (

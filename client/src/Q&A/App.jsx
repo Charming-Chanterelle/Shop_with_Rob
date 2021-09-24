@@ -18,8 +18,7 @@ const Button = styled.button`
   width: 200px;
   margin: 0px 10px;
   cursor: pointer;
-  background-color: #C7CFB7;
-  color: #525252;
+
 `;
 
 const Buttons = styled.div`
@@ -28,7 +27,8 @@ const Buttons = styled.div`
   margin: 10px;
 `;
 
-const App = ({ productId = 48432 }) => {
+const App = () => {
+  const productId = Number(window.location.hash.replace('#', ''));
   const [questions, setQuestions] = useState([]);
   const [questionShow, setQuestionShow] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -58,7 +58,7 @@ const App = ({ productId = 48432 }) => {
       },
     })
       .then((response) => {
-        setProductName(response.data.data.name);
+        setProductName(response.data.name);
       });
   };
 
