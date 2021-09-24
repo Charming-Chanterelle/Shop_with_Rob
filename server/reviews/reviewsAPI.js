@@ -10,56 +10,38 @@ const TTL = 3600;
 module.exports = {
   getReviews: (query, callback) => {
     const { product_id } = query;
-
-    client.get(`reviews_productID_${product_id}`, (error, reviews) => {
-      if (error) {
-        callback(error);
-      } else if (reviews !== null) {
-        callback(null, JSON.parse(reviews));
-      } else {
-        const options = {
-          url: `${url}/`,
-          headers: {
-            Authorization: config.TOKEN,
-          },
-          params: query,
-        };
-        axios(options)
-          .then((results) => {
-            client.setex(`reviews_productID_${product_id}`, TTL, JSON.stringify(results.data));
-            callback(null, results.data);
-          })
-          .catch((err) => {
-            callback(err);
-          });
-      }
-    });
+    const count = !query.count ? 0 : query.count;
+    const options = {
+      url: `${url}/`,
+      headers: {
+        Authorization: config.TOKEN,
+      },
+      params: query,
+    };
+    axios(options)
+      .then((results) => {
+        callback(null, results.data);
+      })
+      .catch((err) => {
+        callback(err);
+      });
   },
   getMeta: (query, callback) => {
-    const { product_id } = query;
-    client.get(`meta_productID_${product_id}`, (error, meta) => {
-      if (error) {
-        callback(error);
-      } else if (meta !== null) {
-        callback(null, JSON.parse(meta));
-      } else {
-        const options = {
-          url: `${url}/meta/`,
-          headers: {
-            Authorization: config.TOKEN,
-          },
-          params: query,
-        };
-        axios(options)
-          .then((results) => {
-            client.setex(`meta_productID_${product_id}`, TTL, JSON.stringify(results.data));
-            callback(null, results.data);
-          })
-          .catch((err) => {
-            callback(err);
-          });
-      }
-    });
+    const options = {
+      url: `${url}/meta/`,
+      headers: {
+        Authorization: config.TOKEN,
+      },
+      params: query,
+    };
+    axios(options)
+      .then((results) => {
+        client.setex(`meta_productID_${product_id}`, TTL, JSON.stringify(results.data));
+        callback(null, results.data);
+      })
+      .catch((err) => {
+        callback(err);
+      });
   },
   addReview: (data, callback) => {
     const options = {

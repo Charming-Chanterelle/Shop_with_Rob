@@ -3,7 +3,7 @@ import styles from 'styled-components';
 export const RatingsBreakdownContainer = styles.div`
   font-family: 'Poppins', sans-serif;
   display: grid;
-  grid-template-rows: 3fr 30fr 30fr;
+  grid-template-rows: 1fr 10fr 20fr;
   grid-template-areas:
     "review_header"
     "review_chart"
@@ -26,6 +26,7 @@ export const StarReviewBreakdown = styles.div`
 
 export const ProductCharacterSlider = styles.div`
   grid-area: review_slider;
+  padding-top: 10px;
   position: relative;
 `;
 
@@ -36,6 +37,7 @@ export const RatingsAndReviewTitle = styles.span`
 
 export const RatingsAndReviewContainer = styles.div`
   padding-top: 15px;
+  padding-bottom: 15px;
   grid-template-columns: 1fr 3fr;
   display: grid;
   grid-template-areas:

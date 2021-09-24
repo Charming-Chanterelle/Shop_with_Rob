@@ -18,10 +18,10 @@ const RatingsSliderDisplay = ({ scores, characteristic }) => {
           step="any"
           readOnly
         />
-        <RB.TickContainer>
+        {/* <RB.TickContainer>
           <RB.TickMark />
           <RB.TickMark />
-        </RB.TickContainer>
+        </RB.TickContainer> */}
         <RB.SliderTextContainer>
           <RB.SliderTextOne>
             {characteristic[0]}
