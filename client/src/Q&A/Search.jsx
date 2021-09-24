@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Input = styled.input`
   border: 1px solid #525252;
   padding: 1em;
-  width: 700px;
+  width: 1500px;
   color: #525252;
 `;
 

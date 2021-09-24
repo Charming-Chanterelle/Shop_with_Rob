@@ -13,12 +13,11 @@ const Outfit = React.lazy(() => import ('./Outfit.jsx'));
 function App() {
   return (
     <ProductContextProvider>
-      {/* <NavBar />
-      <Overview />
+git 
       <Suspense fallback={<div>Loading...</div>}>
         <Related show={4} />
         <Outfit show={4} />
-        {/* <Questions /> */}
+        <Questions />
         <Ratings />
       </Suspense>
     </ProductContextProvider>
