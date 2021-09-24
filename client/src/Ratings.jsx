@@ -10,8 +10,8 @@ import RatingsStarHeader from './RatingsComponent/RatingsStarHeader.jsx';
 import RatingsProductBreakdown from './RatingsComponent/RatingsProductBreakdown.jsx';
 // Number(window.location.hash.replace('#', ''))
 class Ratings extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       product_id: Number(window.location.hash.replace('#', '')),
       ratings: [],
@@ -133,7 +133,7 @@ class Ratings extends Component {
     if(ratings.length !== 0) {
       return (
         <>
-          <R.Container>
+          <R.Container ref={this.props.reference}>
             <R.Stars>
               <RatingsStarHeader />
             </R.Stars>
