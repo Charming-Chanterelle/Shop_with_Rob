@@ -21,8 +21,8 @@ class NavBar extends React.Component {
     const { value } = this.state;
     return (
       <div>
-        <ul id="nav">
-          <h1 className="bigText"> SHOP_WITH_ROB;</h1>
+        <ul id="nav" style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+          <h1 className="bigText" style={{ marginLeft: 10 }}> SHOP_WITH_ROB;</h1>
           <SearchBar search={this.search} value={value} />
         </ul>
       </div>

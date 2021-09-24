@@ -15,10 +15,9 @@ const Overview = () => {
   const [currentStyle, setCurrentStyle] = useState({});
   const [current, setCurrent] = useState(null);
   const [mainImg, setMainImg] = useState('');
-  const [length, setLength] = useState(0);
-  const [hovered, setHovered] = useState(false);
-  const [sampleHovered, setSampleHovered] = useState(false);
+  const [hovered, setHovered] = useState(0);
   const [cartHovered, setCartHovered] = useState(false);
+  const [sampleHovered, setSampleHovered] = useState('');
   const [sizes, setSizes] = useState(['Select Size']);
   const [size, setSize] = useState('');
   const [quantities, setQuantities] = useState(-1);
@@ -26,79 +25,55 @@ const Overview = () => {
   const [isFavorited, setIsFavorited] = useState(false);
   const quantityMax = 15;
 
+  /* ----------------
+  |   ON DATA LOAD   |
+  ------------------*/
   useEffect(() => {
     const test = styles.filter((x) => x['default?'] === true)[0];
     if (test) {
       setCurrent(0);
       setCurrentStyle(test);
-      if (currentStyle !== {} && current) {
-        setMainImg(test.photos[current].url);
-        setLength(test.photos.length);
+      if (currentStyle !== {} && (current || current === 0)) {
+        setMainImg(currentStyle.photos[current].url);
       }
     }
   }, [loaded]);
 
-  const theStyle = (ID) => styles.filter((x) => x.style_id === ID)[0];
-
-  // get new style by id
-  // const theStyle = (ID) => productStyle.results.filter((x) => x.style_id === ID)[0];
-  // start with default style (obj)
-  // const [currentStyle, setCurrentStyle] = useState(
-  //   productStyle.results.filter((x) => x['default?'] === true)[0],
-  // );
-  // current sku (obj of objs) for dropdown and cart
-  // const [sizes, setSizes] = useState(['Select Size']);
-  // const [size, setSize] = useState('');
-  // const [quantities, setQuantities] = useState(-1);
-  // const [quantity, setQuantity] = useState(1);
-  // star button state
-  // const [isFavorited, setIsFavorited] = useState(false);
-  // image counter
-  // const [current, setCurrent] = useState(0);
-  // const [mainImg, setMainImg] = useState(currentStyle.photos[current].url);
-  // const { length } = currentStyle.photos;
-  // const [hovered, setHovered] = useState(false);
-
-  // const setTheMain = () => {
-  //   setMainImg(currentStyle.photos[current].url);
-  // };
+  /* ------------------------
+  |   IMG SLIDER FUNCTIONS   |
+  --------------------------*/
   const prevSlide = () => {
-    //console.log('pre previous: ', current)
-    setCurrent(current === 0 ? length - 1 : current - 1);
+    let l = currentStyle.photos.length;
+    setCurrent(current === 0 ? l - 1 : current - 1);
   };
   const nextSlide = () => {
-    //console.log('pre next: ', current)
-    setCurrent(current === length - 1 ? 0 : current + 1);
+    let l = currentStyle.photos.length;
+    setCurrent(current === l - 1 ? 0 : current + 1);
   };
-  // click a style button
+  const theStyle = (ID) => styles.filter((x) => x.style_id === ID)[0];
   const styleOnClick = (event) => {
     // if already selected, do nothing
     currentStyle.id !== event.target.value ?
       setCurrentStyle(theStyle(parseInt(event.target.value, 10))) : null;
   };
   useEffect(() => {
-    if (currentStyle !== {} && current) {
-      const temp = currentStyle.photos[current].url;
-      setMainImg(temp);
+    if (currentStyle !== {} && (current !== null)) {
+      const newImg = currentStyle.photos[current].url;
+      setMainImg(newImg);
     }
-  }, [current]);
-  useEffect(() => {
-    if (currentStyle !== {} && current) {
-      const temp = currentStyle.photos[current].url;
-      setMainImg(temp);
-    }
-  }, [currentStyle]);
+  }, [current, currentStyle]);
+
+  /* ------------------
+  |   CLICK HANDLERS   |
+  ---------------------*/
   // star button click handler
   const favorite = () => {
     setIsFavorited(!isFavorited);
   };
-  // top ratings score click handler
-  // const jumpToRatings = () => {
-  // };
   const imgOnClick = (event) => {
-    setCurrent(event.target.value);
+    setCurrent(parseInt(event.target.value));
   };
-  // shows list of options in dropdown
+  // for dropdowns
   const getSizes = () => {
     // first touch
     if (sizes.includes('Select Size')) {
@@ -122,7 +97,13 @@ const Overview = () => {
   const selectQuantity = (event) => {
     setQuantity(event.target.value);
   };
-  // make post req to db with sku number and quantity
+  // INCREASED FUNCTIONALITY TO-DO:
+  // const jumpToRatings = () => {
+  // };
+
+  /* --------
+  |   CART   |
+  -----------*/
   const addToCart = () => {
     let id;
     for (var key in currentStyle.skus) {
@@ -134,7 +115,6 @@ const Overview = () => {
     for (var i = 0; i < quantity; i++) {
       axios.post('/api/cart', { sku_id: id })
         .then((response) => {
-          //console.log(response);
         })
         .catch((err) => {
           alert("We're sorry. There's been an error. Please try refreshing the page or contacting our customer service.");
@@ -147,17 +127,33 @@ const Overview = () => {
     // open the size dropdown, and a message should appear above the dropdown stating
     // “Please select size”
   };
-  const toggleHovered = () => {
-    setHovered(!hovered);
+
+  /* ------------
+  |   HOVERING   |
+  --------------*/
+  const enterHovered = (event) => {
+    setHovered(event.target.value);
   };
+  const exitHovered = () => {
+    setHovered(0);
+  }
   const toggleCartHovered = () => {
     setCartHovered(!cartHovered);
   };
-  const toggleSampleHovered = () => {
-    setSampleHovered(!sampleHovered);
+  const enterSample = (event) => {
+    //set the style obj = transform scale()
+    // S.sampleHover.transform = newScale
+    setSampleHovered(event.target.name);
+  };
+  const exitSample = () => {
+    setSampleHovered('');
   };
 
-  if (loaded) {
+  /* -----------
+  |   RETURN   |
+  -------------*/
+  // if (loaded) {
+    // ensure timing
     const photos = currentStyle.photos ?? [];
     const stylez = styles ?? [];
     const featurez = product.features ?? [];
@@ -166,15 +162,13 @@ const Overview = () => {
         <S.Container>
           <S.Main>
             <S.LeftArrow onClick={prevSlide}><FaChevronCircleLeft /></S.LeftArrow>
-            <S.BigImg className="imgFormat" src={mainImg} alt="pic" />
+            <S.BigImg className="imgFormat" src={mainImg} alt="${currentStyle.name}" />
             <S.ImgCards>
               {photos.map((x, i) => {
-                if (i === current) {
-                  return <S.ImgSample key={x.thumbnail_url} onClick={imgOnClick} className="imgFormat" url={x.thumbnail_url} value={i} style={{ border: '3px solid #FBD63F' }} />;
-                } return <S.ImgSample key={x.thumbnail_url}
-                  onMouseEnter={toggleSampleHovered}
-                  onMouseLeave={toggleSampleHovered}
-                  style={{ transform: `${sampleHovered ? "scale(1.15, 1.15)" : "scale(1, 1)"}` }} onClick={imgOnClick} className="imgFormat" url={x.thumbnail_url} value={i} />;
+                return <S.ImgSample key={x.thumbnail_url}
+                  onMouseEnter={enterSample}
+                  onMouseLeave={exitSample}
+                  style={{ transform: `${sampleHovered == x.thumbnail_url ? "scale(1.15, 1.15)" : "scale(1, 1)"}`, border: `${current === i ? "3px solid #FBD63F" : "none"}` }} onClick={imgOnClick} className="imgFormat" url={x.thumbnail_url} name={x.thumbnail_url} value={i} />;
               })}
             </S.ImgCards>
             <S.RightArrow onClick={nextSlide}><FaChevronCircleRight /></S.RightArrow>
@@ -207,18 +201,20 @@ const Overview = () => {
                   <S.StylesButton key={x.style_id} onClick={styleOnClick}
                     url={x.photos[0].thumbnail_url}
                     value={x.style_id}
-                    onMouseEnter={toggleHovered}
-                    onMouseLeave={toggleHovered}
-                    style={{ transform: `${hovered ? "scale(1.15, 1.15)" : "scale(1, 1)"}` }}>
+                    onMouseEnter={enterHovered}
+                    onMouseLeave={exitHovered}
+                    style={{ transform: `${hovered == x.style_id ? "scale(1.15, 1.15)" : "scale(1, 1)"}` }}>
                     {x === currentStyle &&
                       <FaCheck style={{ color: 'yellow' }} />}
                   </S.StylesButton>)}
               </S.Styles>
               <S.Styles>
-                <select onClick={getSizes} onChange={selectSize} className="imgFormat" name="size">
+                <select onClick={getSizes} onChange={selectSize} className="imgFormat" name="size" style={{width: "6rem",
+  height: "2rem" }}>
                   {sizes.map((x) => <option key={x} value={x}>{x}</option>)}
                 </select>
-                <select onClick={getQuantities} onChange={selectQuantity} className="imgFormat" name="quantity">
+                <select onClick={getQuantities} onChange={selectQuantity} className="imgFormat" name="quantity" style={{width: "3rem",
+  height: "2rem" }}>
                   {quantities < 0 ? <option>-</option> :
                     quantities >= 15 ? [...Array(quantityMax),
                     ].map((undefined, i) => (
@@ -227,13 +223,13 @@ const Overview = () => {
                       : [...Array(quantities),].map((undefined, i) => (
                         <option key={i} value={i + 1}>{i + 1}</option>
                       ))}
-                </select>
-                <button onClick={favorite} style={{ padding: 10, borderRadius: '50%', boxShadow: "2px 2px 2px 1px #d3d3d3" }}>{isFavorited ?
+                </select> &nbsp;&nbsp;&nbsp;
+                <button onClick={favorite} style={{ padding: 10, borderRadius: '100%', width: 35, height: 35, boxShadow: "2px 2px 2px 1px #d3d3d3", display: "flex",justifyContent: "center", alignItems: "center"}} >{isFavorited ?
                   <FaStar /> :
                   <FaRegStar />}
                 </button>
               </S.Styles>
-              <div style={{ marginTop: 5 }}>
+              <div style={{ marginTop: 5, marginLeft: 15, marginBottom: 10 }}>
                 {!sizes.includes('OUT OF STOCK')
                   && <button onClick={sizes === ['Select Size'] ? earlyCart : addToCart}
                     onMouseEnter={toggleCartHovered}
@@ -256,18 +252,22 @@ const Overview = () => {
             <S.FeaturesList>
               <li className="bigText" style={{ listStyleType: 'none', marginBottom: 7, fontStyle: 'italic' }}><FaRegSmileBeam style={{ color: '#c48f35' }} />&nbsp;&nbsp;110% Satisfaction Guaranteed*</li>
               {featurez.map((x) => {
-                return <li key={x.value} className="bigText" style={{ listStyleType: 'none', marginBottom: 7, fontStyle: 'italic' }}><FaRegSmileBeam style={{ color: '#c48f35' }} />&nbsp;&nbsp;{x.feature}: {x.value}</li>;
+                return <li key={x.value} className="bigText" style={{ listStyleType: 'none', marginBottom: 7, fontStyle: 'italic' }}><FaRegSmileBeam style={{ color: '#c48f35' }} />&nbsp;&nbsp;{x.feature}{x.value === null ? null : `: ${x.value}`}</li>;
               })}
             </S.FeaturesList>
-            <FaFacebookSquare style={{ color: "#899499", height: 20, width: 20, borderRadius: "5%", boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
-            <FaTwitterSquare style={{ color: "#899499", height: 20, width: 20, boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
-            <FaPinterestSquare style={{ color: "#899499", height: 20, width: 20, boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
+            {/* .btn:hover {
+  background-color: RoyalBlue;
+} */}       <S.Socials>
+              <FaFacebookSquare style={{ color: "#899499", height: 20, width: 20, borderRadius: "5%", boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
+              <FaTwitterSquare style={{ color: "#899499", height: 20, width: 20, boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
+              <FaPinterestSquare style={{ color: "#899499", height: 20, width: 20, boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
+            </S.Socials>
           </S.Features>
         </S.Container>
       </div>
     );
-  }
-  return <div>LOADING...</div>;
+  // }
+  // return <div>LOADING...</div>;
 };
 
 export default Overview;

@@ -1,5 +1,0 @@
-Fix the CSS for the ratings, ensure that the modal is aligned as a grid.
-Add logic to check the submit form. 
-Fix the image in the individual tile.
-fix the image modal make the picture more defined
-
