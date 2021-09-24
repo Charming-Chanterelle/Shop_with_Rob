@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FaRegStar, FaChevronCircleRight, FaChevronCircleLeft } from 'react-icons/fa';
 import axios from 'axios';
-import RelatedItems from './RelatedComponents/RelatedItems';
+// import RelatedItems from './RelatedComponents/RelatedItems';
 import ComparisonModal from './RelatedComponents/ComparisonModal.jsx';
 import * as s from './RelatedComponents/RelatedStyles.jsx';
 import { ProductContext } from './contexts/ProductContext.jsx';
@@ -18,9 +18,7 @@ const Related = (props) => {
 
   const { productID, changeHash } = useContext(ProductContext);
 
-  useEffect(() => {
-    setLength(relatedItems.length);
-  }, [relatedItems]);
+
 
 
 
@@ -50,7 +48,7 @@ const Related = (props) => {
         reviews: getAverageRating(array[2]).avgRating,
       })))
       .then((fifth) => {
-        console.log(fifth.length);
+        // console.log(fifth.length);
         setRelatedItems(fifth);
       })
 
@@ -72,6 +70,9 @@ const Related = (props) => {
     getRelatedProducts();
   }, [productID]);
 
+  useEffect(() => {
+    setLength(relatedItems.length);
+  }, [relatedItems]);
 
 
   // useEffect(getRelatedProducts, []);

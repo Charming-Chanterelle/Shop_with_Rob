@@ -21,12 +21,16 @@ const InitData = (ID, count) => {
 };
 
 const getRelated = async () => {
+  try {
   const related = await axios.get(`http://localhost:3000/api/products/${productID}/related`);
 
   const { data } = related;
   const products = [productID, ...data];
 
   await products.map((product_id, count) => InitData(product_id, count));
+  } catch(err) {
+    console.log(err);
+  }
 };
 
 getRelated();
