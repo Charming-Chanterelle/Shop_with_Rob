@@ -10,8 +10,8 @@ import RatingsStarHeader from './RatingsComponent/RatingsStarHeader.jsx';
 import RatingsProductBreakdown from './RatingsComponent/RatingsProductBreakdown.jsx';
 
 class Ratings extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       product_id: 48445,
       ratings: [],
@@ -132,7 +132,7 @@ class Ratings extends Component {
     const { ratings, product_id, total_ratings_count, showMoreRatings } = this.state;
     return (
       <>
-        <R.Container>
+        <R.Container ref={this.props.reference}>
           <R.Stars>
             <RatingsStarHeader />
           </R.Stars>

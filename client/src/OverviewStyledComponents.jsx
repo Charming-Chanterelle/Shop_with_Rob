@@ -79,6 +79,9 @@ export const BigImg = styles.img`
   overflow-x: hidden;
   height: 100%;
   background-size: contain;
+  cursor: -moz-zoom-in;
+    cursor: -webkit-zoom-in;
+    cursor: zoom-in;
   `;
 export const ImgCards = styles.div`
   grid-area: main;

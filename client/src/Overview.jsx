@@ -7,7 +7,7 @@ import { FaStar, FaRegStar, FaChevronCircleRight, FaChevronCircleLeft, FaFaceboo
 import * as S from './OverviewStyledComponents.jsx';
 import StarDisplay from './StarDisplay.jsx';
 
-const Overview = () => {
+const Overview = (props) => {
   const {
     product, styles, ratingsScore, loaded,
   } = useContext(ProductContext);
@@ -18,6 +18,7 @@ const Overview = () => {
   const [hovered, setHovered] = useState(0);
   const [cartHovered, setCartHovered] = useState(false);
   const [sampleHovered, setSampleHovered] = useState('');
+  const [reviewHovered, setReviewHovered] = useState(false);
   const [sizes, setSizes] = useState(['Select Size']);
   const [size, setSize] = useState('');
   const [quantities, setQuantities] = useState(-1);
@@ -148,6 +149,9 @@ const Overview = () => {
   const exitSample = () => {
     setSampleHovered('');
   };
+  const toggleReviewHovered = () => {
+    setReviewHovered(!reviewHovered);
+  };
 
   /* -----------
   |   RETURN   |
@@ -180,7 +184,10 @@ const Overview = () => {
           <S.Side>
             <div>
               <StarDisplay stars={{ width: '20', height: '20' }} style={{ float: 'right' }} />
-              <span className="bigText" style={{ float: "right" }}>Read all {ratingsScore.numberOfRatings} reviews</span>
+              <span ref={props.reference} onClick={props.jumpClick} className="bigText"
+              onMouseEnter={toggleReviewHovered}
+              onMouseLeave={toggleReviewHovered}
+              style={{ float: "right",  cursor: "pointer", color: `${reviewHovered ? "blue" : "black"}` }}>Read all {ratingsScore.numberOfRatings} reviews</span>
               <h4 className="subText"
                 style={{ margin: 0, padding: 0, paddingTop: 10 }}>{product.category}</h4>
               <h1 className="bigText" style={{ margin: 0, padding: 0 }}>{product.name}</h1>
