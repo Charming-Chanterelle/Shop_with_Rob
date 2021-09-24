@@ -19,6 +19,9 @@ const Overview = (props) => {
   const [cartHovered, setCartHovered] = useState(false);
   const [sampleHovered, setSampleHovered] = useState('');
   const [reviewHovered, setReviewHovered] = useState(false);
+  const [fbHovered, setFbHovered] = useState(false);
+  const [twHovered, setTwHovered] = useState(false);
+  const [ptHovered, setPtHovered] = useState(false);
   const [sizes, setSizes] = useState(['Select Size']);
   const [size, setSize] = useState('');
   const [quantities, setQuantities] = useState(-1);
@@ -40,9 +43,9 @@ const Overview = (props) => {
     }
   }, [loaded]);
 
-  /* ------------------------
-  |   IMG SLIDER FUNCTIONS   |
-  --------------------------*/
+  /* --------------------------------------------
+  |   IMG SLIDER FUNCTIONS & OTHER USE_EFFECTS   |
+  ----------------------------------------------*/
   const prevSlide = () => {
     let l = currentStyle.photos.length;
     setCurrent(current === 0 ? l - 1 : current - 1);
@@ -63,6 +66,15 @@ const Overview = (props) => {
       setMainImg(newImg);
     }
   }, [current, currentStyle]);
+  //update dropdowns when style changes
+  useEffect(() => {
+    setSizes(['Select Size']);
+  }, [currentStyle]);
+  useEffect(() => {
+    if (sizes.includes('Select Size')) {
+      setQuantities(-1);
+    }
+  }, [sizes]);
 
   /* ------------------
   |   CLICK HANDLERS   |
@@ -122,7 +134,7 @@ const Overview = (props) => {
         });
     }
     setSizes(['Select Size']);
-    setQuantities(['-']);
+    setQuantities(-1);
   };
   const earlyCart = () => {
     // open the size dropdown, and a message should appear above the dropdown stating
@@ -152,100 +164,118 @@ const Overview = (props) => {
   const toggleReviewHovered = () => {
     setReviewHovered(!reviewHovered);
   };
+  const toggleFbHovered = () => {
+    setFbHovered(!fbHovered);
+  };
+  const toggleTwHovered = () => {
+    setTwHovered(!twHovered);
+  };
+  const togglePtHovered = () => {
+    setPtHovered(!ptHovered);
+  };
 
   /* -----------
   |   RETURN   |
   -------------*/
   // if (loaded) {
-    // ensure timing
-    const photos = currentStyle.photos ?? [];
-    const stylez = styles ?? [];
-    const featurez = product.features ?? [];
-    return (
-      <div>
-        <S.Container>
-          <S.Main>
-            <S.LeftArrow onClick={prevSlide}><FaChevronCircleLeft /></S.LeftArrow>
-            <S.BigImg className="imgFormat" src={mainImg} alt="${currentStyle.name}" />
-            <S.ImgCards>
-              {photos.map((x, i) => {
-                return <S.ImgSample key={x.thumbnail_url}
-                  onMouseEnter={enterSample}
-                  onMouseLeave={exitSample}
-                  style={{ transform: `${sampleHovered == x.thumbnail_url ? "scale(1.15, 1.15)" : "scale(1, 1)"}`, border: `${current === i ? "3px solid #FBD63F" : "none"}` }} onClick={imgOnClick} className="imgFormat" url={x.thumbnail_url} name={x.thumbnail_url} value={i} />;
-              })}
-            </S.ImgCards>
-            <S.RightArrow onClick={nextSlide}><FaChevronCircleRight /></S.RightArrow>
-          </S.Main>
-          <S.Content>
-            <h2 className="bigText">{product.slogan}</h2>
-            <p className="bigText">{product.description}</p>
-          </S.Content>
-          <S.Side>
-            <div>
-              <StarDisplay stars={{ width: '20', height: '20' }} style={{ float: 'right' }} />
-              <span ref={props.reference} onClick={props.jumpClick} className="bigText"
+  // ensure timing
+  const photos = currentStyle.photos ?? [];
+  const stylez = styles ?? [];
+  const featurez = product.features ?? [];
+  return (
+    <div>
+      <S.Container>
+        <S.Main>
+          <S.LeftArrow onClick={prevSlide}><FaChevronCircleLeft /></S.LeftArrow>
+          <S.BigImg className="imgFormat" src={mainImg} alt="${currentStyle.name}" />
+          <S.ImgCards>
+            {photos.map((x, i) => {
+              return <S.ImgSample key={x.thumbnail_url}
+                onMouseEnter={enterSample}
+                onMouseLeave={exitSample}
+                style={{ transform: `${sampleHovered == x.thumbnail_url ? "scale(1.15, 1.15)" : "scale(1, 1)"}`, border: `${current === i ? "3px solid #FBD63F" : "none"}` }} onClick={imgOnClick} className="imgFormat" url={x.thumbnail_url} name={x.thumbnail_url} value={i} />;
+            })}
+          </S.ImgCards>
+          <S.RightArrow onClick={nextSlide}><FaChevronCircleRight /></S.RightArrow>
+        </S.Main>
+        <S.Content>
+          <h2 className="bigText">{product.slogan}</h2>
+          <p className="bigText">{product.description}</p>
+        </S.Content>
+        <S.Side>
+          <div>
+            <StarDisplay stars={{ width: '20', height: '20' }} style={{ float: 'right' }} />
+            <span ref={props.reference} onClick={props.jumpClick} className="bigText"
               onMouseEnter={toggleReviewHovered}
               onMouseLeave={toggleReviewHovered}
-              style={{ float: "right",  cursor: "pointer", color: `${reviewHovered ? "blue" : "black"}` }}>Read all {ratingsScore.numberOfRatings} reviews</span>
-              <h4 className="subText"
-                style={{ margin: 0, padding: 0, paddingTop: 10 }}>{product.category}</h4>
-              <h1 className="bigText" style={{ margin: 0, padding: 0 }}>{product.name}</h1>
-              {currentStyle.sale_price !== null ?
-                <h2>
-                  <strike style={{ color: 'red' }}>${currentStyle.original_price}</strike>
-                  &nbsp;&nbsp;SALE:&nbsp;${currentStyle.sale_price}
-                </h2> :
-                <h2>${currentStyle.original_price}</h2>}
-            </div>
-            <div>
-              <h3 className="bigText" style={{ fontWeight: 600 }}>
-                Choose your style:&nbsp;
-                {currentStyle.name}
-              </h3>
-              <S.Styles>
-                {stylez.map((x) =>
-                  <S.StylesButton key={x.style_id} onClick={styleOnClick}
-                    url={x.photos[0].thumbnail_url}
-                    value={x.style_id}
-                    onMouseEnter={enterHovered}
-                    onMouseLeave={exitHovered}
-                    style={{ transform: `${hovered == x.style_id ? "scale(1.15, 1.15)" : "scale(1, 1)"}` }}>
-                    {x === currentStyle &&
-                      <FaCheck style={{ color: 'yellow' }} />}
-                  </S.StylesButton>)}
-              </S.Styles>
-              <S.Styles>
-                <select onClick={getSizes} onChange={selectSize} className="imgFormat" name="size" style={{width: "6rem",
-  height: "2rem" }}>
-                  {sizes.map((x) => <option key={x} value={x}>{x}</option>)}
-                </select>
-                <select onClick={getQuantities} onChange={selectQuantity} className="imgFormat" name="quantity" style={{width: "3rem",
-  height: "2rem" }}>
-                  {quantities < 0 ? <option>-</option> :
-                    quantities >= 15 ? [...Array(quantityMax),
-                    ].map((undefined, i) => (
+              style={{ float: "right", cursor: "pointer", color: `${reviewHovered ? "blue" : "black"}` }}>Read all {ratingsScore.numberOfRatings} reviews</span>
+          </div>
+          <div>
+            <h4 className="subText"
+              style={{ margin: 0, padding: 0, paddingTop: 10 }}>{product.category}</h4>
+
+          </div>
+          <div>
+            <h1 className="bigText" style={{ margin: 0, padding: 0 }}>{product.name}</h1>
+            {currentStyle.sale_price !== null ?
+              <h2>
+                <strike style={{ color: 'red' }}>${currentStyle.original_price}</strike>
+                &nbsp;&nbsp;SALE:&nbsp;${currentStyle.sale_price}
+              </h2> :
+              <h2>${currentStyle.original_price}</h2>}
+          </div>
+          <div>
+            <h3 className="bigText" style={{ fontWeight: 600 }}>
+              Choose your style:&nbsp;
+              {currentStyle.name}
+            </h3>
+            <S.Styles>
+              {stylez.map((x) =>
+                <S.StylesButton key={x.style_id} onClick={styleOnClick}
+                  url={x.photos[0].thumbnail_url}
+                  value={x.style_id}
+                  onMouseEnter={enterHovered}
+                  onMouseLeave={exitHovered}
+                  style={{ transform: `${hovered == x.style_id ? "scale(1.15, 1.15)" : "scale(1, 1)"}` }}>
+                  {x === currentStyle &&
+                    <FaCheck style={{ color: 'yellow' }} />}
+                </S.StylesButton>)}
+            </S.Styles>
+            <S.Styles>
+              <select onClick={getSizes} onChange={selectSize} className="imgFormat" name="size" style={{
+                width: "6rem",
+                height: "2rem"
+              }}>
+                {sizes.map((x) => <option key={x} value={x}>{x}</option>)}
+              </select>
+              <select onClick={getQuantities} onChange={selectQuantity} className="imgFormat" name="quantity" style={{
+                width: "3rem",
+                height: "2rem"
+              }}>
+                {quantities < 0 ? <option>-</option> :
+                  quantities >= 15 ? [...Array(quantityMax),
+                  ].map((undefined, i) => (
+                    <option key={i} value={i + 1}>{i + 1}</option>
+                  ))
+                    : [...Array(quantities),].map((undefined, i) => (
                       <option key={i} value={i + 1}>{i + 1}</option>
-                    ))
-                      : [...Array(quantities),].map((undefined, i) => (
-                        <option key={i} value={i + 1}>{i + 1}</option>
-                      ))}
-                </select> &nbsp;&nbsp;&nbsp;
-                <button onClick={favorite} style={{ padding: 10, borderRadius: '100%', width: 35, height: 35, boxShadow: "2px 2px 2px 1px #d3d3d3", display: "flex",justifyContent: "center", alignItems: "center"}} >{isFavorited ?
-                  <FaStar /> :
-                  <FaRegStar />}
-                </button>
-              </S.Styles>
-              <div style={{ marginTop: 5, marginLeft: 15, marginBottom: 10 }}>
-                {!sizes.includes('OUT OF STOCK')
-                  && <button onClick={sizes === ['Select Size'] ? earlyCart : addToCart}
-                    onMouseEnter={toggleCartHovered}
-                    onMouseLeave={toggleCartHovered}
-                    style={{ boxShadow: "2px 2px 2px 1px #d3d3d3", marginLeft: 10, transform: `${cartHovered ? "scale(1.15, 1.15)" : "scale(1, 1)"}` }}
-                    className="bigText">
-                    <h3>ADD TO CART ++</h3></button>}
-              </div>
-              {/* ^^ If the default ‘Select Size’ is currently
+                    ))}
+              </select> &nbsp;&nbsp;&nbsp;
+              <button onClick={favorite} style={{ padding: 10, borderRadius: '100%', width: 35, height: 35, boxShadow: "2px 2px 2px 1px #d3d3d3", display: "flex", justifyContent: "center", alignItems: "center" }} >{isFavorited ?
+                <FaStar /> :
+                <FaRegStar />}
+              </button>
+            </S.Styles>
+            <div style={{ marginTop: 5, marginLeft: 15, marginBottom: 10 }}>
+              {!sizes.includes('OUT OF STOCK')
+                && <button onClick={sizes === ['Select Size'] ? earlyCart : addToCart}
+                  onMouseEnter={toggleCartHovered}
+                  onMouseLeave={toggleCartHovered}
+                  style={{ boxShadow: "2px 2px 2px 1px #d3d3d3", marginLeft: 10, transform: `${cartHovered ? "scale(1.15, 1.15)" : "scale(1, 1)"}` }}
+                  className="bigText">
+                  <h3>ADD TO CART ++</h3></button>}
+            </div>
+            {/* ^^ If the default ‘Select Size’ is currently
             selected: Clicking this button should open
             the size dropdown, and a message should
             appear above the dropdown stating “Please
@@ -253,26 +283,33 @@ const Overview = (props) => {
             If there is no stock: This button should be hidden
             If both a valid size and valid quantity are
             selected: Clicking this button will add the product to the user’s cart. */}
-            </div>
-          </S.Side>
-          <S.Features>
-            <S.FeaturesList>
-              <li className="bigText" style={{ listStyleType: 'none', marginBottom: 7, fontStyle: 'italic' }}><FaRegSmileBeam style={{ color: '#c48f35' }} />&nbsp;&nbsp;110% Satisfaction Guaranteed*</li>
-              {featurez.map((x) => {
-                return <li key={x.value} className="bigText" style={{ listStyleType: 'none', marginBottom: 7, fontStyle: 'italic' }}><FaRegSmileBeam style={{ color: '#c48f35' }} />&nbsp;&nbsp;{x.feature}{x.value === null ? null : `: ${x.value}`}</li>;
-              })}
-            </S.FeaturesList>
-            {/* .btn:hover {
-  background-color: RoyalBlue;
-} */}       <S.Socials>
-              <FaFacebookSquare style={{ color: "#899499", height: 20, width: 20, borderRadius: "5%", boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
-              <FaTwitterSquare style={{ color: "#899499", height: 20, width: 20, boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
-              <FaPinterestSquare style={{ color: "#899499", height: 20, width: 20, boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
+          </div>
+        </S.Side>
+        <S.Features>
+          <S.FeaturesList>
+            <li className="bigText" style={{ listStyleType: 'none', marginBottom: 7, fontStyle: 'italic' }}><FaRegSmileBeam style={{ color: '#c48f35' }} />&nbsp;&nbsp;110% Satisfaction Guaranteed*</li>
+            {featurez.map((x) => {
+              return <li key={x.value} className="bigText" style={{ listStyleType: 'none', marginBottom: 7, fontStyle: 'italic' }}><FaRegSmileBeam style={{ color: '#c48f35' }} />&nbsp;&nbsp;{x.feature}{x.value === null ? null : `: ${x.value}`}</li>;
+            })}
+          </S.FeaturesList>
+          <S.Socials>
+              <FaFacebookSquare
+                onMouseEnter={toggleFbHovered}
+                onMouseLeave={toggleFbHovered}
+                style={{ color: `${fbHovered ? "#3b5998" : "#899499"}`, height: 20, width: 20, borderRadius: "5%", boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
+              <FaTwitterSquare
+                onMouseEnter={toggleTwHovered}
+                onMouseLeave={toggleTwHovered}
+                style={{ color: `${twHovered ? "#1DA1F2" : "#899499"}`, height: 20, width: 20, boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
+              <FaPinterestSquare
+                onMouseEnter={togglePtHovered}
+                onMouseLeave={togglePtHovered}
+                style={{ color: `${ptHovered ? "#E60023" : "#899499"}`, height: 20, width: 20, boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
             </S.Socials>
-          </S.Features>
-        </S.Container>
-      </div>
-    );
+        </S.Features>
+      </S.Container>
+    </div>
+  );
   // }
   // return <div>LOADING...</div>;
 };

@@ -5,15 +5,16 @@ export const Container = styles.div`
   display: grid;
   height: 100vh;
   color: black;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas:
-    "main main side side"
-    "main main side side"
-    "main main side side"
-    "content content features features";
-  padding-left: 150px;
-  padding-right: 150px;
+    "main main main side side"
+    "main main main side side"
+    "main main main side side"
+    "main main main side side"
+    "content content content features features";
+  padding-left: 100px;
+  padding-right: 100px;
   row-gap: 10px;
   column-gap: 30px;
   overflow: hidden;
@@ -33,6 +34,7 @@ export const Side = styles.div`
   `;
 export const Content = styles.div`
   grid-area: content;
+  height:fit-content;
   background-color: #eecf6b;
   border-radius: 5px;
   padding: 10px;
@@ -103,9 +105,6 @@ export const FeaturesList = styles.ul`
   grid-area: features;
   text-align: left;
   `;
-export const Socials = styles.div`
-  grid-area: features;
-  `;
 // side:
 export const Styles = styles.div`
   grid-area: side;
@@ -131,6 +130,11 @@ color: #899499;
   background-size: cover;
   box-shadow: 2px 2px 2px 1px #d3d3d3;
 `;
+export const Socials = styles.div`
+  grid-area: side;
+  float: right;
+  padding-right: 10px;
+  `;
 // export const sampleHover = {
 //   transform: 'scale(1, 1)',
 // };
