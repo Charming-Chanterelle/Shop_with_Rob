@@ -47,3 +47,36 @@ export const CardText = styles.div`
   position: relative;
   bottom: 0;
   `;
+
+export const Modal = styles.div`
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ffeca0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  `;
+
+export const ModalContent = styles.div`
+  width: 500px;
+  background-color: fff;
+  z-index: 9999;
+  `;
+
+export const ModalEdge = styles.div`
+  padding: 10px;
+  `;
+
+export const ModalTitle = styles.h4`
+  margin: 0;
+  `;
+
+export const ModalBody = styles.div`
+  padding: 10px;
+  border-top: 10px solid #eee;
+  border-bottom: 1px solid #eee;
+  `;
