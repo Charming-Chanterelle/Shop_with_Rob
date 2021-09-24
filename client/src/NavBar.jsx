@@ -1,6 +1,7 @@
 /* eslint-disable import/extensions */
 import React from 'react';
-// eslint-disable-next-line import/extensions
+// eslint-disable-next-line import/ext:wq
+ensions
 import SearchBar from './SearchBar.jsx';
 
 class NavBar extends React.Component {
