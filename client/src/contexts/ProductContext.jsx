@@ -11,13 +11,14 @@ const getAverageRating = ({ ratings }) => {
     return {
       avgRating: 0,
       numberOfRatings: 0,
+      ratingsPercent: 0,
     };
   }
   const rating = Object.values(ratings);
 
   let numberOfRatings = 0;
   let avgRating = 0;
-  let ratingsPercent = {};
+  const ratingsPercent = {};
 
   for (let i = 0; i < weight.length; i++) {
     const currentRating = Number(rating[i]);
@@ -53,28 +54,33 @@ const ProductContextProvider = ({ children }) => {
   const [meta, setMeta] = useState({});
   const [ratingsScore, setRatingScore] = useState({});
   const [loaded, setLoaded] = useState(false);
+  const [productID, setproductID] = useState(48432);
+
+  const changeHash = (hash) => {
+    setproductID(hash);
+  };
+
   useEffect(() => {
-    // console.log(window.location);
-    axios.get(`/api/products/${randID}`)
-      .then((products) => {
-        const currentProduct = products.data;
-        return [currentProduct, randID];
+
+    axios.get(`/api/products/${productID}`)
+      .then((response) => {
+        const currentProduct = response.data;
+        setProduct(currentProduct);
+        return currentProduct;
       })
-      .then(([currentProduct, ID]) => {
+      .then(() => {
         axios.all([
-          axios.get(`/api/products/${ID}/style`),
-          axios.get(`/api/reviews/meta/?product_id=${ID}`),
+          axios.get(`/api/products/${productID}/style`),
+          axios.get(`/api/reviews/meta/?product_id=${productID}`),
         ])
           .then(axios.spread((style, metaReview) => {
-            setProduct(currentProduct);
             setStyle(style.data.results);
             setMeta(metaReview.data);
             setRatingScore(getAverageRating(metaReview.data));
-            //window.location.hash = '48434';
           }))
           .then(() => {
             setLoaded(true);
-
+            window.location.hash = productID;
           })
           .catch((err) => {
             console.log('here is error', err);
@@ -83,11 +89,11 @@ const ProductContextProvider = ({ children }) => {
       .catch((err) => {
         console.log('error in client styles/ratings GET', err);
       });
-  }, []);
+  }, [productID]);
 
   return (
     <ProductContext.Provider value={{
-      product, styles, meta, ratingsScore, loaded,
+      product, styles, meta, ratingsScore, loaded, productID, changeHash,
     }}
     >
       { children }

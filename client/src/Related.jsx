@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaRegStar } from 'react-icons/fa';
 import axios from 'axios';
 import RelatedItems from './RelatedComponents/RelatedItems';
@@ -14,59 +14,21 @@ const Related = (props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(items.length);
   const [showModal, setShowModal] = useState(false);
-  const [overviewID, setOverviewID] = useState('48434');
-  // const [relatedIDs, setRelatedIDs] = useState([]);
+  // const [overviewID, setOverviewID] = useState(productID);
   const [relatedItems, setRelatedItems] = useState([]);
 
-  useEffect(() => {
-    setLength(items.length);
-  }, [items]);
+  const { productID, changeHash } = useContext(ProductContext);
 
-  const getAverageRating = (ratings) => {
-    // We want to get the total reviews and the average of the reviews.
-    const weight = Object.keys(ratings);
-    if (weight.length === 0) {
-      return {
-        avgRating: 0,
-        numberOfRatings: 0,
-      };
-    }
-    const rating = Object.values(ratings);
 
-    let numberOfRatings = 0;
-    let avgRating = 0;
-    const ratingsPercent = {};
 
-    for (let i = 0; i < weight.length; i++) {
-      const currentRating = Number(rating[i]);
-      const currentWeight = Number(weight[i]);
 
-      if (currentRating !== 0) {
-        numberOfRatings += currentRating;
-        avgRating += (currentRating * currentWeight);
-      }
-    }
-
-    for (let j = 0; j < weight.length; j++) {
-      const ratingPercent = Number(rating[j]);
-      const weightPercent = weight[j];
-      if (ratingPercent !== 0) {
-        ratingsPercent[weightPercent] = parseFloat(ratingPercent / numberOfRatings).toFixed(2);
-      }
-    }
-    avgRating /= numberOfRatings;
-
-    const ratingsObj = {
-      avgRating,
-      numberOfRatings,
-      ratingsPercent,
-    };
-
-    return ratingsObj;
-  };
+  // useEffect(() => {
+  //   setOverviewID(overviewID);
+  // }, [productID]);
 
   const getRelatedProducts = () => {
-    axios.get(`/api/products/${overviewID}/related`)
+    // axios.get(`/api/products/${productID}/related`)
+    axios.get(`/api/products/${productID}/related`)
       .then((response) => {
         const productIDs = response.data;
         return productIDs.map((id) => (
@@ -77,24 +39,17 @@ const Related = (props) => {
       .then((second) =>
         // starting with an array of three nested arrays
         // end with a singular array
-        Promise.all(second.map((promises) =>
-          // console.log('promise data: ', Promise.all(promises));
-          Promise.all(promises))))
+        Promise.all(second.map((promises) => Promise.all(promises))))
       .then((resolved) =>
         // have array of arrays
         // need data from nested array
         // eslint-disable-next-line implicit-arrow-linebreak
         resolved.map((array) => [array[0].data, array[1].data.results, array[2].data.ratings]))
-      .then((fourth) =>
-        // console.log('fourth: ', fourth);
-        fourth.map((array) =>
-          // let rating = array[2];
-          // const avg = ((1*))
-          ({
-            product: array[0],
-            styles: array[1],
-            reviews: getAverageRating(array[2]).avgRating,
-          })))
+      .then((fourth) => fourth.map((array) => ({
+        product: array[0],
+        styles: array[1],
+        reviews: getAverageRating(array[2]).avgRating,
+      })))
       .then((fifth) => {
         // console.log(fifth);
         setRelatedItems(fifth);
@@ -111,7 +66,11 @@ const Related = (props) => {
       });
   };
 
-  useEffect(getRelatedProducts, []);
+  useEffect(() => {
+    getRelatedProducts();
+  }, [productID]);
+
+  // useEffect(getRelatedProducts, []);
   const next = () => {
     if (currentIndex < (length - show)) {
       setCurrentIndex((prevState) => prevState + 1);
@@ -126,7 +85,6 @@ const Related = (props) => {
 
   return (
     <>
-      {/* <h1 className="bigText">Related Items</h1> */}
       <div className="carousel-container">
         <h1 className="bigText">Related Items</h1>
         <div className="carousel-wrapper">
@@ -148,7 +106,7 @@ const Related = (props) => {
             >
               {/* start of item info */}
               {relatedItems.map((item) => (
-                <s.Card key={item.product.name}>
+                <s.Card key={item.product.name} onClick={() => changeHash(item.product.id)}>
                   <div>
                     <div>
                       <s.RoundButton onClick={() => setShowModal(true)} type="button">
@@ -187,7 +145,6 @@ const Related = (props) => {
             </div>
           </s.CardWrapper>
           {
-                  // currentIndex < (length - show)
                   (currentIndex < (length - show) && relatedItems.length >= show)
                   && (
                   <s.RoundButton type="button" onClick={next} className="right-arrow">
@@ -199,6 +156,49 @@ const Related = (props) => {
       </div>
     </>
   );
+};
+
+const getAverageRating = (ratings) => {
+  // We want to get the total reviews and the average of the reviews.
+  const weight = Object.keys(ratings);
+  if (weight.length === 0) {
+    return {
+      avgRating: 0,
+      numberOfRatings: 0,
+    };
+  }
+  const rating = Object.values(ratings);
+
+  let numberOfRatings = 0;
+  let avgRating = 0;
+  const ratingsPercent = {};
+
+  for (let i = 0; i < weight.length; i++) {
+    const currentRating = Number(rating[i]);
+    const currentWeight = Number(weight[i]);
+
+    if (currentRating !== 0) {
+      numberOfRatings += currentRating;
+      avgRating += (currentRating * currentWeight);
+    }
+  }
+
+  for (let j = 0; j < weight.length; j++) {
+    const ratingPercent = Number(rating[j]);
+    const weightPercent = weight[j];
+    if (ratingPercent !== 0) {
+      ratingsPercent[weightPercent] = parseFloat(ratingPercent / numberOfRatings).toFixed(2);
+    }
+  }
+  avgRating /= numberOfRatings;
+
+  const ratingsObj = {
+    avgRating,
+    numberOfRatings,
+    ratingsPercent,
+  };
+
+  return ratingsObj;
 };
 
 export default Related;

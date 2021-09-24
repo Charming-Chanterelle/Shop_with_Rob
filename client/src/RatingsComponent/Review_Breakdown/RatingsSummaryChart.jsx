@@ -4,6 +4,7 @@ import { ProductContext } from '../../contexts/ProductContext.jsx';
 import * as RB from './ReviewBreakdownStyledComponent.jsx';
 
 const getRatingPercentage = ({ ratingsPercent }) => {
+  console.log(ratingsPercent);
   const data = [];
   const ratingData = Object.values(ratingsPercent);
   for (let i = 0; i < ratingData.length; i++) {
@@ -22,8 +23,8 @@ const RatingsSummaryChart = ({ onStarFilter, onStarUnfilter }) => {
 
   useEffect(() => {
     if (loaded) {
-      const ratings = getRatingPercentage(ratingsScore);
-      setRating(ratings);
+      const tempRatings = getRatingPercentage(ratingsScore);
+      setRating(tempRatings);
     }
   }, [loaded]);
 

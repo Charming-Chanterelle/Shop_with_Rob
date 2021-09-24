@@ -1,0 +1,2 @@
+Fix the CSS for the ratings, ensure that the modal is aligned as a grid.
+Add logic to check the submit form.
