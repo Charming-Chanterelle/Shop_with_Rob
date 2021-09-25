@@ -45,10 +45,12 @@ export const Content = styles.div`
 export const Features = styles.div`
   grid-area: features;
   height:fit-content;
+  width:fit-content;
   border: 1px solid #FBD63F;
   border-radius: 5px;
   border-left: 6px solid #899499;
   padding: 10px;
+  padding-right: 40px;
   `;
 // Smaller pieces:
 // main:
@@ -119,6 +121,8 @@ export const Styles = styles.div`
   flex-wrap: wrap;
   flex-flow: row wrap;
   padding: 10px;
+  padding-left: 5px;
+  margin-top: 0;
   border-radius: 5px;
   `;
 export const StylesButton = styles.button`
@@ -139,8 +143,9 @@ color: #899499;
 export const Socials = styles.div`
   grid-area: side;
   cursor: pointer;
-  width: 26px;
-  float: left;
+  height: 26px;
+  padding-top: 15px;
+  padding-left: 5px;
   `;
 // export const sampleHover = {
 //   transform: 'scale(1, 1)',

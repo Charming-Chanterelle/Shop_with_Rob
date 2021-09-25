@@ -26,6 +26,7 @@ const Overview = (props) => {
   const [fbHovered, setFbHovered] = useState(false);
   const [twHovered, setTwHovered] = useState(false);
   const [ptHovered, setPtHovered] = useState(false);
+  const [cartFlag, setCartFlag] = useState(null);
   const [sizes, setSizes] = useState(['Select Size']);
   const [size, setSize] = useState('');
   const [quantities, setQuantities] = useState(-1);
@@ -135,17 +136,23 @@ const Overview = (props) => {
     for (var i = 0; i < quantity; i++) {
       axios.post('/api/cart', { sku_id: id })
         .then((response) => {
+          setCartFlag(true);
         })
         .catch((err) => {
-          alert("We're sorry. There's been an error. Please try refreshing the page or contacting our customer service.");
+          setCartFlag(false);
+          alert("We're sorry. There's been an error, please try refreshing the page or contacting our 24 hour customer service.");
         });
     }
-    setSizes(['Select Size']);
-    setQuantities(-1);
   };
+  useEffect(() => {
+    setSizes(['Select Size']);
+    if (cartFlag === true) {
+      alert("HORRAY! Stay tuned for your confirmation");
+    }
+  }, [cartFlag]);
   const earlyCart = () => {
     // open the size dropdown, and a message should appear above the dropdown stating
-    // “Please select size”
+    alert("Please select a size first");
   };
 
   /* ------------
@@ -192,7 +199,7 @@ const Overview = (props) => {
   const photos = currentStyle.photos ?? [];
   const stylez = styles ?? [];
   const featurez = product.features ?? [];
-  // console.log(bigg.offsetWidth)
+  console.log(mainImg.offsetWidth)
   return (
     <div>
       <S.Container>
@@ -201,7 +208,7 @@ const Overview = (props) => {
           <S.BigImg className="imgFormat" src={mainImg} alt={currentStyle.name} />
           <S.ImgCards>
             {photos.map((x, i) => {
-              return <S.ImgSample key={x.thumbnail_url}
+              return <S.ImgSample key={x.thumbnail_url + i}
                 onMouseEnter={enterSample}
                 onMouseLeave={exitSample}
                 style={{ transform: `${sampleHovered == x.thumbnail_url ? "scale(1.15, 1.15)" : "scale(1, 1)"}`, border: `${current === i ? "3px solid #FBD63F" : "none"}` }} onClick={imgOnClick} className="imgFormat" url={x.thumbnail_url} name={x.thumbnail_url} value={i} />;
@@ -236,7 +243,7 @@ const Overview = (props) => {
               <h2>${currentStyle.original_price}</h2>}
           </div>
           <div>
-            <h3 className="bigText" style={{ fontWeight: 700 }}>
+            <h3 className="bigText" style={{ marginBottom: 0 }}>
               Choose your style:&nbsp;
               {currentStyle.name}
             </h3>
@@ -255,13 +262,15 @@ const Overview = (props) => {
             <S.Styles>
               <select onClick={getSizes} onChange={selectSize} className="imgFormat" name="size" style={{
                 width: "6rem",
-                height: "2rem"
+                height: "2rem",
+                boxShadow: "2px 2px 2px 1px #d3d3d3"
               }}>
-                {sizes.map((x) => <option key={x} value={x}>{x}</option>)}
+                {!sizes.includes('Select Size') ? sizes.map((x) => <option key={x} value={x}>{x}</option>) : <option>Select Size</option>}
               </select>
               <select onClick={getQuantities} onChange={selectQuantity} className="imgFormat" name="quantity" style={{
                 width: "3rem",
-                height: "2rem"
+                height: "2rem",
+                boxShadow: "2px 2px 2px 1px #d3d3d3"
               }}>
                 {quantities < 0 ? <option>-</option> :
                   quantities >= 15 ? [...Array(quantityMax),
@@ -272,19 +281,19 @@ const Overview = (props) => {
                       <option key={i} value={i + 1}>{i + 1}</option>
                     ))}
               </select> &nbsp;&nbsp;&nbsp;
-              <button onClick={favorite} style={{ padding: 10, borderRadius: '100%', width: 35, height: 35, boxShadow: "2px 2px 2px 1px #d3d3d3", display: "flex", justifyContent: "center", alignItems: "center" }} >{isFavorited ?
+              <button onClick={favorite} style={{ borderRadius: '100%', width: 35, height: 35, boxShadow: "2px 2px 2px 1px #d3d3d3", display: "flex", justifyContent: "center", alignItems: "center" }} >{isFavorited ?
                 <FaStar /> :
                 <FaRegStar />}
               </button>
             </S.Styles>
             <div style={{ display: "inline", marginLeft: 15, marginBottom: 10 }}>
               {!sizes.includes('OUT OF STOCK')
-                && <button onClick={sizes === ['Select Size'] ? earlyCart : addToCart}
+                && <button onClick={sizes.includes('Select Size') ? earlyCart : addToCart}
                   onMouseEnter={toggleCartHovered}
                   onMouseLeave={toggleCartHovered}
-                  style={{ boxShadow: "2px 2px 2px 1px #d3d3d3", transform: `${cartHovered ? "scale(1.15, 1.15)" : "scale(1, 1)"}` }}
+                  style={{ boxShadow: "2px 2px 2px 1px #d3d3d3", transform: `${cartHovered ? "scale(1, 1)" : "scale(1.15, 1.15)"}`, padding: 10 }}
                   className="bigText">
-                  <h3 style={{ fontWeight: 600 }}>ADD TO CART ++</h3></button>}
+                  <h3 style={{ fontWeight: 600 }}>{cartHovered ? "ADD TO CART++" : "ADD TO CART"}</h3></button>}
               <S.Socials>
                 <FaFacebookSquare
                   onMouseEnter={toggleFbHovered}

@@ -22,8 +22,8 @@ function App() {
       <Suspense fallback={<div>Loading...</div>}>
         <Related show={4} />
         <Outfit show={4} />
-        {/* <Questions />
-        <Ratings reference={el2} /> */}
+        {/* <Questions />*/}
+        <Ratings reference={el2} />
       </Suspense>
     </ProductContextProvider>
   );
