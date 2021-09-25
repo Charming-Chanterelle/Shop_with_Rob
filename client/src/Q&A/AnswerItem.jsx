@@ -20,7 +20,7 @@ const Image = styled.img`
 const Answer = styled.div`
   position: relative;
   left: 21px;
-  top: -35px;
+  top: -32px;
   height: auto;
   font-size: 20px;
   padding-bottom: 10px;

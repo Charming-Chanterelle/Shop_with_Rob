@@ -9,18 +9,14 @@ import QuestionModal from './QuestionModal.jsx';
 import { ProductContext } from '../contexts/ProductContext.jsx'
 
 const Container = styled.div`
-padding-left: 200px;
 background-color: #fffefa;
-width: 100%;
+margin-right: 150px;
+margin-left: 150px;
+width: auto;
 height: auto;
-
 border-radius: 5px;
 border: 1px solid #d3d3d3;
 box-shadow: 2px 2px 2px 1px #d3d3d3;
-margin-top: 20px;
-margin-bottom: 30px;
-margin-left: 150px;
-marigin-right: 200px;
 font-family: 'Poppins', sans-serif;
 
 `;
