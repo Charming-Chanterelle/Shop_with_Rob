@@ -9,9 +9,6 @@ const RatingsStarHeader = () => {
 
   return (
     <>
-      <RC.RatingsAndReviewTitle>
-        Ratings & Reviews
-      </RC.RatingsAndReviewTitle>
       <RC.RatingsAndReviewContainer>
         <RC.RatingsAndReviewText>
           {parseFloat(avgRating).toFixed(1)}
