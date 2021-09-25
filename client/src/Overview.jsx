@@ -208,7 +208,7 @@ const Overview = (props) => {
             <span ref={props.reference} onClick={props.jumpClick} className="bigText"
               onMouseEnter={toggleReviewHovered}
               onMouseLeave={toggleReviewHovered}
-              style={{ float: "right", cursor: "pointer", color: `${reviewHovered ? "blue" : "black"}` }}>Read all {ratingsScore.numberOfRatings} reviews</span>
+              style={{ float: "right", cursor: "pointer", color: `${reviewHovered ? "blue" : "black"}`, textDecoration: `${reviewHovered ? "underline blue" : "none"}` }}>Read all {ratingsScore.numberOfRatings} reviews</span>
           </div>
           <div>
             <h4 className="subText"
@@ -225,7 +225,7 @@ const Overview = (props) => {
               <h2>${currentStyle.original_price}</h2>}
           </div>
           <div>
-            <h3 className="bigText" style={{ fontWeight: 600 }}>
+            <h3 className="bigText" style={{ fontWeight: 700 }}>
               Choose your style:&nbsp;
               {currentStyle.name}
             </h3>
@@ -266,14 +266,28 @@ const Overview = (props) => {
                 <FaRegStar />}
               </button>
             </S.Styles>
-            <div style={{ marginTop: 5, marginLeft: 15, marginBottom: 10 }}>
+            <div style={{ display: "inline", marginTop: 5, marginLeft: 15, marginBottom: 10 }}>
               {!sizes.includes('OUT OF STOCK')
                 && <button onClick={sizes === ['Select Size'] ? earlyCart : addToCart}
                   onMouseEnter={toggleCartHovered}
                   onMouseLeave={toggleCartHovered}
-                  style={{ boxShadow: "2px 2px 2px 1px #d3d3d3", marginLeft: 10, transform: `${cartHovered ? "scale(1.15, 1.15)" : "scale(1, 1)"}` }}
+                  style={{ boxShadow: "2px 2px 2px 1px #d3d3d3", transform: `${cartHovered ? "scale(1.15, 1.15)" : "scale(1, 1)"}` }}
                   className="bigText">
-                  <h3>ADD TO CART ++</h3></button>}
+                  <h3 style={{ fontWeight: 600 }}>ADD TO CART ++</h3></button>}
+              <S.Socials>
+                <FaFacebookSquare
+                  onMouseEnter={toggleFbHovered}
+                  onMouseLeave={toggleFbHovered}
+                  style={{ color: `${fbHovered ? "#3b5998" : "#899499"}`, height: 25, width: 25, borderRadius: "5%", boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
+                <FaTwitterSquare
+                  onMouseEnter={toggleTwHovered}
+                  onMouseLeave={toggleTwHovered}
+                  style={{ color: `${twHovered ? "#1DA1F2" : "#899499"}`, height: 25, width: 25, boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
+                <FaPinterestSquare
+                  onMouseEnter={togglePtHovered}
+                  onMouseLeave={togglePtHovered}
+                  style={{ color: `${ptHovered ? "#E60023" : "#899499"}`, height: 25, width: 25, boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
+              </S.Socials>
             </div>
             {/* ^^ If the default ‘Select Size’ is currently
             selected: Clicking this button should open
@@ -292,20 +306,6 @@ const Overview = (props) => {
               return <li key={x.value} className="bigText" style={{ listStyleType: 'none', marginBottom: 7, fontStyle: 'italic' }}><FaRegSmileBeam style={{ color: '#c48f35' }} />&nbsp;&nbsp;{x.feature}{x.value === null ? null : `: ${x.value}`}</li>;
             })}
           </S.FeaturesList>
-          <S.Socials>
-              <FaFacebookSquare
-                onMouseEnter={toggleFbHovered}
-                onMouseLeave={toggleFbHovered}
-                style={{ color: `${fbHovered ? "#3b5998" : "#899499"}`, height: 20, width: 20, borderRadius: "5%", boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
-              <FaTwitterSquare
-                onMouseEnter={toggleTwHovered}
-                onMouseLeave={toggleTwHovered}
-                style={{ color: `${twHovered ? "#1DA1F2" : "#899499"}`, height: 20, width: 20, boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
-              <FaPinterestSquare
-                onMouseEnter={togglePtHovered}
-                onMouseLeave={togglePtHovered}
-                style={{ color: `${ptHovered ? "#E60023" : "#899499"}`, height: 20, width: 20, boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
-            </S.Socials>
         </S.Features>
       </S.Container>
     </div>
