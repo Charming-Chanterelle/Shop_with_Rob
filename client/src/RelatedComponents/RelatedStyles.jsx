@@ -32,7 +32,7 @@ export const RoundButton = styles.button`
   color:#000000;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
+  display: flex;
   font-size: 16px;
   cursor: pointer;
   padding: 15px 8px 15px;
@@ -41,6 +41,7 @@ export const RoundButton = styles.button`
     border: #black solid 1px;
     background:#fcecae;
   }
+  z-index: 5000;
   `;
 
 // export const RoundButton:hover = styles.button`
