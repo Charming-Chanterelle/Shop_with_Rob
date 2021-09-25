@@ -9,7 +9,7 @@ import RatingsContent from './RatingsComponent/RatingsContent.jsx';
 import RatingsStarHeader from './RatingsComponent/RatingsStarHeader.jsx';
 import RatingsProductBreakdown from './RatingsComponent/RatingsProductBreakdown.jsx';
 // Number(window.location.hash.replace('#', ''))
-const Ratings = () => {
+const Ratings = ({ reference }) => {
   const { productID, loaded, ratingsScore } = useContext(ProductContext);
 
   const [ratings, setRatings] = useState([]);
@@ -108,7 +108,7 @@ const Ratings = () => {
   if (ratings.length !== 0) {
     return (
       <>
-        <R.Container>
+        <R.Container ref={reference}>
           <R.Stars>
             <RatingsStarHeader />
           </R.Stars>

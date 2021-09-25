@@ -5,8 +5,8 @@
 }
 
 .carousel-container {
-  padding-left: 200px;
-  padding-right: 200px;
+  padding-left: 150px;
+  padding-right: 150px;
   display: flex;
   flex-direction: column;
 }
@@ -35,7 +35,7 @@
   display: none;
 }
 
-.carousel-content > * {
+/* .carousel-content > * {
   width: 100%;
   flex-shrink: 0;
   flex-grow: 1;
@@ -48,10 +48,11 @@
 
 .carousel-content.show-3 > * {
   width: calc(100% / 3);
-}
+} */
 
 .carousel-content.show-4 > * {
-  width: calc(100% / 4);
+  /* width: calc(100% / 4); */
+  width: 20%;
 }
 
 .left-arrow, .right-arrow {
@@ -135,5 +136,11 @@ need to change naming */
   color:#899499;
   font-family: 'Poppins', sans-serif;
 }
+<<<<<<< HEAD
 
+.helpful{
+  color: black
+}
 
+=======
+>>>>>>> a47c2ce430f2fc6573080d4033609d87aff96177

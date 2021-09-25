@@ -20,9 +20,10 @@ const Image = styled.img`
 const Answer = styled.div`
   position: relative;
   left: 21px;
-  top: -19px;
+  top: -35px;
   height: auto;
-  font-size: 15px;
+  font-size: 20px;
+  padding-bottom: 10px;
 `;
 
 const Click = styled.div`
@@ -69,8 +70,8 @@ const AnswerItem = ({
         {body}
       </div>
       <div className="photos">
-        {photos ? photos.map((photo) => (
-          <Image src={photo.url} alt="" />
+        {photos ? photos.map((photo, index) => (
+          <Image key={index} src={photo.url} alt="" />
         )) : null}
       </div>
       <Author>

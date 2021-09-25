@@ -32,7 +32,8 @@ export const ProductCharacterSlider = styles.div`
 
 export const RatingsAndReviewTitle = styles.h1`
   font-family: 'Poppins', sans-serif;
-  font-size: 16px;
+
+
 `;
 
 export const RatingsAndReviewContainer = styles.div`

@@ -1,4 +1,5 @@
 import React from 'react';
+import * as s from './RelatedStyles.jsx';
 
 const ComparisonModal = (props) => {
   const { showModal } = props;
@@ -6,12 +7,12 @@ const ComparisonModal = (props) => {
     return null;
   }
   return (
-    <div className={`modal ${props.showModal ? 'show' : ''}`}>
-      <div className="modal-content">
-        <div className="modal-header">
-          <h4 className="modal-title">Comparing</h4>
-        </div>
-        <div className="modal-body">
+    <s.Modal className={`${props.showModal ? 'show' : ''}`}>
+      <s.ModalContent>
+        <s.ModalEdge>
+          <s.ModalTitle>Comparing</s.ModalTitle>
+        </s.ModalEdge>
+        <s.ModalBody>
           <table>
             <tr>
               <th>Current</th>
@@ -39,12 +40,12 @@ const ComparisonModal = (props) => {
               <td>Plastic</td>
             </tr>
           </table>
-        </div>
-        <div className="modal-footer">
+        </s.ModalBody>
+        <s.ModalEdge>
           <button onClick={props.onClose} className="button" type="button">Close</button>
-        </div>
-      </div>
-    </div>
+        </s.ModalEdge>
+      </s.ModalContent>
+    </s.Modal>
   );
 };
 

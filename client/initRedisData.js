@@ -5,10 +5,10 @@ const productID = 48432;
 const InitData = (ID, count) => {
   const product = axios.get(`http://localhost:3000/api/products/${ID}`);
   const style = axios.get(`http://localhost:3000/api/products/${ID}/style`);
-  const meta = axios.get(`http://localhost:3000/api/reviews/meta/?product_id=${ID}`);
+  // const meta = axios.get(`http://localhost:3000/api/reviews/meta/?product_id=${ID}`);
 
   axios.all([
-    product, style, meta,
+    product, style,
   ])
     .then(axios.spread(() => {
       console.log(`Run ${count} is complete`);

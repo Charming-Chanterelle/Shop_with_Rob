@@ -11,8 +11,9 @@ const Interactions = styled.div`
   text-align: right;
   position: relative;
   left: 470px;
-  top: -7px;
+  top: -24px;
   text-transform: uppercase;
+  padding-left: 200px;
 `;
 
 const Click = styled.div`

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaTimes } from 'react-icons/fa';
+import { FaTimes, FaChevronCircleRight, FaChevronCircleLeft } from 'react-icons/fa';
 import OutfitItems from './RelatedComponents/Outfit';
 import * as s from './RelatedComponents/RelatedStyles.jsx';
 
@@ -43,7 +43,7 @@ const Outfit = (props) => {
                   (currentIndex > 0 && outfitItems.length > 0)
                   && (
                   <s.RoundButton type="button" onClick={prev} className="left-arrow">
-                    &lt;
+                    <FaChevronCircleLeft></FaChevronCircleLeft>
                   </s.RoundButton>
                   )
               }
@@ -92,7 +92,7 @@ const Outfit = (props) => {
                   (currentIndex < (length + 1 - show) && outfitItems.length + 1 >= show)
                   && (
                   <s.RoundButton type="button" onClick={next} className="right-arrow">
-                    &gt;
+                    <FaChevronCircleRight></FaChevronCircleRight>
                   </s.RoundButton>
                   )
               }

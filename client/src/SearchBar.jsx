@@ -12,7 +12,7 @@ const SearchBar = (props) => {
         type="text"
         placeholder={value}
       />
-      <button type="submit">Search</button>
+      <button type="submit" style={{ paddingTop: 0, paddingBottom: 2, marginTop: 25 }}>&#x1F50D;</button>
     </form>
   );
 };
