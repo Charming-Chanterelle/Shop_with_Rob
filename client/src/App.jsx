@@ -23,7 +23,7 @@ function App() {
         <Related show={4} />
         <Outfit show={4} />
         {/* <Questions />*/}
-        <Ratings reference={el2} />
+        {/* <Ratings reference={el2} /> */}
       </Suspense>
     </ProductContextProvider>
   );
