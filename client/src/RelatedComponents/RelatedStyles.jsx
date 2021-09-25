@@ -36,7 +36,17 @@ export const RoundButton = styles.button`
   font-size: 16px;
   cursor: pointer;
   padding: 15px 8px 15px;
+  &:hover {
+    color: #FBD63F;
+    border: #black solid 1px;
+    background:#fcecae;
+  }
+  z-index: 500;
   `;
+
+// export const RoundButton:hover = styles.button`
+
+//   `;
 
 export const CardWrapper = styles.div`
   overflow: hidden;
@@ -45,6 +55,7 @@ export const CardWrapper = styles.div`
   `;
 
 export const CardText = styles.div`
+  text-align: center;
   position: relative;
   bottom: 0;
   `;
