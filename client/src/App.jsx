@@ -18,7 +18,7 @@ function App() {
       <Suspense fallback={<div>Loading...</div>}>
         <Related show={4} />
         <Outfit show={4} />
-        {/* <Questions /> */}
+        <Questions />
         <Ratings />
       </Suspense>
     </ProductContextProvider>

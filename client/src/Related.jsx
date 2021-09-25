@@ -123,7 +123,7 @@ const Related = (props) => {
                       />
                     </div>
                     <img onClick={() => changeHash(item.product.id)} src={item.styles[0].photos[0].thumbnail_url} className="carouselImage" alt="related-item" />
-                    <s.CardText>
+                    <div>
                       <div className="bigText">
                         <b>
                           {item.product.name}
@@ -141,7 +141,7 @@ const Related = (props) => {
                         Rating:
                         {` ${item.reviews.toPrecision(3)}`}
                       </div>
-                    </s.CardText>
+                    </div>
                   </div>
                 </s.Card>
               ))}
