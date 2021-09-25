@@ -15,7 +15,7 @@ const Related = (props) => {
   const [showModal, setShowModal] = useState(false);
   // const [overviewID, setOverviewID] = useState(productID);
   const [relatedItems, setRelatedItems] = useState([]);
-
+  const [open, setOpen] = useState(false);
   const { productID, changeHash } = useContext(ProductContext);
 
 
@@ -74,7 +74,6 @@ const Related = (props) => {
     setLength(relatedItems.length);
   }, [relatedItems]);
 
-
   // useEffect(getRelatedProducts, []);
   const next = () => {
     if (currentIndex < (length - show)) {
@@ -111,15 +110,19 @@ const Related = (props) => {
             >
               {/* start of item info */}
               {relatedItems.map((item) => (
-                <s.Card key={item.product.name} >
+                <s.Card key={item.product.name}>
                   <div>
                     <div>
                       <s.RoundButton onClick={() => setShowModal(true)} type="button">
+                      {/* <s.RoundButton onClick={() => setOpen(true)} type="button"> */}
                         <FaRegStar />
                       </s.RoundButton>
                       <ComparisonModal
                         onClose={() => setShowModal(false)}
                         showModal={showModal}
+                        name={item.product.name}
+                        rating={item.product.rating}
+                        // isOpen={open}
                       />
                     </div>
                     <img onClick={() => changeHash(item.product.id)} src={item.styles[0].photos[0].thumbnail_url} className="carouselImage" alt="related-item" />

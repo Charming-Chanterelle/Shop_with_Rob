@@ -2,12 +2,12 @@ import React from 'react';
 import * as s from './RelatedStyles.jsx';
 
 const ComparisonModal = (props) => {
-  const { showModal } = props;
+  const { showModal, name, rating } = props;
   if (!showModal) {
     return null;
   }
   return (
-    <s.Modal className={`${props.showModal ? 'show' : ''}`}>
+    <s.Modal className={`${showModal ? 'show' : ''}`}>
       <s.ModalContent>
         <s.ModalEdge>
           <s.ModalTitle>Comparing</s.ModalTitle>
@@ -17,12 +17,12 @@ const ComparisonModal = (props) => {
             <tr>
               <th>Current</th>
               <th>Characteristics</th>
-              <th>Related Item</th>
+              <th>{name}</th>
             </tr>
             <tr>
               <td>4 stars</td>
               <td>Rating</td>
-              <td>4.2 stars</td>
+              <td>{rating}</td>
             </tr>
             <tr>
               <td>Yes</td>
