@@ -19,7 +19,7 @@ function App() {
     <ProductContextProvider>
       <NavBar />
       <Overview reference={el1} jumpClick={() => scrollToDiv(el2)} />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>Hang tight...</div>}>
         <Related show={4} />
         <Outfit show={4} />
         {/* <Questions />*/}

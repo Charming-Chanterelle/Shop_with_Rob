@@ -3,13 +3,9 @@
 import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
 import { ProductContext } from './contexts/ProductContext.jsx';
-import { FaStar, FaRegStar, FaChevronCircleRight, FaChevronCircleLeft, FaFacebookSquare, FaTwitterSquare, FaPinterestSquare, FaCheck, FaRegSmileBeam } from 'react-icons/fa';
+import { FaStar, FaRegStar, FaChevronCircleRight, FaChevronCircleLeft, FaChevronCircleUp, FaChevronCircleDown, FaFacebookSquare, FaTwitterSquare, FaPinterestSquare, FaCheck, FaRegSmileBeam } from 'react-icons/fa';
 import * as S from './OverviewStyledComponents.jsx';
 import StarDisplay from './StarDisplay.jsx';
-
-media: {
-  max_img_size: 700
-};
 
 const Overview = (props) => {
   const {
@@ -199,7 +195,7 @@ const Overview = (props) => {
   const photos = currentStyle.photos ?? [];
   const stylez = styles ?? [];
   const featurez = product.features ?? [];
-  console.log(mainImg.offsetWidth)
+  console.log(<mainImg/>.offsetWidth)
   return (
     <div>
       <S.Container>
@@ -207,12 +203,14 @@ const Overview = (props) => {
           <S.LeftArrow onClick={prevSlide}><FaChevronCircleLeft /></S.LeftArrow>
           <S.BigImg className="imgFormat" src={mainImg} alt={currentStyle.name} />
           <S.ImgCards>
+          <FaChevronCircleUp style={{ color: "#c48f35", paddingLeft: 12, paddingBottom: 2 }} onClick={prevSlide} />
             {photos.map((x, i) => {
               return <S.ImgSample key={x.thumbnail_url + i}
                 onMouseEnter={enterSample}
                 onMouseLeave={exitSample}
                 style={{ transform: `${sampleHovered == x.thumbnail_url ? "scale(1.15, 1.15)" : "scale(1, 1)"}`, border: `${current === i ? "3px solid #FBD63F" : "none"}` }} onClick={imgOnClick} className="imgFormat" url={x.thumbnail_url} name={x.thumbnail_url} value={i} />;
             })}
+            <FaChevronCircleDown style={{ color: "#c48f35", paddingLeft: 12, paddingTop: 2 }} onClick={nextSlide}/>
           </S.ImgCards>
           <S.RightArrow onClick={nextSlide}><FaChevronCircleRight /></S.RightArrow>
         </S.Main>
@@ -222,7 +220,7 @@ const Overview = (props) => {
         </S.Content>
         <S.Side>
           <div>
-            <StarDisplay stars={{ width: '20', height: '20' }} style={{ float: 'right' }} />
+            <StarDisplay stars={{ width: '20', height: '20' }} />
             <span ref={props.reference} onClick={props.jumpClick} className="bigText"
               onMouseEnter={toggleReviewHovered}
               onMouseLeave={toggleReviewHovered}
@@ -256,7 +254,7 @@ const Overview = (props) => {
                   onMouseLeave={exitHovered}
                   style={{ transform: `${hovered == x.style_id ? "scale(1.15, 1.15)" : "scale(1, 1)"}` }}>
                   {x === currentStyle &&
-                    <FaCheck style={{ color: 'yellow' }} />}
+                    <FaCheck style={{ color: "yellow" }} />}
                 </S.StylesButton>)}
             </S.Styles>
             <S.Styles>
@@ -309,21 +307,12 @@ const Overview = (props) => {
                   style={{ color: `${ptHovered ? "#E60023" : "#899499"}`, height: 25, width: 25, boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
               </S.Socials>
             </div>
-            {/* ^^ If the default ‘Select Size’ is currently
-            selected: Clicking this button should open
-            the size dropdown, and a message should
-            appear above the dropdown stating “Please
-            select size”.
-            If there is no stock: This button should be hidden
-            If both a valid size and valid quantity are
-            selected: Clicking this button will add the product to the user’s cart. */}
           </div>
         </S.Side>
         <S.Features>
           <S.FeaturesList>
-            <li className="bigText" style={{ listStyleType: 'none', marginBottom: 7, fontStyle: 'italic' }}><FaRegSmileBeam style={{ color: '#c48f35' }} />&nbsp;&nbsp;110% Satisfaction Guaranteed*</li>
             {featurez.map((x) => {
-              return <li key={x.value} className="bigText" style={{ listStyleType: 'none', marginBottom: 7, fontStyle: 'italic' }}><FaRegSmileBeam style={{ color: '#c48f35' }} />&nbsp;&nbsp;{x.feature}{x.value === null ? null : `: ${x.value}`}</li>;
+              return <li key={x.value} className="bigText" style={{ listStyleType: "none", marginBottom: 7, fontStyle: "italic"}}><FaRegSmileBeam style={{ color: "#c48f35" }} />&nbsp;&nbsp;{x.feature}{x.value === null ? null : `: ${x.value}`}</li>;
             })}
           </S.FeaturesList>
         </S.Features>
@@ -331,7 +320,7 @@ const Overview = (props) => {
     </div>
   );
   // }
-  // return <div>LOADING...</div>;
+  // return <div>Hang tight...</div>;
 };
 
 export default Overview;

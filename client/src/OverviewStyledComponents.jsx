@@ -49,7 +49,6 @@ export const Features = styles.div`
   border: 1px solid #FBD63F;
   border-radius: 5px;
   border-left: 6px solid #899499;
-  padding: 10px;
   padding-right: 40px;
   `;
 // Smaller pieces:
@@ -61,7 +60,7 @@ export const LeftArrow = styles.button`
   width: 32px;
   height: 32px;
   z-index: 100;
-  top: 80%;
+  top: 85%;
   left: 5%;
   display: flex;
     justify-content: center;
@@ -73,7 +72,7 @@ export const RightArrow = styles.button`
   border-radius: 100%;
   width: 32px;
   height: 32px;
-  top: 80%;
+  top: 85%;
   right: 5%;
   display: flex;
     justify-content: center;
@@ -85,21 +84,21 @@ export const BigImg = styles.img`
   overflow-x: hidden;
   width: 100%;
   height: 100%;
-  transform: translate(-50%, -50%)
-
-  background-position: center;
+  background-position: contain;
   cursor: -moz-zoom-in;
   cursor: -webkit-zoom-in;
   cursor: zoom-in;
   `;
   // background-size: contain;
+  // background-position: contain;
+  // background-image: url(${props => props.url})
 export const ImgCards = styles.div`
   grid-area: main;
   position: absolute;
   z-index: 900;
   display: flex;
   flex-direction: column;
-  top: 20%;
+  top: 10%;
   `;
 export const ImgSample = styles.button`
   grid-area: main;
@@ -121,7 +120,7 @@ export const Styles = styles.div`
   flex-wrap: wrap;
   flex-flow: row wrap;
   padding: 10px;
-  padding-left: 5px;
+  padding-left: 7px;
   margin-top: 0;
   border-radius: 5px;
   `;
