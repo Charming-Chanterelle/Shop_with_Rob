@@ -13,8 +13,8 @@ export const Container = styles.div`
     "main main main side side"
     "main main main side side"
     "content content content features features";
-  padding-left: 100px;
-  padding-right: 100px;
+  padding-left: 150px;
+  padding-right: 150px;
   row-gap: 10px;
   column-gap: 30px;
   overflow: hidden;
@@ -38,6 +38,7 @@ export const Content = styles.div`
   background-color: #eecf6b;
   border-radius: 5px;
   padding: 10px;
+  padding-left: 20px;
   box-shadow: 2px 2px 2px 1px #d3d3d3;
   `;
 export const Features = styles.div`
@@ -81,9 +82,10 @@ export const BigImg = styles.img`
   overflow-x: hidden;
   height: 100%;
   background-size: contain;
+  background-position: center;
   cursor: -moz-zoom-in;
-    cursor: -webkit-zoom-in;
-    cursor: zoom-in;
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
   `;
 export const ImgCards = styles.div`
   grid-area: main;
@@ -132,8 +134,9 @@ color: #899499;
 `;
 export const Socials = styles.div`
   grid-area: side;
-  float: right;
-  padding-right: 10px;
+  cursor: pointer;
+  width: 26px;
+  float: left;
   `;
 // export const sampleHover = {
 //   transform: 'scale(1, 1)',
