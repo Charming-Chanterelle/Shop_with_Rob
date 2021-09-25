@@ -7,13 +7,12 @@ import AnswerModal from './AnswerModal.jsx';
 const Interactions = styled.div`
   display: flex;
   flex-direction: row;
-  font-size: small;
+  font-size: 12px;
   text-align: right;
   position: relative;
   left: 470px;
   top: -24px;
   text-transform: uppercase;
-  padding-left: 200px;
 `;
 
 const Click = styled.div`
