@@ -124,7 +124,7 @@ const RatingsDisplay = ({ ratingList, onUpdateReview, starKey }) => {
             </RIT.ResponseText>
           </RIT.Response>
         )}
-          {/* {photos.length !== 0
+          {photos.length !== 0
             ? (
               <RIT.ImageContainer>
                 {
@@ -152,7 +152,7 @@ const RatingsDisplay = ({ ratingList, onUpdateReview, starKey }) => {
               }
               </RIT.ImageContainer>
             )
-            : null} */}
+            : null}
         <RIT.Helpful>
           Helpful?
           {isHelpful

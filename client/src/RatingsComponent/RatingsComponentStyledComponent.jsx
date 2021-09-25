@@ -30,7 +30,7 @@ export const ProductCharacterSlider = styles.div`
   position: relative;
 `;
 
-export const RatingsAndReviewTitle = styles.span`
+export const RatingsAndReviewTitle = styles.h1`
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
 `;
