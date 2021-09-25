@@ -8,6 +8,7 @@ export const Card = styles.div`
   text-align: center;
   display: flex;
   transition: all 250ms linear;
+
   -ms-overflow-style: none;
   scrollbar-width: none;
   flex-shrink: 0;
