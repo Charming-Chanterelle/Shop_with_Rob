@@ -42,7 +42,7 @@ const ComparisonModal = (props) => {
           </table>
         </s.ModalBody>
         <s.ModalEdge>
-          <button onClick={props.onClose} className="button" type="button">Close</button>
+          <s.RoundButton onClick={props.onClose} className="button" type="button">Close</s.RoundButton>
         </s.ModalEdge>
       </s.ModalContent>
     </s.Modal>

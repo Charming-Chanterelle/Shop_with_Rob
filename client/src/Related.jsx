@@ -111,7 +111,7 @@ const Related = (props) => {
             >
               {/* start of item info */}
               {relatedItems.map((item) => (
-                <s.Card key={item.product.name} onClick={() => changeHash(item.product.id)}>
+                <s.Card key={item.product.name} >
                   <div>
                     <div>
                       <s.RoundButton onClick={() => setShowModal(true)} type="button">
@@ -122,7 +122,7 @@ const Related = (props) => {
                         showModal={showModal}
                       />
                     </div>
-                    <img src={item.styles[0].photos[0].thumbnail_url} className="carouselImage" alt="related-item" />
+                    <img onClick={() => changeHash(item.product.id)} src={item.styles[0].photos[0].thumbnail_url} className="carouselImage" alt="related-item" />
                     <s.CardText>
                       <div className="bigText">
                         <b>
