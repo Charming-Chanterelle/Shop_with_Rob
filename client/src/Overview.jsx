@@ -7,6 +7,10 @@ import { FaStar, FaRegStar, FaChevronCircleRight, FaChevronCircleLeft, FaFaceboo
 import * as S from './OverviewStyledComponents.jsx';
 import StarDisplay from './StarDisplay.jsx';
 
+media: {
+  max_img_size: 700
+};
+
 const Overview = (props) => {
   const {
     product, styles, ratingsScore, loaded,
@@ -61,7 +65,7 @@ const Overview = (props) => {
       setCurrentStyle(theStyle(parseInt(event.target.value, 10))) : null;
   };
   useEffect(() => {
-    if (currentStyle !== {} && (current !== null)) {
+    if (current !== null) {
       const newImg = currentStyle.photos[current].url;
       setMainImg(newImg);
     }
@@ -75,6 +79,12 @@ const Overview = (props) => {
       setQuantities(-1);
     }
   }, [sizes]);
+  useEffect(() => {
+    if (styles.length > 0) {
+      let test = styles.filter((x) => x['default?'] === true)[0];
+      test === undefined ? setCurrentStyle(styles[0]) : setCurrentStyle(test);
+    }
+  }, [styles]);
 
   /* ------------------
   |   CLICK HANDLERS   |
@@ -110,9 +120,6 @@ const Overview = (props) => {
   const selectQuantity = (event) => {
     setQuantity(event.target.value);
   };
-  // INCREASED FUNCTIONALITY TO-DO:
-  // const jumpToRatings = () => {
-  // };
 
   /* --------
   |   CART   |
@@ -174,6 +181,9 @@ const Overview = (props) => {
     setPtHovered(!ptHovered);
   };
 
+  // let bigg = React.createRef();
+  // bigg = mainImg;
+
   /* -----------
   |   RETURN   |
   -------------*/
@@ -182,12 +192,13 @@ const Overview = (props) => {
   const photos = currentStyle.photos ?? [];
   const stylez = styles ?? [];
   const featurez = product.features ?? [];
+  // console.log(bigg.offsetWidth)
   return (
     <div>
       <S.Container>
         <S.Main>
           <S.LeftArrow onClick={prevSlide}><FaChevronCircleLeft /></S.LeftArrow>
-          <S.BigImg className="imgFormat" src={mainImg} alt="${currentStyle.name}" />
+          <S.BigImg className="imgFormat" src={mainImg} alt={currentStyle.name} />
           <S.ImgCards>
             {photos.map((x, i) => {
               return <S.ImgSample key={x.thumbnail_url}
@@ -266,7 +277,7 @@ const Overview = (props) => {
                 <FaRegStar />}
               </button>
             </S.Styles>
-            <div style={{ display: "inline", marginTop: 5, marginLeft: 15, marginBottom: 10 }}>
+            <div style={{ display: "inline", marginLeft: 15, marginBottom: 10 }}>
               {!sizes.includes('OUT OF STOCK')
                 && <button onClick={sizes === ['Select Size'] ? earlyCart : addToCart}
                   onMouseEnter={toggleCartHovered}

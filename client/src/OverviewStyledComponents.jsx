@@ -3,7 +3,7 @@ import styles from 'styled-components';
 // top component level:
 export const Container = styles.div`
   display: grid;
-  height: 100vh;
+  height: 90vh;
   color: black;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -26,6 +26,7 @@ export const Main = styles.div`
   position relative;
   overflow: hidden;
   border-radius: 5px;
+  height: auto;
   `;
 export const Side = styles.div`
   grid-area: side;
@@ -78,15 +79,18 @@ export const RightArrow = styles.button`
   `;
 export const BigImg = styles.img`
   grid-area: main;
-  position: absolute;
+  position: relative;
   overflow-x: hidden;
+  width: 100%;
   height: 100%;
-  background-size: contain;
+  transform: translate(-50%, -50%)
+
   background-position: center;
   cursor: -moz-zoom-in;
   cursor: -webkit-zoom-in;
   cursor: zoom-in;
   `;
+  // background-size: contain;
 export const ImgCards = styles.div`
   grid-area: main;
   position: absolute;
@@ -115,7 +119,6 @@ export const Styles = styles.div`
   flex-wrap: wrap;
   flex-flow: row wrap;
   padding: 10px;
-  margin: 10px;
   border-radius: 5px;
   `;
 export const StylesButton = styles.button`
@@ -125,7 +128,8 @@ border-radius: 50%;
 color: #899499;
   border: 3px solid #FBD63F;
   padding: 10px;
-  margin: 10px;
+  margin-right: 10px;
+  margin-top: 5px;
   width: 70px;
   height: 70px;
   background: url(${props => props.url}) no-repeat;

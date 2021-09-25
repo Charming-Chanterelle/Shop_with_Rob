@@ -5,7 +5,7 @@ const SearchBar = (props) => {
   const { search, value } = props;
 
   return (
-    <form>
+    <form style={{ float: "right", paddingLeft: 10 }}>
       <input
         className="imgFormat"
         onChange={search}
