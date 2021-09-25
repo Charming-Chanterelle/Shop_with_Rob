@@ -18,8 +18,19 @@ const getCharacterScore = ({ characteristics }) => {
   return characterScores;
 };
 
+const uniqueKey = () => {
+  let key = '';
+  const bank = ['g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', '3', '4', '5', '6', '7', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '8', '9', '!', '@', '$', '#', '%', '^', '*', 'a', 'b', 'c', 'd', 'e', 'f'];
+  const bankLen = bank.length;
+  for (let i = 0; i < 15; i++) {
+    const randID = Math.ceil(Math.random() * (bankLen - 0));
+    key += bank[randID];
+  }
+  return key;
+};
+
 const RatingsSummarySlider = () => {
-  const { meta, loaded } = useContext(ProductContext);
+  const { meta, productID } = useContext(ProductContext);
   const [characterScores, setCharacterScore] = useState([]);
 
   const characterBank = {
@@ -32,28 +43,23 @@ const RatingsSummarySlider = () => {
   };
 
   useEffect(() => {
-    if (loaded) {
-      const score = getCharacterScore(meta);
-      setCharacterScore(score);
-    }
-  }, [loaded]);
-  if (loaded) {
-    return (
-      <>
-        {
-          characterScores.map((score) => (
-            <RatingsSliderDisplay
-              key={score}
-              scores={score}
-              characteristic={characterBank[score.key]}
-            />
-          ))
-        }
-      </>
-    );
-  }
-  return null;
+    const score = getCharacterScore(meta);
+    setCharacterScore(score);
+  }, [productID]);
+
+  return (
+    <>
+      {
+        characterScores.map((score) => (
+          <RatingsSliderDisplay
+            key={uniqueKey()}
+            scores={score}
+            characteristic={characterBank[score.key]}
+          />
+        ))
+      }
+    </>
+  );
 };
 
 export default RatingsSummarySlider;
-// characterScores.

@@ -19,8 +19,19 @@ const getCharacterID = (characteristics) => {
   return characterData;
 };
 
+const uniqueKey = () => {
+  let key = '';
+  const bank = ['g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', '3', '4', '5', '6', '7', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '8', '9', '!', '@', '$', '#', '%', '^', '*', 'a', 'b', 'c', 'd', 'e', 'f'];
+  const bankLen = bank.length;
+  for (let i = 0; i < 15; i++) {
+    const randID = Math.ceil(Math.random() * (bankLen - 0));
+    key += bank[randID];
+  }
+  return key;
+};
+
 const RatingsCharacteristics = ({ getCharacteristic }) => {
-  const { meta, loaded } = useContext(ProductContext);
+  const { meta, productID } = useContext(ProductContext);
   const [characters, setCharacter] = useState([]);
   const [characterID, setCharacterID] = useState({});
   const data = {};
@@ -34,12 +45,10 @@ const RatingsCharacteristics = ({ getCharacteristic }) => {
   };
 
   useEffect(() => {
-    if (loaded) {
-      const { characteristics } = meta;
-      setCharacterID(getCharacterID(characteristics));
-      setCharacter(Object.keys(characteristics));
-    }
-  }, [loaded, meta]);
+    const { characteristics } = meta;
+    setCharacterID(getCharacterID(characteristics));
+    setCharacter(Object.keys(characteristics));
+  }, [productID]);
 
   const characterData = (name, value) => {
     const key = characterID[name];
@@ -47,37 +56,37 @@ const RatingsCharacteristics = ({ getCharacteristic }) => {
 
     getCharacteristic(data);
   };
-  if (loaded) {
-    return (
-      <>
-        {characters.map((character) => (
-          <>
-            <RAR.RatingsCharacterContainer>
-              <RAR.RatingsCharacteristicText
-                key={characterBank[character]}
-              >
-                {character}
-                <RAR.BodyRequired>*</RAR.BodyRequired>
-                :
-              </RAR.RatingsCharacteristicText>
-              <RAR.RatingsCharacterRadioContainer>
-                {characterBank[character].map((currentCharacter, index) => (
-                  <CharacterDisplay
-                    key={character + currentCharacter}
-                    currentCount={index + 1}
-                    currentCharacter={character}
-                    currentCharacteristics={currentCharacter}
-                    onChangeCharacteristic={characterData}
-                  />
-                ))}
-              </RAR.RatingsCharacterRadioContainer>
-            </RAR.RatingsCharacterContainer>
-          </>
-        ))}
-      </>
-    );
-  }
-  return null;
+
+  return (
+    <>
+      {characters.map((character, count) => (
+        <>
+          <RAR.RatingsCharacterContainer>
+            <RAR.RatingsCharacteristicText
+              key={characterBank[character]
+                .concat(uniqueKey(), count, characterBank[character][count])}
+            >
+              {character}
+              <RAR.BodyRequired>*</RAR.BodyRequired>
+              :
+            </RAR.RatingsCharacteristicText>
+            <RAR.RatingsCharacterRadioContainer>
+              {characterBank[character].map((currentCharacter, index) => (
+                <CharacterDisplay
+                  key={uniqueKey().split('').reverse().join('')
+                    .concat(index)}
+                  currentCount={index + 1}
+                  currentCharacter={character}
+                  currentCharacteristics={currentCharacter}
+                  onChangeCharacteristic={characterData}
+                />
+              ))}
+            </RAR.RatingsCharacterRadioContainer>
+          </RAR.RatingsCharacterContainer>
+        </>
+      ))}
+    </>
+  );
 };
 
 export default RatingsCharacteristics;
