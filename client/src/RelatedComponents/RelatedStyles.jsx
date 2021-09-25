@@ -41,7 +41,6 @@ export const RoundButton = styles.button`
     border: #black solid 1px;
     background:#fcecae;
   }
-  z-index: 500;
   `;
 
 // export const RoundButton:hover = styles.button`
@@ -55,8 +54,11 @@ export const CardWrapper = styles.div`
   `;
 
 export const CardText = styles.div`
+  display: block;
+
+  position: absolute;
   text-align: center;
-  position: relative;
+  // left: 50%;
   bottom: 0;
   `;
 

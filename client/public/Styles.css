@@ -1,14 +1,22 @@
 .carouselImage {
-  height: 100%;
-  width: 150px;
+  height: 180px;
+  width: 165px;
   border-radius: 5px;
   transition: all .2s ease-in-out;
   box-shadow: 2px 2px 2px 1px #d3d3d3;
   text-align: center;
+  display: block;
+  top: 0;
+  margin-bottom: 100px;
+  object-fit: cover;
+  z-index: -50;
+  /* overflow: hidden; */
 }
 
 .carouselImage:hover {
   transform: scale(1.075);
+  height: 100%;
+  width: 180px;
 }
 
 .carousel-container {
@@ -16,6 +24,7 @@
   padding-right: 150px;
   display: flex;
   flex-direction: column;
+  /* margin: 10px auto; */
 }
 
 .carousel-wrapper {
