@@ -7,6 +7,7 @@ export const IndividualTileContainer = styles.div`
   padding-top: 10px;
   gap: 2px;
   border-bottom: solid thin black;
+  box-shadow: 2px 2px 2px 1px #d3d3d3;
   display: grid;
   grid-template-areas:
   "stars username"

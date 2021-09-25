@@ -7,13 +7,16 @@ const randID = 48432;
 const getAverageRating = ({ ratings }) => {
   // We want to get the total reviews and the average of the reviews.
   const weight = Object.keys(ratings);
+
   if (weight.length === 0) {
-    return {
+    const noRatings = {
       avgRating: 0,
       numberOfRatings: 0,
       ratingsPercent: 0,
     };
+    return noRatings;
   }
+
   const rating = Object.values(ratings);
 
   let numberOfRatings = 0;
@@ -54,14 +57,13 @@ const ProductContextProvider = ({ children }) => {
   const [meta, setMeta] = useState({});
   const [ratingsScore, setRatingScore] = useState({});
   const [loaded, setLoaded] = useState(false);
-  const [productID, setproductID] = useState(48432);
+  const [productID, setproductID] = useState(48445);
 
   const changeHash = (hash) => {
     setproductID(hash);
   };
 
   useEffect(() => {
-
     axios.get(`/api/products/${productID}`)
       .then((response) => {
         const currentProduct = response.data;

@@ -41,9 +41,9 @@ const AnswerList = ({ questionId }) => {
 
   return (
     <div>
-      {sortedAnswers.map((answer) => (
+      {sortedAnswers.map((answer, index) => (
         // eslint-disable-next-line max-len
-        <AnswerItem id={answer.answer_id} name={answer.answerer_name} body={answer.body} date={answer.date} helpful={answer.helpfulness} photos={answer.photos} />
+        <AnswerItem key={index} id={answer.answer_id} name={answer.answerer_name} body={answer.body} date={answer.date} helpful={answer.helpfulness} photos={answer.photos} />
       ))}
     </div>
   );

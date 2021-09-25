@@ -121,7 +121,10 @@ export const Label = style.label`
 `;
 
 export const BodyTextInput = style.input`
-
+${({ show }) => show && css`
+  border-color: turquoise;
+  `
+};
 `;
 
 export const BodyRecommend = style.div`
@@ -207,4 +210,55 @@ export const RatingsCharacteristicRadioLabel = style.label`
 
 export const RatingsCharacteristicRadioInput = style.input`
   // grid-area: action;
+`;
+
+export const SubmitTest = style.button`
+  background-color:#FBD63F;
+  border: none;
+  border-radius: 5px;
+  color:#000000;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  width: 200px
+`;
+
+export const ErrorModuleContainer = style.div`
+font-family: 'Poppins', sans-serif;
+position: fixed;
+left: 5px;
+top: 20px;
+right: 0;
+bottom: 0;
+// background-color: rgba(0,0,0,0.5);
+
+color: white;
+align-items: center;
+justify-content: center;
+opacity: 0;
+transition: all 1s ease-in-out;
+transform: translateX(-200px);
+pointer-events: none;
+;
+${({ show }) => show && css`
+  opacity: 1;
+  pointer-events: visible;
+  transform: translateX(0);
+  `
+};
+`;
+
+export const ErrorContent = style.div`
+  width: 300px;
+  height: 100px;
+  background-color: red;
+  transform: translateX(-100px);
+  transition: all 1s ease-in-out;
+  border: 3px solid #red;
+  overflow-y: auto;
+  transform: translateX(0);
+  text-align: center;
+  font-size: 20px;
 `;

@@ -47,7 +47,7 @@ const RatingsDisplay = ({ ratingList, onUpdateReview, starKey }) => {
     review_id, rating, reviewer_name,
     summary, body, helpfulness, recommend, response, photos,
   } = ratingList;
-  const { loaded } = useContext(ProductContext);
+  const { productID, loaded } = useContext(ProductContext);
 
   const [seeMore, setSeeMore] = useState(false);
   const [fullBody, setFullBody] = useState('');
@@ -57,20 +57,10 @@ const RatingsDisplay = ({ ratingList, onUpdateReview, starKey }) => {
   const [isHelpful, setIsHelpful] = useState(false);
 
   useEffect(() => {
-    if (loaded) {
-      const { isSeeMore, bodyText } = getBodyText(body);
-      setSeeMore(isSeeMore);
-      setFullBody(bodyText);
-    }
-  }, [loaded]);
-
-  // useEffect(() => {
-  //   if (loaded) {
-  //     const { isSeeMore, bodyText } = getBodyText(body);
-  //     setSeeMore(isSeeMore);
-  //     setFullBody(bodyText);
-  //   }
-  // }, [fullBody, seeMore]);
+    const { isSeeMore, bodyText } = getBodyText(body);
+    setSeeMore(isSeeMore);
+    setFullBody(bodyText);
+  }, [productID]);
 
   const onUserUpdate = (action) => {
     onUpdateReview(review_id, action);
@@ -87,55 +77,54 @@ const RatingsDisplay = ({ ratingList, onUpdateReview, starKey }) => {
     setFullBody(bodyText);
   };
 
-  if (loaded) {
-    return (
-      <>
-        <RIT.IndividualTileContainer>
-          <RIT.Stars>
-            <RatingsStarDisplay stars={{ width: '15', height: '15' }} id={starKey} starRatings={rating} />
-          </RIT.Stars>
-          <RIT.Username>
-            <FaRegGem />
-            <RIT.UsernameText>
-              {reviewer_name}
-            </RIT.UsernameText>
-          </RIT.Username>
-          <RIT.Summary>
-            {summary}
-          </RIT.Summary>
-          <RIT.Body>
-            {fullBody}
-            {seeMore
-              ? (
-                <RIT.SeeMoreBodyText
-                  onClick={() => onSeeMore()}
-                >
-                  ...Read More
-                </RIT.SeeMoreBodyText>
-              )
-              : null }
-          </RIT.Body>
-          { recommend ? (
-            <RIT.Recommend>
-              <FaCheck
-                style={{ fill: 'green', paddingRight: '10px' }}
-              />
-              <RIT.RecommendText>
-                I recommend this product
-              </RIT.RecommendText>
-            </RIT.Recommend>
-          ) : null }
-          {!response ? null : (
-            <RIT.Response>
-              <RIT.ResponseText>
-                Response:
-              </RIT.ResponseText>
-              <RIT.ResponseText>
-                {response}
-              </RIT.ResponseText>
-            </RIT.Response>
-          )}
-          {photos.length !== 0
+  return (
+    <>
+      <RIT.IndividualTileContainer>
+        <RIT.Stars>
+          <RatingsStarDisplay stars={{ width: '15', height: '15' }} id={starKey} starRatings={rating} />
+        </RIT.Stars>
+        <RIT.Username>
+          <FaRegGem />
+          <RIT.UsernameText>
+            {reviewer_name}
+          </RIT.UsernameText>
+        </RIT.Username>
+        <RIT.Summary>
+          {summary}
+        </RIT.Summary>
+        <RIT.Body>
+          {fullBody}
+          {seeMore
+            ? (
+              <RIT.SeeMoreBodyText
+                onClick={() => onSeeMore()}
+              >
+                ...Read More
+              </RIT.SeeMoreBodyText>
+            )
+            : null }
+        </RIT.Body>
+        { recommend ? (
+          <RIT.Recommend>
+            <FaCheck
+              style={{ fill: 'green', paddingRight: '10px' }}
+            />
+            <RIT.RecommendText>
+              I recommend this product
+            </RIT.RecommendText>
+          </RIT.Recommend>
+        ) : null }
+        {!response ? null : (
+          <RIT.Response>
+            <RIT.ResponseText>
+              Response:
+            </RIT.ResponseText>
+            <RIT.ResponseText>
+              {response}
+            </RIT.ResponseText>
+          </RIT.Response>
+        )}
+          {/* {photos.length !== 0
             ? (
               <RIT.ImageContainer>
                 {
@@ -144,7 +133,7 @@ const RatingsDisplay = ({ ratingList, onUpdateReview, starKey }) => {
                     <>
                       <RIT.Image
                         alt={photo.id}
-                        key={photo.id}
+                        key={starKey.concat(photo.id)}
                         src={photo.url}
                         onClick={() => {
                           setImageShow(true);
@@ -152,6 +141,7 @@ const RatingsDisplay = ({ ratingList, onUpdateReview, starKey }) => {
                         }}
                       />
                       <RatingsImageModal
+                        key={starKey.split('').reverse().join('').concat(photo.id)}
                         onSubmit={() => setImageShow(false)}
                         url={currentPhoto}
                         imageShow={imageShow}
@@ -162,47 +152,45 @@ const RatingsDisplay = ({ ratingList, onUpdateReview, starKey }) => {
               }
               </RIT.ImageContainer>
             )
-            : null}
-          <RIT.Helpful>
-            Helpful?
-            {isHelpful
-              ? (
-                <RIT.HelpfulText>
-                  Yes
-                </RIT.HelpfulText>
-              )
-              : (
-                <RIT.HelpfulTextAction
-                  onClick={() => onUserUpdate('helpful')}
-                >
-                  Yes
-                </RIT.HelpfulTextAction>
-              )}
-            (
-            {helpfulness}
+            : null} */}
+        <RIT.Helpful>
+          Helpful?
+          {isHelpful
+            ? (
+              <RIT.HelpfulText>
+                Yes
+              </RIT.HelpfulText>
             )
-            <RIT.HelpfulText>
-              |
-            </RIT.HelpfulText>
-            {isReported
-              ? (
-                <RIT.HelpfulText>
-                  Report
-                </RIT.HelpfulText>
-              )
-              : (
-                <RIT.HelpfulTextAction
-                  onClick={() => onUserUpdate('report')}
-                >
-                  Report
-                </RIT.HelpfulTextAction>
-              )}
-          </RIT.Helpful>
-        </RIT.IndividualTileContainer>
-      </>
-    );
-  }
-  return <div>Loading...</div>;
+            : (
+              <RIT.HelpfulTextAction
+                onClick={() => onUserUpdate('helpful')}
+              >
+                Yes
+              </RIT.HelpfulTextAction>
+            )}
+          (
+          {helpfulness}
+          )
+          <RIT.HelpfulText>
+            |
+          </RIT.HelpfulText>
+          {isReported
+            ? (
+              <RIT.HelpfulText>
+                Report
+              </RIT.HelpfulText>
+            )
+            : (
+              <RIT.HelpfulTextAction
+                onClick={() => onUserUpdate('report')}
+              >
+                Report
+              </RIT.HelpfulTextAction>
+            )}
+        </RIT.Helpful>
+      </RIT.IndividualTileContainer>
+    </>
+  );
 };
 
 export default RatingsDisplay;

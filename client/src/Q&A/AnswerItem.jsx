@@ -70,8 +70,8 @@ const AnswerItem = ({
         {body}
       </div>
       <div className="photos">
-        {photos ? photos.map((photo) => (
-          <Image src={photo.url} alt="" />
+        {photos ? photos.map((photo, index) => (
+          <Image key={index} src={photo.url} alt="" />
         )) : null}
       </div>
       <Author>

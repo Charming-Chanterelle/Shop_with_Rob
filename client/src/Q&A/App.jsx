@@ -10,18 +10,19 @@ import { ProductContext } from '../contexts/ProductContext.jsx'
 
 const Container = styled.div`
 padding-left: 200px;
-margin: auto;
 background-color: #fffefa;
-width: 750px;
+width: 100%;
 height: auto;
-padding-right: 672px;
+
 border-radius: 5px;
 border: 1px solid #d3d3d3;
 box-shadow: 2px 2px 2px 1px #d3d3d3;
-margin-top: 100px;
-
+margin-top: 20px;
+margin-bottom: 30px;
+margin-left: 150px;
+marigin-right: 200px;
 font-family: 'Poppins', sans-serif;
-padding-right: 1000px;
+
 `;
 
 const Button = styled.button`
@@ -40,9 +41,7 @@ const Buttons = styled.div`
 `;
 
 const Title = styled.div`
-position: absolute;
-top: 2615px;
-padding-left: 210px;
+padding-left: 150px;
 left: 0;
 font-family: 'Poppins', sans-serif;
 `;
@@ -117,18 +116,20 @@ const App = () => {
   };
 
   return (
-    <Container>
+    <>
       <Title>
-        <h1 className="bigText"><strong>Questions and Answers.</strong></h1>
+        <h1 className="bigText"><strong>Questions & Answers</strong></h1>
       </Title>
-      <Search searchTerm={handleSearchTerm} searchQuestions={searchQuestions} questions={questions} />
-      <QandAContainer questions={searchResults.length ? searchResults : questions} productName={productName} counter={counter} />
-      <Buttons>
-        <MoreQuestions noQuestions={noQuestions} incrementQuestionCount={incrementQuestionCount} />
-        <Button type="submit" onClick={() => setQuestionShow(true)}>ADD A QUESTION + </Button>
-      </Buttons>
-      <QuestionModal onClose={() => setQuestionShow(false)} show={questionShow} productName={productName} productId={productID} />
-    </Container>
+      <Container>
+        <Search searchTerm={handleSearchTerm} searchQuestions={searchQuestions} questions={questions} />
+        <QandAContainer questions={searchResults.length ? searchResults : questions} productName={productName} counter={counter} />
+        <Buttons>
+          <MoreQuestions noQuestions={noQuestions} incrementQuestionCount={incrementQuestionCount} />
+          <Button type="submit" onClick={() => setQuestionShow(true)}>ADD A QUESTION + </Button>
+        </Buttons>
+        <QuestionModal onClose={() => setQuestionShow(false)} show={questionShow} productName={productName} productId={productID} />
+      </Container>
+    </>
   );
 };
 

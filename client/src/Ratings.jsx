@@ -1,77 +1,84 @@
 /* eslint-disable import/extensions */
-import React, { Component } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import * as R from './RatingsStyledComponents.jsx';
-
+import { ProductContext } from './contexts/ProductContext.jsx';
 import ReviewAction from './RatingsComponent/ReviewAction.jsx';
 import RatingsFilter from './RatingsComponent/RatingsFilter.jsx';
 import RatingsContent from './RatingsComponent/RatingsContent.jsx';
 import RatingsStarHeader from './RatingsComponent/RatingsStarHeader.jsx';
 import RatingsProductBreakdown from './RatingsComponent/RatingsProductBreakdown.jsx';
 // Number(window.location.hash.replace('#', ''))
-class Ratings extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      product_id: Number(window.location.hash.replace('#', '')),
-      ratings: [],
-      ratingsCopy: [],
-      starFilter: [],
-      total_ratings_count: 26,
-      count: 2,
-      showMoreRatings: true,
-    };
-    this.onDisplayMoreReviews = this.onDisplayMoreReviews.bind(this);
-    this.getProductRatings = this.getProductRatings.bind(this);
-    this.handleFilterData = this.handleFilterData.bind(this);
-    this.onAddReview = this.onAddReview.bind(this);
-    this.onUpdateReview = this.onUpdateReview.bind(this);
-    this.onStarFilter = this.onStarFilter.bind(this);
-    this.onStarUnfilter = this.onStarUnfilter.bind(this);
-  }
+const Ratings = ({ reference }) => {
+  const { productID, loaded, ratingsScore } = useContext(ProductContext);
 
-  componentDidMount() {
-    this.getProductRatings();
-  }
+  const [ratings, setRatings] = useState([]);
+  const [ratingsCopy, setRatingsCopy] = useState([]);
+  const [starFilter, setStarFilter] = useState([]);
+  const [totalRatings, setTotalRatings] = useState(0);
+  // total_ratings_count: 26,
+  const [showMoreRatings, setShowMoreRatings] = useState(true);
+  const [count, setCount] = useState(2);
 
-  handleFilterData(sort) {
-    const { count } = this.state;
-
-    this.getProductRatings(count, sort);
-  }
-
-  onDisplayMoreReviews() {
-    const { total_ratings_count, showMoreRatings } = this.state;
-    let { count } = this.state;
-    count += 2;
-
-    if (count > total_ratings_count) {
-      count = total_ratings_count;
-      this.setState({
-        showMoreRatings: !showMoreRatings,
+  const getProductRatings = (currentCount = 2, sort = 'relevant') => {
+    // 48487
+    // 48445
+    axios.get('/api/reviews/', {
+      params: {
+        product_id: productID,
+        count: currentCount,
+        sort,
+      },
+    })
+      .then(({ data }) => {
+        setRatings(data.results);
+        setRatingsCopy(data.results);
+      })
+      .catch((err) => {
+        console.log('Error in getting review data', err);
       });
+  };
+
+  useEffect(() => {
+    getProductRatings();
+  }, [productID]);
+
+  useEffect(() => {
+    setTotalRatings(ratingsScore.numberOfRatings);
+  }, [ratingsScore]);
+
+  useEffect(() => {
+    getProductRatings(count);
+  }, [count]);
+
+  const handleFilterData = (sort) => {
+    getProductRatings(count, sort);
+  };
+
+  const onDisplayMoreReviews = () => {
+    let newCount = count + 2;
+    if (newCount > totalRatings) {
+      newCount = totalRatings;
+      setShowMoreRatings(!showMoreRatings);
     }
-    this.getProductRatings(count);
-  }
-  // look into retis
-  // elastic search db
-  //
+    setCount(newCount);
+  };
 
-  onAddReview(obj) {
-    // console.log('In the ratings component')
-    // console.log(obj);
+  const onAddReview = (obj) => {
+    console.log('In the ratings component');
+    console.log(obj);
     // Create post request to send back data.
-  }
+  };
 
-  onUpdateReview(id, action){
+  const onUpdateReview = (id, action) => {
+    console.log(id);
     axios.put(`/api/reviews/${id}/${action}`)
     .catch((err) => {
       console.log('Error in updating the review action', err);
-    })
+    });
   };
 
-  onStarFilter(starRating, isClicked) {
-    const { ratingsCopy, starFilter } = this.state;
+  const onStarFilter = (starRating, isClicked) => {
     const updatedFilterList = [...starFilter];
     const indexOfRating = updatedFilterList.indexOf(starRating);
     if (starFilter.length === 0 || indexOfRating === -1) {
@@ -89,86 +96,53 @@ class Ratings extends Component {
       return currentRating;
     });
 
-    this.setState({
-      ratings: filteredRatings,
-      starFilter: updatedFilterList,
-    });
+    setRatings(filteredRatings);
+    setStarFilter(updatedFilterList);
+  };
+
+  const onStarUnfilter = () => {
+    setRatings(ratingsCopy);
+    setStarFilter([]);
+  };
+
+  if (ratings.length !== 0) {
+    return (
+      <>
+        <R.Container ref={reference}>
+          <R.Stars>
+            <RatingsStarHeader />
+          </R.Stars>
+          <R.Filter>
+            <RatingsFilter
+              totalRatings={totalRatings}
+              handleFilterData={handleFilterData}
+            />
+          </R.Filter>
+          <R.Reviews>
+            <RatingsProductBreakdown
+              onStarFilter={onStarFilter}
+              onStarUnfilter={onStarUnfilter}
+            />
+          </R.Reviews>
+          <R.Content>
+            <RatingsContent
+              ratingsList={ratings}
+              productID={productID}
+              onUpdateReview={onUpdateReview}
+            />
+          </R.Content>
+          <R.ReviewAction>
+            <ReviewAction
+              moreRatings={showMoreRatings}
+              onAddReview={onAddReview}
+              onDisplayMoreReviews={onDisplayMoreReviews}
+            />
+          </R.ReviewAction>
+        </R.Container>
+      </>
+    );
   }
-
-  onStarUnfilter() {
-    const { ratingsCopy } = this.state;
-
-    this.setState({
-      ratings: ratingsCopy,
-      starFilter: [],
-    });
-  }
-
-  getProductRatings(count = 2, sort = 'relevant') {
-    const { product_id } = this.state;
-
-    // 48487
-    // 48445
-    axios.get('/api/reviews/', {
-      params: {
-        product_id,
-        count,
-        sort,
-      },
-    })
-      .then((results) => {
-        this.setState({
-          ratings: results.data.results,
-          ratingsCopy: results.data.results,
-          count,
-        });
-      })
-      .catch((err) => {
-        console.log('Error in getting review data', err);
-      });
-  }
-
-  render() {
-    const { ratings, product_id, total_ratings_count, showMoreRatings } = this.state;
-    if(ratings.length !== 0) {
-      return (
-        <>
-          <R.Container ref={this.props.reference}>
-            <R.Stars>
-              <RatingsStarHeader />
-            </R.Stars>
-            <R.Filter>
-              <RatingsFilter
-                totalRatings={total_ratings_count}
-                handleFilterData={this.handleFilterData}
-              />
-            </R.Filter>
-            <R.Reviews>
-              <RatingsProductBreakdown
-                onStarFilter={this.onStarFilter}
-                onStarUnfilter={this.onStarUnfilter}
-              />
-            </R.Reviews>
-            <R.Content>
-              <RatingsContent
-                ratingsList={ratings}
-                productID={product_id}
-                onUpdateReview={this.onUpdateReview}
-              />
-            </R.Content>
-            <R.ReviewAction>
-              <ReviewAction
-                moreRatings={showMoreRatings}
-                onAddReview={this.onAddReview}
-                onDisplayMoreReviews={this.onDisplayMoreReviews}
-              />
-            </R.ReviewAction>
-          </R.Container>
-        </>
-      );
-    }
-    return <div>No Reviews yet</div>;
-  }
-}
+  return <div>No Reviews</div>;
+};
 
 export default Ratings;

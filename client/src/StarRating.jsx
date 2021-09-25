@@ -3,7 +3,6 @@ import React from 'react';
 const StarRating = ({ currentRating, currentCount, starProp }) => {
   // width="15" height="15"
   const { width, height } = starProp;
-
   return (
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star fa-w-18" role="img" viewBox="0 0 576 512" width={width} height={height}>
       <defs>

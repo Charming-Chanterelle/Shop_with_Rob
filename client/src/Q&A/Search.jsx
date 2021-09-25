@@ -4,8 +4,9 @@ import styled from 'styled-components';
 const Input = styled.input`
   border: 1px solid #525252;
   padding: 1em;
-  width: 1500px;
+  width: 500px;
   color: #525252;
+  border-radius: 5px;
 `;
 
 const Search = ({ searchTerm, questions }) => {
