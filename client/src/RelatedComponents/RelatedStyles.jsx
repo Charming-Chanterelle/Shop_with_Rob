@@ -94,7 +94,7 @@ export const ModalEdge = styles.div`
   padding: 10px;
   `;
 
-export const ModalTitle = styles.h4`
+export const ModalTitle = styles.h2`
   margin: 0;
   `;
 
