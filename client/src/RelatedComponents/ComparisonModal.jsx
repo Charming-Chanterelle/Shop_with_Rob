@@ -13,7 +13,7 @@ const ComparisonModal = (props) => {
     <s.Modal className={`${showModal ? 'show' : ''}`}>
       <s.ModalContent className="bigText">
         <s.ModalEdge>
-          <s.ModalTitle>Comparing</s.ModalTitle>
+          <s.ModalTitle><b>Comparing</b></s.ModalTitle>
         </s.ModalEdge>
         <s.ModalBody>
           {/* <table> */}

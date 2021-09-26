@@ -72,7 +72,6 @@ export const Modal = styles.div`
   top: 0;
   right: 0;
   bottom: 0;
-  // background-color: #ffeca0;
   background-color: #fff;
   display: flex;
   align-items: center;
@@ -83,7 +82,7 @@ export const Modal = styles.div`
 
 export const ModalContent = styles.div`
   // width: 500px;
-  background-color: fff;
+  background-color: #fffefa;
   text-align: center;
   z-index: 9999;
   border-radius: 5px;
