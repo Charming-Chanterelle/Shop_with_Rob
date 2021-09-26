@@ -157,9 +157,11 @@ const Overview = (props) => {
   |   HOVERING   |
   --------------*/
   const enterHovered = (event) => {
+    event.preventDefault();
     setHovered(event.target.value);
   };
   const exitHovered = () => {
+    event.preventDefault();
     setHovered(0);
   }
   const toggleCartHovered = () => {
@@ -197,7 +199,7 @@ const Overview = (props) => {
   const photos = currentStyle.photos ?? [];
   const stylez = styles ?? [];
   const featurez = product.features ?? [];
-  console.log(<mainImg/>.offsetWidth)
+  // console.log(<mainImg/>.offsetWidth)
   return (
     <div>
       <S.Container>

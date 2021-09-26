@@ -27,7 +27,7 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
   const [onHoverStarRating, setHoverStarRating] = useState(0);
   const [rating, setStarRating] = useState(0);
   const [displayStarText, setDisplayText] = useState(false);
-  const [characteristics, setCharacteristic] = useState({});
+  const [characteristics, setCharacteristic] = useState([]);
   const [bodyWordCount, setBodyWordCount] = useState(0);
   const [dataChecker, setDataChecker] = useState(true);
   const [textBlank, setTextBlank] = useState(false);
@@ -53,24 +53,31 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
 
   const canSubmitReview = () => {
     // const dataChecker = [];
-    const isDataCorrect = false;
+    let isDataCorrect = true;
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const correctEmail = emailRegex.test(email);
-
-    // if (nickname.length === 0 || email.length === 0 || body.length < 50 || !isRecommendSelected || rating === 0) {
+    console.log('in the add review modal');
+    console.log(characteristics);
+    // if (nickname.length === 0 || email.length === 0 || body.length < 50 || rating === 0) {
     //   isDataCorrect = false;
+    //   setErrorMessage(errorBank[0]);
     //   return isDataCorrect;
     // }
-    // if (correctEmail) {
 
+    // if (body.length < 50) {
+    //   isDataCorrect = false;
+    //   setErrorMessage(errorBank[1]);
+    //   return isDataCorrect;
     // }
-    setErrorMessage(errorBank[0]);
 
-    return isDataCorrect;
-  };
+    // if (correctEmail) {
+    //   isDataCorrect = false;
+    //   setErrorMessage(errorBank[2]);
+    //   return isDataCorrect;
+    // }
+    // console.log(email);
 
-  const checkEmail = (e) => {
-    console.log(e);
+    // return isDataCorrect;
   };
 
   const onWriteBody = ({ target }) => {
@@ -151,7 +158,8 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
   };
 
   const getCharacteristic = (productCharacteristics) => {
-    setCharacteristic(productCharacteristics);
+    const newCharacteristics = [...characteristics, productCharacteristics[productCharacteristics.length - 1]];
+    setCharacteristic(newCharacteristics);
   };
 
   const onErrorModuleClose = () => {
@@ -190,7 +198,6 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
                   // testFunction(e);
                   setNickname(e.target.value);
                 }}
-                // onChange={(e) => setNickname(e.target.value)}
               />
               <RAR.BodyTextWarning>
                 For privacy reasons, do not use your full name or email address

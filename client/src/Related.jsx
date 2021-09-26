@@ -114,7 +114,7 @@ const Related = (props) => {
                 <s.Card key={item.product.name} onClick={() => changeHash(item.product.id)}>
                   <div>
                     <div>
-                      <s.RoundButton onClick={() => setShowModal(true)} type="button">
+                      <s.RoundButton onClick={() => {console.log(item); setShowModal(true)}} type="button">
                         <FaRegStar />
                       </s.RoundButton>
                       <ComparisonModal

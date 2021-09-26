@@ -262,7 +262,7 @@ export const RatingsCharacteristicRadioInput = style.input`
   -webkit-transition: .2s;
   transition: opacity .2s;
   background-color: rgb(228, 222, 222);
-  // z-index: -1;
+  // z-index: 1100;
   &::-moz-range-thumb {
     width: 25px;
     height: 25px;

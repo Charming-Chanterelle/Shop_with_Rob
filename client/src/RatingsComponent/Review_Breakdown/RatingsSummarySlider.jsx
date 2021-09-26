@@ -30,7 +30,7 @@ const uniqueKey = () => {
 };
 
 const RatingsSummarySlider = () => {
-  const { meta, productID } = useContext(ProductContext);
+  const { meta, productID, loaded } = useContext(ProductContext);
   const [characterScores, setCharacterScore] = useState([]);
 
   const characterBank = {
@@ -43,8 +43,10 @@ const RatingsSummarySlider = () => {
   };
 
   useEffect(() => {
-    const score = getCharacterScore(meta);
-    setCharacterScore(score);
+    if (loaded) {
+      const score = getCharacterScore(meta);
+      setCharacterScore(score);
+    }
   }, [productID]);
 
   return (

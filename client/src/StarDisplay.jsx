@@ -6,7 +6,6 @@ import StarRating from './StarRating.jsx';
 
 const getRatings = ({ avgRating }, id) => {
   const ratings = Number(avgRating);
-  console.log('Star Display', id, ratings);
   let ratingsStorage = [];
 
   if (ratings === 0) {
@@ -37,7 +36,6 @@ const getRatings = ({ avgRating }, id) => {
   for (let j = 0; j < maxRating; j++) {
     ratingsStorage.push('0%');
   }
-  console.log(ratingsStorage);
   return ratingsStorage;
 };
 
@@ -60,15 +58,15 @@ const StarDisplay = ({ stars, component = 'overviewcomponent' }) => {
   useEffect(() => {
     setStarRating(getRatings(ratingsScore, productID));
     setStarAttribute(stars);
-  }, [ratingsScore]);
+  }, [ratingsScore, productID]);
 
   return (
     <>
       {starRating.map((rating, count) => (
         <StarRating
-          key={uniqueKey().concat(count, rating, component)}
+          key={count}
           currentRating={rating}
-          currentCount={uniqueKey().concat(count, rating, component)}
+          currentCount={count}
           starProp={starAttribute}
         />
       ))}

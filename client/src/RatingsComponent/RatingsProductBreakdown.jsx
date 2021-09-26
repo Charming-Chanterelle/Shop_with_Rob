@@ -12,11 +12,13 @@ const getPercentRecommend = ({ recommended }) => {
 };
 
 const RatingsProductBreakdown = ({ onStarFilter, onStarUnfilter }) => {
-  const { meta, productID } = useContext(ProductContext);
+  const { meta, productID, loaded } = useContext(ProductContext);
   const [percentRecommended, setPercentRecommended] = useState(0);
 
   useEffect(() => {
-    setPercentRecommended(getPercentRecommend(meta));
+    if (loaded) {
+      setPercentRecommended(getPercentRecommend(meta));
+    }
   }, [productID]);
 
   return (

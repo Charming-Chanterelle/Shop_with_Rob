@@ -4,14 +4,12 @@ import { ProductContext } from '../../contexts/ProductContext.jsx';
 import * as RB from './ReviewBreakdownStyledComponent.jsx';
 
 const getRatingPercentage = ({ ratingsPercent }) => {
-  console.log('ratingsPercent', ratingsPercent);
   const data = [];
   const ratingData = Object.values(ratingsPercent);
   for (let i = 0; i < ratingData.length; i++) {
     const convertedRating = parseFloat((ratingData[i] * 100)).toFixed(0).toString().concat('%');
     data.push(convertedRating);
   }
-  console.log('data', data);
   return data;
 };
 // { onStarFilter, onStarUnfilter }
@@ -41,7 +39,6 @@ const RatingsSummaryChart = () => {
     const updateStarClicked = { ...isStarClicked };
 
     updateStarClicked[currentRating] = !updateStarClicked[currentRating];
-    console.log(updateStarClicked);
     setIsStarClicked(updateStarClicked);
     setUnfilter(true);
     // onStarFilter(currentRating, updateStarClicked);
