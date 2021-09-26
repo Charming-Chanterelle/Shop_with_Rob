@@ -111,7 +111,7 @@ const Ratings = ({ reference }) => {
     setRatings(ratingsCopy);
     setStarFilter([]);
   };
-  console.log('ratings length: ', ratings.length);
+
   if (ratings.length !== 0) {
     return (
       <>

@@ -50,7 +50,7 @@ const getAverageRating = ({ ratings }, testID) => {
   return ratingsObj;
 };
 
-const currentId = !!window.location.hash ? Number(window.location.hash.replace('#','')) : 48445;
+const currentId = !!window.location.hash ? Number(window.location.hash.replace('#', '')) : 48432;
 
 const ProductContextProvider = ({ children }) => {
   const [product, setProduct] = useState({});

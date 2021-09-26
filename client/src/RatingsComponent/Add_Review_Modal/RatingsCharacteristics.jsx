@@ -64,11 +64,11 @@ const RatingsCharacteristics = ({ getCharacteristic }) => {
     <>
       {characters.map((character, count) => (
         <>
-          <RAR.RatingsCharacterContainer>
-            <RAR.RatingsCharacteristicText
-              key={characterBank[character]
-                .concat(uniqueKey(), count, characterBank[character][count])}
-            >
+          <RAR.RatingsCharacterContainer
+            key={characterBank[character]
+              .concat(uniqueKey(), count, characterBank[character][count])}
+          >
+            <RAR.RatingsCharacteristicText>
               {character}
               <RAR.BodyRequired>*</RAR.BodyRequired>
               :
@@ -105,28 +105,3 @@ const RatingsCharacteristics = ({ getCharacteristic }) => {
 };
 
 export default RatingsCharacteristics;
-
-{/* <>
-<RAR.RatingsCharacterContainer>
-  <RAR.RatingsCharacteristicText
-    key={characterBank[character]
-      .concat(uniqueKey(), count, characterBank[character][count])}
-  >
-    {character}
-    <RAR.BodyRequired>*</RAR.BodyRequired>
-    :
-  </RAR.RatingsCharacteristicText>
-  <RAR.RatingsCharacterRadioContainer>
-    {characterBank[character].map((currentCharacter, index) => (
-      <CharacterDisplay
-        key={uniqueKey().split('').reverse().join('')
-          .concat(index)}
-        currentCount={index + 1}
-        currentCharacter={character}
-        currentCharacteristics={currentCharacter}
-        onChangeCharacteristic={characterData}
-      />
-    ))}
-  </RAR.RatingsCharacterRadioContainer>
-</RAR.RatingsCharacterContainer>
-</> */}
