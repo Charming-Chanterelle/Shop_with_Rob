@@ -7,11 +7,8 @@ const CharacterDisplay = ({
 }) => (
   <>
     <RAR.RatingsCharacteristicRadioContainer>
-      <RAR.RatingsCharacteristicRadioLabel htmlFor={currentCharacter}>
-        { currentCharacteristics }
-      </RAR.RatingsCharacteristicRadioLabel>
       <RAR.RatingsCharacteristicRadioInput
-        type="radio"
+        type="range"
         name={currentCharacter}
         value={currentCount}
         onChange={(event) => onChangeCharacteristic(event.target.name, event.target.value)}

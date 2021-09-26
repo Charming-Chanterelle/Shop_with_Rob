@@ -14,7 +14,7 @@ const RatingsStarHeader = () => {
           {parseFloat(avgRating).toFixed(1)}
         </RC.RatingsAndReviewText>
         <RC.RatingsAndReviewStarContainer>
-          <StarDisplay stars={{ width: '20', height: '20' }} />
+          <StarDisplay stars={{ width: '20', height: '20' }} component={'RatingsStarHeader'}/>
         </RC.RatingsAndReviewStarContainer>
       </RC.RatingsAndReviewContainer>
     </>

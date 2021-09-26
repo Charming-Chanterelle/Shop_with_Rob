@@ -10,7 +10,7 @@ const Interactions = styled.div`
   font-size: 12px;
   text-align: right;
   position: relative;
-  left: 470px;
+  margin-left: 500px;
   top: -24px;
   text-transform: uppercase;
 `;

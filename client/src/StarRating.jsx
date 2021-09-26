@@ -1,6 +1,7 @@
 import React from 'react';
 
 const StarRating = ({ currentRating, currentCount, starProp }) => {
+  console.log('Star Rating', currentCount);
   // width="15" height="15"
   const { width, height } = starProp;
   return (

@@ -35,7 +35,8 @@ export const Content = styles.div`
   justify-content: start;
   grid-area: content;
   overflow-y: auto;
-  height: 650px;
+  min-height: 450px;
+  max-height: 1000px;
 `;
 
 export const ReviewAction = styles.div`

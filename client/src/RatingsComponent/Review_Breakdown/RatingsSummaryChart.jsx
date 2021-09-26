@@ -4,24 +4,15 @@ import { ProductContext } from '../../contexts/ProductContext.jsx';
 import * as RB from './ReviewBreakdownStyledComponent.jsx';
 
 const getRatingPercentage = ({ ratingsPercent }) => {
+  console.log('ratingsPercent', ratingsPercent);
   const data = [];
   const ratingData = Object.values(ratingsPercent);
   for (let i = 0; i < ratingData.length; i++) {
-    const convertedRating = parseFloat((ratingData[i] * 100)).toFixed(0);
+    const convertedRating = parseFloat((ratingData[i] * 100)).toFixed(0).toString().concat('%');
     data.push(convertedRating);
   }
+  console.log('data', data);
   return data;
-};
-
-const uniqueKey = () => {
-  let key = '';
-  const bank = ['g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', '3', '4', '5', '6', '7', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '8', '9', '!', '@', '$', '#', '%', '^', '*', 'a', 'b', 'c', 'd', 'e', 'f'];
-  const bankLen = bank.length;
-  for (let i = 0; i < 15; i++) {
-    const randID = Math.ceil(Math.random() * (bankLen - 0));
-    key += bank[randID];
-  }
-  return key;
 };
 
 const RatingsSummaryChart = ({ onStarFilter, onStarUnfilter }) => {
@@ -29,22 +20,18 @@ const RatingsSummaryChart = ({ onStarFilter, onStarUnfilter }) => {
     ratingsScore, productID, loaded,
   } = useContext(ProductContext);
   const [ratings, setRating] = useState([]);
-  const [textColor, setTextColor] = useState('black');
   const [isStarClicked, setIsStarClicked] = useState({});
   const [unfilter, setUnfilter] = useState(false);
+  const [fiveStarTextColor, setFiveStarTextColor] = useState('black');
+  const [fourStarTextColor, setFourStarTextColor] = useState('black');
+  const [threeStarTextColor, setThreeStarTextColor] = useState('black');
+  const [twoStarTextColor, setTwoStarTextColor] = useState('black');
+  const [oneStarTextColor, setOneStarTextColor] = useState('black');
 
   useEffect(() => {
     const tempRatings = getRatingPercentage(ratingsScore);
     setRating(tempRatings);
   }, [productID]);
-
-  const onMouseEnter = () => {
-    setTextColor('blue');
-  };
-
-  const onMouseLeave = () => {
-    setTextColor('black');
-  };
 
   const onRatingsClick = (currentRating) => {
     const updateStarClicked = { ...isStarClicked };
@@ -74,8 +61,8 @@ const RatingsSummaryChart = ({ onStarFilter, onStarUnfilter }) => {
             <RB.FilterListContainer>
               List Of Active Filters
             </RB.FilterListContainer>
-            {Object.keys(isStarClicked).map((ratingClicked) => (
-              <RB.FilterList key={uniqueKey().concat(ratingClicked)}>
+            {Object.keys(isStarClicked).map((ratingClicked, count) => (
+              <RB.FilterList key={count}>
                 {ratingClicked}
                 {' '}
                 Star
@@ -84,87 +71,118 @@ const RatingsSummaryChart = ({ onStarFilter, onStarUnfilter }) => {
           </>
         )
         : null}
-      <RB.StarFilterContainer>
-        {[4, 3, 2, 1, 0].map((rating) => (
-          <RB.StarFilterGraphs
-            key={uniqueKey().concat(rating)}
-            style={{ color: textColor }}
-            onMouseEnter={() => onMouseEnter()}
-            onMouseLeave={() => onMouseLeave()}
-            onClick={() => onRatingsClick(rating + 1)}
-          >
-            <RB.StarFilterGraphText>
-              {rating + 1}
-              {' '}
-              stars
-            {/* <RatingBar
-              name={uniqueKey().split('').reverse().join('')
-                .concat(rating, ratings[rating])}
-              rating={ratings[rating]}
-            /> */}
-            <RB.StarSlider
+      <RB.FiveStarFilterContainer>
+        <RB.FiveStarFilterGraphs
+          style={{ color: fiveStarTextColor }}
+          onMouseEnter={() => setFiveStarTextColor('blue')}
+          onMouseLeave={() => setFiveStarTextColor('black')}
+          onClick={() => onRatingsClick(5)}
+        >
+          <RB.FiveStarFilterGraphText>
+            5 Stars
+            <RB.FiveStarSlider
               type="range"
-              name={uniqueKey().concat(rating)}
+              name="Five_Stars"
               min="0"
               max="100"
-              value={ratings[rating]}
+              value={ratings[4]}
+              step="1"
+              fiveStarRating={ratings[4]}
+              readOnly
+            />
+          </RB.FiveStarFilterGraphText>
+        </RB.FiveStarFilterGraphs>
+      </RB.FiveStarFilterContainer>
+      <RB.FourStarFilterContainer>
+        <RB.FourStarFilterGraphs
+          style={{ color: fourStarTextColor }}
+          onMouseEnter={() => setFourStarTextColor('blue')}
+          onMouseLeave={() => setFourStarTextColor('black')}
+          onClick={() => onRatingsClick(4)}
+        >
+          <RB.FourStarFilterGraphText>
+            4 Stars
+            <RB.FourStarSlider
+              type="range"
+              name="Four_Stars"
+              min="0"
+              max="100"
+              value={ratings[3]}
+              fourStarRating={ratings[3]}
               step="1"
               readOnly
             />
-            </RB.StarFilterGraphText>
-          </RB.StarFilterGraphs>
-        ))}
-      </RB.StarFilterContainer>
+          </RB.FourStarFilterGraphText>
+        </RB.FourStarFilterGraphs>
+      </RB.FourStarFilterContainer>
+      <RB.ThreeStarFilterContainer>
+        <RB.ThreeStarFilterGraphs
+          style={{ color: threeStarTextColor }}
+          onMouseEnter={() => setThreeStarTextColor('blue')}
+          onMouseLeave={() => setThreeStarTextColor('black')}
+          onClick={() => onRatingsClick(3)}
+        >
+          <RB.ThreeStarFilterGraphText>
+            3 Stars
+            <RB.ThreeStarSlider
+              type="range"
+              name="Three_Stars"
+              min="0"
+              max="100"
+              value={ratings[2]}
+              threeStarRating={ratings[2]}
+              step="1"
+              readOnly
+            />
+          </RB.ThreeStarFilterGraphText>
+        </RB.ThreeStarFilterGraphs>
+      </RB.ThreeStarFilterContainer>
+      <RB.TwoStarFilterContainer>
+        <RB.TwoStarFilterGraphs
+          style={{ color: twoStarTextColor }}
+          onMouseEnter={() => setTwoStarTextColor('blue')}
+          onMouseLeave={() => setTwoStarTextColor('black')}
+          onClick={() => onRatingsClick(2)}
+        >
+          <RB.TwoStarFilterGraphText>
+            2 Stars
+            <RB.TwoStarSlider
+              type="range"
+              name="Two_Stars"
+              min="0"
+              max="100"
+              value={ratings[1]}
+              twoStarRating={ratings[1]}
+              step="1"
+              readOnly
+            />
+          </RB.TwoStarFilterGraphText>
+        </RB.TwoStarFilterGraphs>
+      </RB.TwoStarFilterContainer>
+      <RB.OneStarFilterContainer>
+        <RB.OneStarFilterGraphs
+          style={{ color: oneStarTextColor }}
+          onMouseEnter={() => setOneStarTextColor('blue')}
+          onMouseLeave={() => setOneStarTextColor('black')}
+          onClick={() => onRatingsClick(1)}
+        >
+          <RB.OneStarFilterGraphText>
+            1 stars
+            <RB.OneStarSlider
+              type="range"
+              name="One_Star"
+              min="0"
+              max="100"
+              value={ratings[0]}
+              oneStarRating={ratings[0]}
+              step="1"
+              readOnly
+            />
+          </RB.OneStarFilterGraphText>
+        </RB.OneStarFilterGraphs>
+      </RB.OneStarFilterContainer>
     </>
   );
 };
 
 export default RatingsSummaryChart;
-
-// if (loaded) {
-//   return (
-//     <>
-//       {unfilter
-//         ? (
-//           <>
-//             <RB.UnfilterStarReviews
-//               onClick={() => onUnfilter()}
-//             >
-//               Remove all filters
-//             </RB.UnfilterStarReviews>
-//             <RB.FilterListContainer>
-//               List Of Active Filters
-//             </RB.FilterListContainer>
-//             {Object.keys(isStarClicked).map((ratingClicked) => (
-//               <RB.FilterList>
-//                 {ratingClicked}
-//                 {' '}
-//                 Star
-//               </RB.FilterList>
-//             ))}
-//           </>
-//         )
-//         : null}
-//       <RB.StarFilterContainer>
-//         {[4, 3, 2, 1, 0].map((rating) => (
-//           <RB.StarFilterGraphs
-//             style={{ color: textColor }}
-//             onMouseEnter={() => onMouseEnter()}
-//             onMouseLeave={() => onMouseLeave()}
-//             onClick={() => onRatingsClick(rating + 1)}
-//           >
-//             <RB.StarFilterGraphText>
-//               {rating + 1}
-//               {' '}
-//               stars
-//             </RB.StarFilterGraphText>
-//             <RatingBar name={ratings[rating] + rating} rating={ratings[rating]} />
-//           </RB.StarFilterGraphs>
-//         ))}
-//       </RB.StarFilterContainer>
-//     </>
-//   );
-// }
-// return (
-//   <div>Loading...</div>
-// );

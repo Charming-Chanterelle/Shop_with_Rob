@@ -22,7 +22,7 @@ const RatingsContent = ({ ratingsList, productID, onUpdateReview }) => (
         key={rating.reviewer_name.concat(rating.review_id, productID, uniqueKey())}
         ratingList={rating}
         onUpdateReview={onUpdateReview}
-        starKey={rating.reviewer_name.concat(rating.review_id, productID, uniqueKey())}
+        starKey={rating.reviewer_name.concat(rating.review_id, productID, uniqueKey(), 'individualtile')}
       />
     ))}
   </>

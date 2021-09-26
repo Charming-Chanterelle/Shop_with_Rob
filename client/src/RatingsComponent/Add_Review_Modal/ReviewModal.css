@@ -1,0 +1,123 @@
+.Fit {
+  -webkit-appearance: none;
+  border-radius: 5px;
+  border: 1px solid #d3d3d3;
+  box-shadow: 2px 2px 2px 1px #d3d3d3;
+  width: 100%;
+  height: 15px;
+  outline: none;
+  opacity: 0.7;
+  position: relative;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+/* .Fit::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #FBD63F;
+  cursor: pointer;
+}
+
+.Fit::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #FBD63F;
+  position: relative;
+  cursor: pointer;
+} */
+
+.Length {
+  -webkit-appearance: none;
+  border-radius: 5px;
+  border: 1px solid #d3d3d3;
+  box-shadow: 2px 2px 2px 1px #d3d3d3;
+  width: 100%;
+  height: 15px;
+  outline: none;
+  opacity: 0.7;
+  position: relative;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.Length::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #FBD63F;
+  cursor: pointer;
+}
+
+.Length::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #FBD63F;
+  position: relative;
+  cursor: pointer;
+}
+
+.Comfort {
+  -webkit-appearance: none;
+  border-radius: 5px;
+  border: 1px solid #d3d3d3;
+  box-shadow: 2px 2px 2px 1px #d3d3d3;
+  width: 100%;
+  height: 15px;
+  outline: none;
+  opacity: 0.7;
+  position: relative;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.Comfort::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #FBD63F;
+  cursor: pointer;
+}
+
+.Comfort::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #FBD63F;
+  position: relative;
+  cursor: pointer;
+}
+
+.Quality {
+  -webkit-appearance: none;
+  border-radius: 5px;
+  border: 1px solid #d3d3d3;
+  box-shadow: 2px 2px 2px 1px #d3d3d3;
+  width: 100%;
+  height: 15px;
+  outline: none;
+  opacity: 0.7;
+  position: relative;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.Quality::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #FBD63F;
+  cursor: pointer;
+}
+
+.Quality::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #FBD63F;
+  position: relative;
+  cursor: pointer;
+}

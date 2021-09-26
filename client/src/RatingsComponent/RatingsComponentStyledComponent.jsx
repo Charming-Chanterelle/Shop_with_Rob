@@ -78,8 +78,9 @@ export const RatingsFilterDropdown = styles.option`
 
 export const RatingsAndReviewAction = styles.button`
   background-color:#FBD63F;
-  border: none;
   border-radius: 5px;
+  border: 1px solid #d3d3d3;
+  box-shadow: 2px 2px 2px 1px #d3d3d3;
   color:#000000;
   text-align: center;
   text-decoration: none;

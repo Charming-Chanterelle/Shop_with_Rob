@@ -90,22 +90,28 @@ const Ratings = ({ reference }) => {
       updatedFilterList.splice(indexOfRating, 1);
     }
 
+    setStarFilter(updatedFilterList);
+  };
+
+  const updateFilteredRatings = () => {
     const filteredRatings = ratingsCopy.filter((ratingsObj) => {
-      const currentRating = updatedFilterList.some((rating) => (
+      const currentRating = starFilter.some((rating) => (
         ratingsObj.rating === rating
       ));
       return currentRating;
     });
-
     setRatings(filteredRatings);
-    setStarFilter(updatedFilterList);
   };
+
+  useEffect(() => {
+    updateFilteredRatings();
+  }, [starFilter]);
 
   const onStarUnfilter = () => {
     setRatings(ratingsCopy);
     setStarFilter([]);
   };
-
+  console.log('ratings length: ', ratings.length);
   if (ratings.length !== 0) {
     return (
       <>

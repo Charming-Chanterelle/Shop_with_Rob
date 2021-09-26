@@ -4,9 +4,11 @@ export const IndividualTileContainer = styles.div`
   font-family: 'Poppins', sans-serif;
   grid-template-rows: 1fr 1fr 1.5fr minmax(0fr, 1.5fr) minmax(0fr, 1.5fr) 3fr 1fr;
   grid-template-columns: 2fr 2fr;
-  padding-top: 10px;
+  padding: 10px 10px 2px 10px;
+  margin: 7px;
   gap: 2px;
-  border-bottom: solid thin black;
+  border-radius: 5px;
+  border: 1px solid #d3d3d3;
   box-shadow: 2px 2px 2px 1px #d3d3d3;
   display: grid;
   grid-template-areas:
@@ -142,22 +144,7 @@ export const ImageModalContent = styles.div`
   transform: translateY(0);
   background-size: cover;
   background-position: center;
-`;
-
-export const ImageModalBody = styles.div`
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-  grid-area: image-body;
-  background-color: #f8e07ebd;
-  display: grid;
-  gap: 5px;
-`;
-
-export const ImageModalFooter = styles.div`
-  grid-area: image-button;
-  text-align: center;
-  background-color: #fbd53fbd;
-  gap: 5px;
+  border: 3px solid #FBD63F;
 `;
 
 export const ModalImage = styles.img`
@@ -165,6 +152,8 @@ export const ModalImage = styles.img`
   display: block;
   width: 95%;
   max-width: 1000px;
+  border: 3px solid #FBD63F;
+  border-radius: 5px;
 `;
 
 export const Button = styles.button`

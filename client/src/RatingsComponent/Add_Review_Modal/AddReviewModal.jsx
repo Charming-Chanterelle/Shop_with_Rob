@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
-import { FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable import/extensions */
+import React, { useState, useEffect, useContext } from 'react';
+import { ProductContext } from '../../contexts/ProductContext.jsx';
 import * as RAR from './AddReviewModalStyledComponent.jsx';
 import RatingsCharacteristics from './RatingsCharacteristics.jsx';
 import ModalStarRating from './ModalStarRating.jsx';
 import ErrorModule from './ErrorModule.jsx';
-
+import ThumbsUp from './ThumbsUp.jsx';
+import ThumbsDown from './ThumbsDown.jsx';
 // Use HTML Data valid first. CSS first
 const AddReviewModal = ({ show, onReviewSubmit }) => {
   const stars = [1, 2, 3, 4, 5];
-  const starText = ['1 star - “Poor”', '2 stars - “Fair”', '3 stars - “Average”', '4 stars - “Good”', '5 stars - “Great”'];
+  const starText = ['Poor', 'Fair', 'Average', 'Good', 'Great'];
 
+  const { productID, product } = useContext(ProductContext);
+
+  const [productName, setProductName] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
   const [summary, setSumary] = useState('');
@@ -24,27 +31,42 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
   const [bodyWordCount, setBodyWordCount] = useState(0);
   const [dataChecker, setDataChecker] = useState(true);
   const [textBlank, setTextBlank] = useState(false);
-  const [test, setTest] = useState(false);
+  const [errorShow, setErrorShow] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   // Figure a way to make this a ternary operation.
   const [thumbsUp, setThumbsUp] = useState('black');
   const [thumbsDown, setThumbsDown] = useState('black');
   const [bodyCountColor, setBodyCountColor] = useState('red');
 
+  const errorBank = [
+    'A mandatory field is blank',
+    'The review body is less than 50 characters',
+    'The email address provided is not in correct email format',
+    'The images selected are invalid or unable to be uploaded.',
+  ];
+
+  useEffect(() => {
+    const { name } = product;
+    setProductName(name);
+  }, [productID]);
+
   const canSubmitReview = () => {
     // const dataChecker = [];
-    let isDataCorrect = true;
+    const isDataCorrect = false;
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const correctEmail = emailRegex.test(email);
 
     // if (nickname.length === 0 || email.length === 0 || body.length < 50 || !isRecommendSelected || rating === 0) {
     //   isDataCorrect = false;
     //   return isDataCorrect;
     // }
+    // if (correctEmail) {
 
-    // check email :
-    // const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    // emailRegex.test({what you are testing});
+    // }
+    setErrorMessage(errorBank[0]);
 
-    // return isDataCorrect;
+    return isDataCorrect;
   };
 
   const checkEmail = (e) => {
@@ -97,7 +119,7 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
       setThumbsDown('black');
       setPhotos([]);
     } else {
-      setTest(true);
+      setErrorShow(true);
     }
   };
 
@@ -112,12 +134,11 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
     setRecommend(false);
     setIsRecommendSelected(true);
     setThumbsUp('black');
-    setThumbsDown('blue');
+    setThumbsDown('red');
   };
 
   const onMouseEnter = (index) => {
     setHoverStarRating(index);
-    setDisplayText(false);
   };
 
   const onMouseLeave = () => {
@@ -134,7 +155,7 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
   };
 
   const onErrorModuleClose = () => {
-    setTest(false);
+    setErrorShow(false);
   };
 
   return (
@@ -146,7 +167,9 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
               Write Your Review
             </RAR.Title>
             <RAR.Subtitle>
-              About the product
+              About the
+              { ' ' }
+              { productName }
             </RAR.Subtitle>
           </RAR.Header>
           <RAR.Body>
@@ -187,7 +210,7 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
                 maxLength="60"
                 value={email}
                 placeholder="Example: jackson11@email.com"
-                onChange={(e) => {setEmail(e.target.value); setTextBlank(true);}}
+                onChange={(e) => { setEmail(e.target.value); setTextBlank(true); }}
               />
               <RAR.BodyTextWarning>
                 For authentication reasons, you will not be emailed
@@ -199,14 +222,23 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
                 <RAR.BodyRequired>*</RAR.BodyRequired>
               </RAR.Label>
               <RAR.BodyRecommendIcon>
-                <FaRegThumbsUp
-                  style={{ paddingRight: '15px', cursor: 'pointer', fill: thumbsUp }}
+                <span
+                  style={{ paddingRight: '20px' }}
                   onClick={onThumbsUp}
-                />
-                <FaRegThumbsDown
-                  style={{ cursor: 'pointer', fill: thumbsDown }}
+                >
+                  <ThumbsUp
+                    style={{ cursor: 'pointer' }}
+                    fill={thumbsUp}
+                  />
+                </span>
+                <span
                   onClick={onThumbsDown}
-                />
+                >
+                  <ThumbsDown
+                    style={{ cursor: 'pointer' }}
+                    fill={thumbsDown}
+                  />
+                </span>
               </RAR.BodyRecommendIcon>
             </RAR.BodyRecommend>
             <RAR.BodyRating>
@@ -266,7 +298,11 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
               />
               {bodyWordCount > 0 ? (
                 <span style={{ color: bodyCountColor }}>
-                  Word Count:
+                  Word Count
+                  {bodyWordCount < 50 ? (' (min 50 words required)') : null}
+                  <RAR.BodyRequired>*</RAR.BodyRequired>
+                  {' '}
+                  :
                   {' '}
                   {bodyWordCount}
                 </span>
@@ -293,7 +329,7 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
           </RAR.Footer>
         </RAR.Content>
       </RAR.AddReviewContainer>
-      <ErrorModule show={test} onClose={onErrorModuleClose} />
+      <ErrorModule show={errorShow} message={errorMessage} onClose={onErrorModuleClose} />
     </>
   );
 };
