@@ -1,18 +1,24 @@
 import React from 'react';
 
-import { render, screen, cleanup } from '@testing-library/react';
-// import 'jest-dom/extend-expect';
-import Related from '../Related';
+import {
+  render, screen, cleanup, fireEvent, waitFor, afterEach,
+} from '@testing-library/react';
+import axios from 'axios';
+import Questions from '../Q&A/App.jsx';
+import 'regenerator-runtime/runtime';
 
 afterEach(cleanup);
 
-describe('Related Items', () => {
-  it('should have "Related Items" header', () => {
-    const { getByText } = render(<Related />);
-    expect(getByText('Related Items')).toBeDefined();
+describe('Q and A', () => {
+  it('should have "Questions" header', () => {
+    const { getByText } = render(<Questions />);
+    expect(getByText('Questions and Answers')).toBeDefined();
   });
-  // it('should include an individual container for each carousel element', () => {
-  //   const { getByTestId } = render(<Related />);
-  //   expect(getByTestId('carousel-content-wrapper')).toBeDefined();
-  // });
+  it('should include an individual container for each Question', () => {
+    const { getByTestId } = render(<Questions />);
+    expect(getByTestId('QuestionItem')).toBeDefined();
+  });
+  it('should retrieve questions, async', async () => {
+
+  });
 });

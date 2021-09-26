@@ -3,7 +3,7 @@ import styles from 'styled-components';
 export const RatingsBreakdownContainer = styles.div`
   font-family: 'Poppins', sans-serif;
   display: grid;
-  grid-template-rows: 3fr 30fr 30fr;
+  grid-auto-rows: 1fr minmax(10fr,10fr) minmax(20fr, 20fr);
   grid-template-areas:
     "review_header"
     "review_chart"
@@ -26,16 +26,18 @@ export const StarReviewBreakdown = styles.div`
 
 export const ProductCharacterSlider = styles.div`
   grid-area: review_slider;
+  padding-top: 10px;
   position: relative;
 `;
 
-export const RatingsAndReviewTitle = styles.span`
+export const RatingsAndReviewTitle = styles.h1`
   font-family: 'Poppins', sans-serif;
-  font-size: 16px;
+  padding-left: 150px;
 `;
 
 export const RatingsAndReviewContainer = styles.div`
   padding-top: 15px;
+  padding-bottom: 15px;
   grid-template-columns: 1fr 3fr;
   display: grid;
   grid-template-areas:
@@ -76,8 +78,9 @@ export const RatingsFilterDropdown = styles.option`
 
 export const RatingsAndReviewAction = styles.button`
   background-color:#FBD63F;
-  border: none;
   border-radius: 5px;
+  border: 1px solid #d3d3d3;
+  box-shadow: 2px 2px 2px 1px #d3d3d3;
   color:#000000;
   text-align: center;
   text-decoration: none;
