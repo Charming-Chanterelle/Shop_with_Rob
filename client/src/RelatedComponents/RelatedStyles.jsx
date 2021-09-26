@@ -25,7 +25,7 @@ export const Card = styles.div`
 
 export const RoundButton = styles.button`
   background-color:#FBD63F;
-  float: right;
+
   border: none;
   border-radius: 50%;
   color:#000000;
@@ -40,7 +40,11 @@ export const RoundButton = styles.button`
     border: #black solid 1px;
     background:#fcecae;
   }
+  position: absolute;
+  // right: 5px;
   z-index: 5000;
+  // float: right;
+
   `;
 
 // export const RoundButton:hover = styles.button`
