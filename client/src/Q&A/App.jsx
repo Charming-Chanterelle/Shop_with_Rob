@@ -38,7 +38,7 @@ const Buttons = styled.div`
 
 const Title = styled.div`
 padding-left: 150px;
-left: 0;
+
 font-family: 'Poppins', sans-serif;
 `;
 
