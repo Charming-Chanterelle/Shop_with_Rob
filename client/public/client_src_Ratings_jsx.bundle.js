@@ -89,16 +89,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
-/***/ "./client/src/RatingsComponent/Individual_Tile/RatingsImageModal.jsx":
-/*!***************************************************************************!*\
-  !*** ./client/src/RatingsComponent/Individual_Tile/RatingsImageModal.jsx ***!
-  \***************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var _IndividualTileStyledComponent_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IndividualTileStyledComponent.jsx */ \"./client/src/RatingsComponent/Individual_Tile/IndividualTileStyledComponent.jsx\");\n\n\n\nvar RatingsImageModal = function RatingsImageModal(_ref) {\n  var imageShow = _ref.imageShow,\n      url = _ref.url,\n      onSubmit = _ref.onSubmit;\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_IndividualTileStyledComponent_jsx__WEBPACK_IMPORTED_MODULE_1__.ImageModalContainer, {\n    show: imageShow\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_IndividualTileStyledComponent_jsx__WEBPACK_IMPORTED_MODULE_1__.ImageModalContent, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_IndividualTileStyledComponent_jsx__WEBPACK_IMPORTED_MODULE_1__.ImageModalBody, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_IndividualTileStyledComponent_jsx__WEBPACK_IMPORTED_MODULE_1__.ModalImage, {\n    src: url\n  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_IndividualTileStyledComponent_jsx__WEBPACK_IMPORTED_MODULE_1__.ImageModalFooter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_IndividualTileStyledComponent_jsx__WEBPACK_IMPORTED_MODULE_1__.Button, {\n    onClick: onSubmit\n  }, \"Close\")))));\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RatingsImageModal);\n\n//# sourceURL=webpack://shop_with_rob/./client/src/RatingsComponent/Individual_Tile/RatingsImageModal.jsx?");
-
-/***/ }),
-
 /***/ "./client/src/RatingsComponent/RatingsComponentStyledComponent.jsx":
 /*!*************************************************************************!*\
   !*** ./client/src/RatingsComponent/RatingsComponentStyledComponent.jsx ***!

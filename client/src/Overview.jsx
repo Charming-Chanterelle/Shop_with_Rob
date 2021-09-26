@@ -5,7 +5,7 @@ import { ProductContext } from './contexts/ProductContext.jsx';
 import { FaStar, FaRegStar, FaChevronCircleRight, FaChevronCircleLeft, FaChevronCircleUp, FaChevronCircleDown, FaFacebookSquare, FaTwitterSquare, FaPinterestSquare, FaCheck, FaRegSmileBeam } from 'react-icons/fa';
 import * as S from './OverviewStyledComponents.jsx';
 import StarDisplay from './StarDisplay.jsx';
-import * as RIT from './RatingsComponent/Individual_Tile/IndividualTileStyledComponent.jsx';
+import RatingsImageModal from './RatingsComponent/Individual_Tile/RatingsImageModal.jsx';
 
 const Overview = (props) => {
   const {
@@ -28,6 +28,8 @@ const Overview = (props) => {
   const [quantities, setQuantities] = useState(-1);
   const [quantity, setQuantity] = useState(1);
   const [isFavorited, setIsFavorited] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  // const [l, setLength] = useState(0); // if l == 6, overflow: hidden
   const quantityMax = 15;
 
   /* ----------------
@@ -63,7 +65,6 @@ const Overview = (props) => {
   };
   useEffect(() => {
     if (current !== null) {
-      console.log(current)
       let newImg = currentStyle.photos[0].url;
       if (current < currentStyle.photos.length) {
         newImg = currentStyle.photos[current].url;
@@ -190,8 +191,9 @@ const Overview = (props) => {
     setPtHovered(!ptHovered);
   };
 
-  // let bigg = React.createRef();
-  // bigg = mainImg;
+  const handleExpand = () => {
+    setIsOpen(!isOpen);
+  };
 
   /* -----------
   |   RETURN   |
@@ -206,9 +208,10 @@ const Overview = (props) => {
       <S.Container>
         <S.Main>
           <S.LeftArrow onClick={prevSlide}><FaChevronCircleLeft /></S.LeftArrow>
-          <S.BigImg className="imgFormat" src={mainImg} alt={currentStyle.name} />
+          {/* <RatingsImageModal /> */}
+            <S.BigImg onClick={handleExpand} className="imgFormat" src={mainImg} alt={currentStyle.name} />
           <S.ImgCards>
-            <FaChevronCircleUp style={{ color: "#c48f35", paddingLeft: 12, paddingBottom: 2 }}
+            <FaChevronCircleUp style={{ visibility: `${current === 0 ? "hidden" : "visible"}`, color: "#c48f35", paddingLeft: 12, paddingBottom: 2 }}
               onClick={prevSlide} />
             {photos.map((x, i) => {
               return <S.ImgSample key={x.thumbnail_url + i}
@@ -221,7 +224,7 @@ const Overview = (props) => {
                 name={x.thumbnail_url}
                 value={i} />;
             })}
-            <FaChevronCircleDown style={{ color: "#c48f35", paddingLeft: 12, paddingTop: 2 }}
+            <FaChevronCircleDown style={{ visibility: `${current === photos.length - 1 ? "hidden" : "visible"}`, color: "#c48f35", paddingLeft: 12, paddingTop: 2 }}
               onClick={nextSlide} />
           </S.ImgCards>
           <S.RightArrow onClick={nextSlide}><FaChevronCircleRight /></S.RightArrow>
@@ -326,8 +329,8 @@ const Overview = (props) => {
           <S.FeaturesList>
             {featurez.map((x) => {
               return <li key={x.value}
-              className="bigText"
-              style={{ listStyleType: "none", marginBottom: 7, fontStyle: "italic" }}><FaRegSmileBeam style={{ color: "#c48f35" }} />&nbsp;&nbsp;{x.feature}{x.value === null ? null : `: ${x.value}`}</li>;
+                className="bigText"
+                style={{ listStyleType: "none", marginBottom: 7, fontStyle: "italic" }}><FaRegSmileBeam style={{ color: "#c48f35" }} />&nbsp;&nbsp;{x.feature}{x.value === null ? null : `: ${x.value}`}</li>;
             })}
           </S.FeaturesList>
         </S.Features>

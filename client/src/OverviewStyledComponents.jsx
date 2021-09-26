@@ -84,7 +84,7 @@ export const BigImg = styles.img`
   overflow-x: hidden;
   width: 100%;
   height: 100%;
-  background-position: contain;
+  background-position: center;
   cursor: -moz-zoom-in;
   cursor: -webkit-zoom-in;
   cursor: zoom-in;
@@ -92,6 +92,12 @@ export const BigImg = styles.img`
   // background-size: contain;
   // background-position: contain;
   // background-image: url(${props => props.url})
+// export const Expanded = styles.dialog`
+//   box-shadow: 2px 2px 2px 1px #d3d3d3;
+//   position: static;
+//   top: 10%;
+
+//   `;
 export const ImgCards = styles.div`
   grid-area: main;
   position: absolute;
