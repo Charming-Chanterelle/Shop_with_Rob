@@ -18,11 +18,6 @@ const Related = (props) => {
   const [open, setOpen] = useState(false);
   const { productID, changeHash } = useContext(ProductContext);
 
-
-
-
-
-
   const getRelatedProducts = () => {
     // axios.get(`/api/products/${productID}/related`)
     axios.get(`/api/products/${productID}/related`)
@@ -65,7 +60,6 @@ const Related = (props) => {
 
   const [length, setLength] = useState(relatedItems.length);
 
-
   useEffect(() => {
     getRelatedProducts();
   }, [productID]);
@@ -96,7 +90,7 @@ const Related = (props) => {
                   currentIndex > 0
                   && (
                   <s.RoundButton type="button" onClick={prev} className="left-arrow">
-                  <FaChevronCircleLeft></FaChevronCircleLeft>
+                    <FaChevronCircleLeft />
                   </s.RoundButton>
                   )
               }
@@ -114,7 +108,7 @@ const Related = (props) => {
                   <div>
                     <div>
                       <s.RoundButton onClick={() => setShowModal(true)} type="button">
-                      {/* <s.RoundButton onClick={() => setOpen(true)} type="button"> */}
+                        {/* <s.RoundButton onClick={() => setOpen(true)} type="button"> */}
                         <FaRegStar />
                       </s.RoundButton>
                       <ComparisonModal
@@ -156,7 +150,7 @@ const Related = (props) => {
                   (currentIndex < (length - show) && relatedItems.length >= show)
                   && (
                   <s.RoundButton type="button" onClick={next} className="right-arrow">
-                    <FaChevronCircleRight></FaChevronCircleRight>
+                    <FaChevronCircleRight />
                   </s.RoundButton>
                   )
               }

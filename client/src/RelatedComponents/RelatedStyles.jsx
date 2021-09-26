@@ -34,7 +34,7 @@ export const RoundButton = styles.button`
   display: flex;
   font-size: 16px;
   cursor: pointer;
-  padding: 15px 8px 15px;
+  padding: 15px;
   &:hover {
     color: #FBD63F;
     border: #black solid 1px;
