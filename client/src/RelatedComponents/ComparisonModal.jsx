@@ -24,13 +24,13 @@ const ComparisonModal = (props) => {
             </tr>
             <tr>
               <td>{ratingsScore.avgRating.toPrecision(3)}</td>
-              <td>Rating</td>
+              <td><i>Rating</i></td>
               <td>{rating}</td>
             </tr>
             <tr>
-              <td>{product.default_price}</td>
-              <td>Price</td>
-              <td>{price}</td>
+              <td>${product.default_price}</td>
+              <td><i>Price</i></td>
+              <td>${price}</td>
             </tr>
             {/* <tr>
               <td>Cotton</td>
