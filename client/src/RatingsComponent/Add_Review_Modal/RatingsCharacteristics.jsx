@@ -4,7 +4,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { ProductContext } from '../../contexts/ProductContext.jsx';
 import * as RAR from './AddReviewModalStyledComponent.jsx';
-import CharacterDisplay from './RatingsCharacteristicsDisplay.jsx';
+// import CharacterDisplay from './RatingsCharacteristicsDisplay.jsx';
 
 const getCharacterID = (characteristics) => {
   if (Object.keys(characteristics).length === 0) {
@@ -19,10 +19,23 @@ const getCharacterID = (characteristics) => {
   return characterData;
 };
 
+const uniqueKey = () => {
+  let key = '';
+  const bank = ['g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', '3', '4', '5', '6', '7', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '8', '9', '!', '@', '$', '#', '%', '^', '*', 'a', 'b', 'c', 'd', 'e', 'f'];
+  const bankLen = bank.length;
+  for (let i = 0; i < 15; i++) {
+    const randID = Math.ceil(Math.random() * (bankLen - 0));
+    key += bank[randID];
+  }
+  return key;
+};
+
 const RatingsCharacteristics = ({ getCharacteristic }) => {
-  const { meta, loaded } = useContext(ProductContext);
+  const { meta, productID } = useContext(ProductContext);
   const [characters, setCharacter] = useState([]);
   const [characterID, setCharacterID] = useState({});
+  const [description, setDescription] = useState([]);
+  const [ratingsPercent, setRatingPercent] = useState('0%');
   const data = {};
   const characterBank = {
     Size: ['A size too small', '½ a size too small', 'Perfect', '½ a size too big', 'A size too wide'],
@@ -34,50 +47,61 @@ const RatingsCharacteristics = ({ getCharacteristic }) => {
   };
 
   useEffect(() => {
-    if (loaded) {
-      const { characteristics } = meta;
-      setCharacterID(getCharacterID(characteristics));
-      setCharacter(Object.keys(characteristics));
-    }
-  }, [loaded, meta]);
+    const { characteristics } = meta;
+    setCharacterID(getCharacterID(characteristics));
+    setCharacter(Object.keys(characteristics));
+  }, [productID]);
 
-  const characterData = (name, value) => {
+  const characterData = (name, value, index) => {
+    const fillPercent = ['0%', '30%', '50%', '70%', '93%'];
     const key = characterID[name];
     data[key] = value;
-
+    setRatingPercent(fillPercent[value - 1]);
     getCharacteristic(data);
   };
-  if (loaded) {
-    return (
-      <>
-        {characters.map((character) => (
-          <>
-            <RAR.RatingsCharacterContainer>
-              <RAR.RatingsCharacteristicText
-                key={characterBank[character]}
-              >
-                {character}
-                <RAR.BodyRequired>*</RAR.BodyRequired>
-                :
-              </RAR.RatingsCharacteristicText>
-              <RAR.RatingsCharacterRadioContainer>
-                {characterBank[character].map((currentCharacter, index) => (
-                  <CharacterDisplay
-                    key={character + currentCharacter}
-                    currentCount={index + 1}
-                    currentCharacter={character}
-                    currentCharacteristics={currentCharacter}
-                    onChangeCharacteristic={characterData}
-                  />
-                ))}
-              </RAR.RatingsCharacterRadioContainer>
-            </RAR.RatingsCharacterContainer>
-          </>
-        ))}
-      </>
-    );
-  }
-  return null;
+
+  return (
+    <>
+      {characters.map((character, count) => (
+        <>
+          <RAR.RatingsCharacterContainer
+            key={characterBank[character]
+              .concat(uniqueKey(), count, characterBank[character][count])}
+          >
+            <RAR.RatingsCharacteristicText>
+              {character}
+              <RAR.BodyRequired>*</RAR.BodyRequired>
+              :
+            </RAR.RatingsCharacteristicText>
+            <RAR.RatingsCharacterRadioContainer>
+              <RAR.RatingsCharacteristicRadioInput
+                type="range"
+                name={character}
+                min="1"
+                max="5"
+                step="0"
+                defaultValue="1"
+                onChange={(event) => characterData(event.target.name, event.target.value, count)}
+                ratingsValue={ratingsPercent}
+                charName={character}
+              />
+            </RAR.RatingsCharacterRadioContainer>
+            <RAR.RatingsCharacterDescContainer>
+              <RAR.RatingsCharacterFirstText>
+                {characterBank[character][0]}
+              </RAR.RatingsCharacterFirstText>
+              <RAR.RatingsCharacterMiddleText>
+                {characterBank[character][2]}
+              </RAR.RatingsCharacterMiddleText>
+              <RAR.RatingsCharacterLastText>
+                {characterBank[character][4]}
+              </RAR.RatingsCharacterLastText>
+            </RAR.RatingsCharacterDescContainer>
+          </RAR.RatingsCharacterContainer>
+        </>
+      ))}
+    </>
+  );
 };
 
 export default RatingsCharacteristics;

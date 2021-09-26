@@ -5,11 +5,10 @@ const productID = 48432;
 const InitData = (ID, count) => {
   const product = axios.get(`http://localhost:3000/api/products/${ID}`);
   const style = axios.get(`http://localhost:3000/api/products/${ID}/style`);
-  const meta = axios.get(`http://localhost:3000/api/reviews/meta/?product_id=${ID}`);
-  const ratings = axios.get(`http://localhost:3000/api/reviews/?product_id=${ID}`);
+  // const meta = axios.get(`http://localhost:3000/api/reviews/meta/?product_id=${ID}`);
 
   axios.all([
-    product, style, meta, ratings,
+    product, style,
   ])
     .then(axios.spread(() => {
       console.log(`Run ${count} is complete`);
@@ -21,12 +20,15 @@ const InitData = (ID, count) => {
 };
 
 const getRelated = async () => {
-  const related = await axios.get(`http://localhost:3000/api/products/${productID}/related`);
+  try {
+    const related = await axios.get(`http://localhost:3000/api/products/${productID}/related`);
+    const { data } = related;
+    const products = [productID, ...data];
 
-  const { data } = related;
-  const products = [productID, ...data];
-
-  await products.map((product_id, count) => InitData(product_id, count));
+    await products.map((product_id, count) => InitData(product_id, count));
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 getRelated();

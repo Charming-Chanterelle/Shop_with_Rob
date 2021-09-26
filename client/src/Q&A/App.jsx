@@ -1,15 +1,24 @@
 /* eslint-disable max-len */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import Search from './Search.jsx';
 import QandAContainer from './QandAContainer.jsx';
 import MoreQuestions from './MoreQuestions.jsx';
 import QuestionModal from './QuestionModal.jsx';
+import { ProductContext } from '../contexts/ProductContext.jsx'
 
 const Container = styled.div`
-  width: 700px;
-  margin: auto;
+background-color: #fffefa;
+margin-right: 150px;
+margin-left: 150px;
+width: auto;
+height: auto;
+border-radius: 5px;
+border: 1px solid #d3d3d3;
+box-shadow: 2px 2px 2px 1px #d3d3d3;
+font-family: 'Poppins', sans-serif;
+
 `;
 
 const Button = styled.button`
@@ -18,8 +27,7 @@ const Button = styled.button`
   width: 200px;
   margin: 0px 10px;
   cursor: pointer;
-  background-color: #C7CFB7;
-  color: #525252;
+  box-shadow: 2px 2px 2px 1px #d3d3d3;
 `;
 
 const Buttons = styled.div`
@@ -28,7 +36,14 @@ const Buttons = styled.div`
   margin: 10px;
 `;
 
-const App = ({ productId = 48432 }) => {
+const Title = styled.div`
+padding-left: 150px;
+left: 0;
+font-family: 'Poppins', sans-serif;
+`;
+
+const App = () => {
+  const { productID } = useContext(ProductContext);
   const [questions, setQuestions] = useState([]);
   const [questionShow, setQuestionShow] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -40,7 +55,7 @@ const App = ({ productId = 48432 }) => {
   const getQuestions = () => (
     axios.get('/api/qa/questions', {
       params: {
-        product_id: productId,
+        product_id: productID,
       },
     })
       .then((response) => {
@@ -52,18 +67,18 @@ const App = ({ productId = 48432 }) => {
   );
 
   const getProductInfo = () => {
-    axios.get(`/api/products/${productId}`, {
+    axios.get(`/api/products/${productID}`, {
       params: {
-        product_id: productId,
+        product_id: productID,
       },
     })
       .then((response) => {
-        setProductName(response.data.data.name);
+        setProductName(response.data.name);
       });
   };
 
-  useEffect(getQuestions, []);
-  useEffect(getProductInfo, []);
+  useEffect(getQuestions, [productID]);
+  useEffect(getProductInfo, [productID]);
 
   const incrementQuestionCount = () => {
     let newCounter;
@@ -97,16 +112,20 @@ const App = ({ productId = 48432 }) => {
   };
 
   return (
-    <Container>
-      <h1>Questions and Answers.</h1>
-      <Search searchTerm={handleSearchTerm} searchQuestions={searchQuestions} questions={questions} />
-      <QandAContainer questions={searchResults.length ? searchResults : questions} productName={productName} counter={counter} />
-      <Buttons>
-        <MoreQuestions noQuestions={noQuestions} incrementQuestionCount={incrementQuestionCount} />
-        <Button type="submit" onClick={() => setQuestionShow(true)}>ADD A QUESTION + </Button>
-      </Buttons>
-      <QuestionModal onClose={() => setQuestionShow(false)} show={questionShow} productName={productName} productId={productId} />
-    </Container>
+    <>
+      <Title>
+        <h1 className="bigText"><strong>Questions & Answers</strong></h1>
+      </Title>
+      <Container>
+        <Search searchTerm={handleSearchTerm} searchQuestions={searchQuestions} questions={questions} />
+        <QandAContainer questions={searchResults.length ? searchResults : questions} productName={productName} counter={counter} />
+        <Buttons>
+          <MoreQuestions noQuestions={noQuestions} incrementQuestionCount={incrementQuestionCount} />
+          <Button type="submit" onClick={() => setQuestionShow(true)}>ADD A QUESTION + </Button>
+        </Buttons>
+        <QuestionModal onClose={() => setQuestionShow(false)} show={questionShow} productName={productName} productId={productID} />
+      </Container>
+    </>
   );
 };
 

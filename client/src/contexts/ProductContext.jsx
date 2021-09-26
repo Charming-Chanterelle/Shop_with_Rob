@@ -4,16 +4,19 @@ import axios from 'axios';
 export const ProductContext = createContext();
 // const currentId = !!window.location.hash ? Number(window.location.hash.replace('#','')) : 48432;
 
-const getAverageRating = ({ ratings }) => {
+const getAverageRating = ({ ratings }, testID) => {
   // We want to get the total reviews and the average of the reviews.
   const weight = Object.keys(ratings);
+
   if (weight.length === 0) {
-    return {
+    const noRatings = {
       avgRating: 0,
       numberOfRatings: 0,
       ratingsPercent: 0,
     };
+    return noRatings;
   }
+
   const rating = Object.values(ratings);
 
   let numberOfRatings = 0;
@@ -44,9 +47,10 @@ const getAverageRating = ({ ratings }) => {
     numberOfRatings,
     ratingsPercent,
   };
-
   return ratingsObj;
 };
+
+const currentId = !!window.location.hash ? Number(window.location.hash.replace('#', '')) : 48432;
 
 const ProductContextProvider = ({ children }) => {
   const [product, setProduct] = useState({});
@@ -54,14 +58,15 @@ const ProductContextProvider = ({ children }) => {
   const [meta, setMeta] = useState({});
   const [ratingsScore, setRatingScore] = useState({});
   const [loaded, setLoaded] = useState(false);
-  const [productID, setproductID] = useState(48432);
+  const [productID, setproductID] = useState(currentId);
+
+  const [hashID, setHashID] = useState();
 
   const changeHash = (hash) => {
     setproductID(hash);
   };
 
   useEffect(() => {
-
     axios.get(`/api/products/${productID}`)
       .then((response) => {
         const currentProduct = response.data;
@@ -76,7 +81,7 @@ const ProductContextProvider = ({ children }) => {
           .then(axios.spread((style, metaReview) => {
             setStyle(style.data.results);
             setMeta(metaReview.data);
-            setRatingScore(getAverageRating(metaReview.data));
+            setRatingScore(getAverageRating(metaReview.data, productID));
           }))
           .then(() => {
             setLoaded(true);

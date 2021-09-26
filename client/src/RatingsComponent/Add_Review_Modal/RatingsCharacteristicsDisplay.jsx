@@ -7,15 +7,12 @@ const CharacterDisplay = ({
 }) => (
   <>
     <RAR.RatingsCharacteristicRadioContainer>
-    <RAR.RatingsCharacteristicRadioLabel htmlFor={currentCharacter}>
-      { currentCharacteristics }
-    </RAR.RatingsCharacteristicRadioLabel>
-    <RAR.RatingsCharacteristicRadioInput
-      type="radio"
-      name={currentCharacter}
-      value={currentCount}
-      onChange={(event) => onChangeCharacteristic(event.target.name, event.target.value)}
-    />
+      <RAR.RatingsCharacteristicRadioInput
+        type="range"
+        name={currentCharacter}
+        value={currentCount}
+        onChange={(event) => onChangeCharacteristic(event.target.name, event.target.value)}
+      />
     </RAR.RatingsCharacteristicRadioContainer>
   </>
 );
