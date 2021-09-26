@@ -122,10 +122,6 @@ export const FilterList = styles.li`
 
 `;
 
-export const FiveStarFilterContainer = styles.div`
-
-`;
-
 export const FiveStarFilterGraphs = styles.div`
   cursor: pointer;
   display: grid;
@@ -171,10 +167,6 @@ export const FiveStarSlider = styles.input`
       #f8e07ebd ${fiveStarRating}, rgb(228, 222, 222) ${fiveStarRating} 100%, white 100% );
     `
 };
-`;
-
-export const FourStarFilterContainer = styles.div`
-
 `;
 
 export const FourStarFilterGraphs = styles.div`
@@ -224,10 +216,6 @@ export const FourStarSlider = styles.input`
 };
 `;
 
-export const ThreeStarFilterContainer = styles.div`
-
-`;
-
 export const ThreeStarFilterGraphs = styles.div`
   cursor: pointer;
   display: grid;
@@ -275,10 +263,6 @@ export const ThreeStarSlider = styles.input`
 };
 `;
 
-export const TwoStarFilterContainer = styles.div`
-
-`;
-
 export const TwoStarFilterGraphs = styles.div`
   cursor: pointer;
   display: grid;
@@ -324,10 +308,6 @@ export const TwoStarSlider = styles.input`
       #f8e07ebd ${twoStarRating}, rgb(228, 222, 222) ${twoStarRating} 100%, white 100% );
     `
 };
-`;
-
-export const OneStarFilterContainer = styles.div`
-
 `;
 
 export const OneStarFilterGraphs = styles.div`

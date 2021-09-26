@@ -95,15 +95,9 @@ const Ratings = ({ reference }) => {
       ));
       return currentRating;
     });
-    console.log(updatedFilterList);
-    console.log(filteredRatings);
 
     setRatings(filteredRatings);
     setStarFilter(updatedFilterList);
-  };
-
-  const updateFilteredRatings = () => {
-
   };
 
   const onStarUnfilter = () => {
