@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 export const ProductContext = createContext();
-const randID = 48432;
+// const currentId = !!window.location.hash ? Number(window.location.hash.replace('#','')) : 48432;
 
 const getAverageRating = ({ ratings }, testID) => {
   // We want to get the total reviews and the average of the reviews.

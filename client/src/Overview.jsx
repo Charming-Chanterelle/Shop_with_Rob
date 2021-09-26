@@ -3,7 +3,7 @@
 import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
 import { ProductContext } from './contexts/ProductContext.jsx';
-import { FaStar, FaRegStar, FaChevronCircleRight, FaChevronCircleLeft, FaFacebookSquare, FaTwitterSquare, FaPinterestSquare, FaCheck, FaRegSmileBeam } from 'react-icons/fa';
+import { FaStar, FaRegStar, FaChevronCircleRight, FaChevronCircleLeft, FaChevronCircleUp, FaChevronCircleDown, FaFacebookSquare, FaTwitterSquare, FaPinterestSquare, FaCheck, FaRegSmileBeam } from 'react-icons/fa';
 import * as S from './OverviewStyledComponents.jsx';
 import StarDisplay from './StarDisplay.jsx';
 
@@ -22,6 +22,7 @@ const Overview = (props) => {
   const [fbHovered, setFbHovered] = useState(false);
   const [twHovered, setTwHovered] = useState(false);
   const [ptHovered, setPtHovered] = useState(false);
+  const [cartFlag, setCartFlag] = useState(null);
   const [sizes, setSizes] = useState(['Select Size']);
   const [size, setSize] = useState('');
   const [quantities, setQuantities] = useState(-1);
@@ -61,7 +62,7 @@ const Overview = (props) => {
       setCurrentStyle(theStyle(parseInt(event.target.value, 10))) : null;
   };
   useEffect(() => {
-    if (currentStyle !== {} && (current !== null)) {
+    if (current !== null) {
       const newImg = currentStyle.photos[current].url;
       setMainImg(newImg);
     }
@@ -75,6 +76,12 @@ const Overview = (props) => {
       setQuantities(-1);
     }
   }, [sizes]);
+  useEffect(() => {
+    if (styles.length > 0) {
+      let test = styles.filter((x) => x['default?'] === true)[0];
+      test === undefined ? setCurrentStyle(styles[0]) : setCurrentStyle(test);
+    }
+  }, [styles]);
 
   /* ------------------
   |   CLICK HANDLERS   |
@@ -110,9 +117,6 @@ const Overview = (props) => {
   const selectQuantity = (event) => {
     setQuantity(event.target.value);
   };
-  // INCREASED FUNCTIONALITY TO-DO:
-  // const jumpToRatings = () => {
-  // };
 
   /* --------
   |   CART   |
@@ -128,17 +132,23 @@ const Overview = (props) => {
     for (var i = 0; i < quantity; i++) {
       axios.post('/api/cart', { sku_id: id })
         .then((response) => {
+          setCartFlag(true);
         })
         .catch((err) => {
-          alert("We're sorry. There's been an error. Please try refreshing the page or contacting our customer service.");
+          setCartFlag(false);
+          alert("We're sorry. There's been an error, please try refreshing the page or contacting our 24 hour customer service.");
         });
     }
-    setSizes(['Select Size']);
-    setQuantities(-1);
   };
+  useEffect(() => {
+    setSizes(['Select Size']);
+    if (cartFlag === true) {
+      alert("HORRAY! Stay tuned for your confirmation");
+    }
+  }, [cartFlag]);
   const earlyCart = () => {
     // open the size dropdown, and a message should appear above the dropdown stating
-    // “Please select size”
+    alert("Please select a size first");
   };
 
   /* ------------
@@ -174,6 +184,9 @@ const Overview = (props) => {
     setPtHovered(!ptHovered);
   };
 
+  // let bigg = React.createRef();
+  // bigg = mainImg;
+
   /* -----------
   |   RETURN   |
   -------------*/
@@ -182,19 +195,22 @@ const Overview = (props) => {
   const photos = currentStyle.photos ?? [];
   const stylez = styles ?? [];
   const featurez = product.features ?? [];
+  console.log(<mainImg/>.offsetWidth)
   return (
     <div>
       <S.Container>
         <S.Main>
           <S.LeftArrow onClick={prevSlide}><FaChevronCircleLeft /></S.LeftArrow>
-          <S.BigImg className="imgFormat" src={mainImg} alt="${currentStyle.name}" />
+          <S.BigImg className="imgFormat" src={mainImg} alt={currentStyle.name} />
           <S.ImgCards>
+          <FaChevronCircleUp style={{ color: "#c48f35", paddingLeft: 12, paddingBottom: 2 }} onClick={prevSlide} />
             {photos.map((x, i) => {
-              return <S.ImgSample key={x.thumbnail_url}
+              return <S.ImgSample key={x.thumbnail_url + i}
                 onMouseEnter={enterSample}
                 onMouseLeave={exitSample}
                 style={{ transform: `${sampleHovered == x.thumbnail_url ? "scale(1.15, 1.15)" : "scale(1, 1)"}`, border: `${current === i ? "3px solid #FBD63F" : "none"}` }} onClick={imgOnClick} className="imgFormat" url={x.thumbnail_url} name={x.thumbnail_url} value={i} />;
             })}
+            <FaChevronCircleDown style={{ color: "#c48f35", paddingLeft: 12, paddingTop: 2 }} onClick={nextSlide}/>
           </S.ImgCards>
           <S.RightArrow onClick={nextSlide}><FaChevronCircleRight /></S.RightArrow>
         </S.Main>
@@ -204,7 +220,7 @@ const Overview = (props) => {
         </S.Content>
         <S.Side>
           <div>
-            <StarDisplay stars={{ width: '20', height: '20' }} style={{ float: 'right' }} />
+            <StarDisplay stars={{ width: '20', height: '20' }} />
             <span ref={props.reference} onClick={props.jumpClick} className="bigText"
               onMouseEnter={toggleReviewHovered}
               onMouseLeave={toggleReviewHovered}
@@ -225,7 +241,7 @@ const Overview = (props) => {
               <h2>${currentStyle.original_price}</h2>}
           </div>
           <div>
-            <h3 className="bigText" style={{ fontWeight: 700 }}>
+            <h3 className="bigText" style={{ marginBottom: 0 }}>
               Choose your style:&nbsp;
               {currentStyle.name}
             </h3>
@@ -238,19 +254,21 @@ const Overview = (props) => {
                   onMouseLeave={exitHovered}
                   style={{ transform: `${hovered == x.style_id ? "scale(1.15, 1.15)" : "scale(1, 1)"}` }}>
                   {x === currentStyle &&
-                    <FaCheck style={{ color: 'yellow' }} />}
+                    <FaCheck style={{ color: "yellow" }} />}
                 </S.StylesButton>)}
             </S.Styles>
             <S.Styles>
               <select onClick={getSizes} onChange={selectSize} className="imgFormat" name="size" style={{
                 width: "6rem",
-                height: "2rem"
+                height: "2rem",
+                boxShadow: "2px 2px 2px 1px #d3d3d3"
               }}>
-                {sizes.map((x) => <option key={x} value={x}>{x}</option>)}
+                {!sizes.includes('Select Size') ? sizes.map((x) => <option key={x} value={x}>{x}</option>) : <option>Select Size</option>}
               </select>
               <select onClick={getQuantities} onChange={selectQuantity} className="imgFormat" name="quantity" style={{
                 width: "3rem",
-                height: "2rem"
+                height: "2rem",
+                boxShadow: "2px 2px 2px 1px #d3d3d3"
               }}>
                 {quantities < 0 ? <option>-</option> :
                   quantities >= 15 ? [...Array(quantityMax),
@@ -261,19 +279,19 @@ const Overview = (props) => {
                       <option key={i} value={i + 1}>{i + 1}</option>
                     ))}
               </select> &nbsp;&nbsp;&nbsp;
-              <button onClick={favorite} style={{ padding: 10, borderRadius: '100%', width: 35, height: 35, boxShadow: "2px 2px 2px 1px #d3d3d3", display: "flex", justifyContent: "center", alignItems: "center" }} >{isFavorited ?
+              <button onClick={favorite} style={{ borderRadius: '100%', width: 35, height: 35, boxShadow: "2px 2px 2px 1px #d3d3d3", display: "flex", justifyContent: "center", alignItems: "center" }} >{isFavorited ?
                 <FaStar /> :
                 <FaRegStar />}
               </button>
             </S.Styles>
-            <div style={{ display: "inline", marginTop: 5, marginLeft: 15, marginBottom: 10 }}>
+            <div style={{ display: "inline", marginLeft: 15, marginBottom: 10 }}>
               {!sizes.includes('OUT OF STOCK')
-                && <button onClick={sizes === ['Select Size'] ? earlyCart : addToCart}
+                && <button onClick={sizes.includes('Select Size') ? earlyCart : addToCart}
                   onMouseEnter={toggleCartHovered}
                   onMouseLeave={toggleCartHovered}
-                  style={{ boxShadow: "2px 2px 2px 1px #d3d3d3", transform: `${cartHovered ? "scale(1.15, 1.15)" : "scale(1, 1)"}` }}
+                  style={{ boxShadow: "2px 2px 2px 1px #d3d3d3", transform: `${cartHovered ? "scale(1, 1)" : "scale(1.15, 1.15)"}`, padding: 10 }}
                   className="bigText">
-                  <h3 style={{ fontWeight: 600 }}>ADD TO CART ++</h3></button>}
+                  <h3 style={{ fontWeight: 600 }}>{cartHovered ? "ADD TO CART++" : "ADD TO CART"}</h3></button>}
               <S.Socials>
                 <FaFacebookSquare
                   onMouseEnter={toggleFbHovered}
@@ -289,21 +307,12 @@ const Overview = (props) => {
                   style={{ color: `${ptHovered ? "#E60023" : "#899499"}`, height: 25, width: 25, boxShadow: "2px 2px 2px 1px #d3d3d3" }} />
               </S.Socials>
             </div>
-            {/* ^^ If the default ‘Select Size’ is currently
-            selected: Clicking this button should open
-            the size dropdown, and a message should
-            appear above the dropdown stating “Please
-            select size”.
-            If there is no stock: This button should be hidden
-            If both a valid size and valid quantity are
-            selected: Clicking this button will add the product to the user’s cart. */}
           </div>
         </S.Side>
         <S.Features>
           <S.FeaturesList>
-            <li className="bigText" style={{ listStyleType: 'none', marginBottom: 7, fontStyle: 'italic' }}><FaRegSmileBeam style={{ color: '#c48f35' }} />&nbsp;&nbsp;110% Satisfaction Guaranteed*</li>
             {featurez.map((x) => {
-              return <li key={x.value} className="bigText" style={{ listStyleType: 'none', marginBottom: 7, fontStyle: 'italic' }}><FaRegSmileBeam style={{ color: '#c48f35' }} />&nbsp;&nbsp;{x.feature}{x.value === null ? null : `: ${x.value}`}</li>;
+              return <li key={x.value} className="bigText" style={{ listStyleType: "none", marginBottom: 7, fontStyle: "italic"}}><FaRegSmileBeam style={{ color: "#c48f35" }} />&nbsp;&nbsp;{x.feature}{x.value === null ? null : `: ${x.value}`}</li>;
             })}
           </S.FeaturesList>
         </S.Features>
@@ -311,7 +320,7 @@ const Overview = (props) => {
     </div>
   );
   // }
-  // return <div>LOADING...</div>;
+  // return <div>Hang tight...</div>;
 };
 
 export default Overview;
