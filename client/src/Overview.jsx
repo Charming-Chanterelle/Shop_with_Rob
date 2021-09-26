@@ -191,11 +191,10 @@ const Overview = (props) => {
     setPtHovered(!ptHovered);
   };
 
-  /* -----------
+  /* ----------
   |   RETURN   |
   -------------*/
   // if (loaded) {
-  // ensure timing
   const photos = currentStyle.photos ?? [];
   const stylez = styles ?? [];
   const featurez = product.features ?? [];
@@ -213,7 +212,6 @@ const Overview = (props) => {
           <RIT.ImageModalContainer show={bigImageModal} onClick={() => setBigImageModal(false)}>
             <RIT.ModalImage
               src={mainImg}
-              onMouseEnter={modalZoom}
               style={{cursor: "-moz-zoom-out",
                 cursor: "-webkit-zoom-out",
                 cursor: "zoom-out" }}
