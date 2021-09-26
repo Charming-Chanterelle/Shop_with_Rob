@@ -129,10 +129,6 @@ export const BodyTextInput = style.input`
   box-shadow: 2px 2px 2px 1px #d3d3d3;
   max-width: 350px;
   height: 22px;
-${({ show }) => show && css`
-  border-color: turquoise;
-  `
-};
 `;
 
 export const BodyRecommend = style.div`

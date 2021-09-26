@@ -1,7 +1,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable import/extensions */
 import React, { useContext } from 'react';
-import { ProductContext } from '../contexts/ProductContext.jsx';
 import RatingsDisplay from './Individual_Tile/RatingsDisplay.jsx';
 
 const uniqueKey = () => {
@@ -17,9 +16,9 @@ const uniqueKey = () => {
 
 const RatingsContent = ({ ratingsList, productID, onUpdateReview }) => (
   <>
-    {ratingsList.map((rating) => (
+    {ratingsList.map((rating, count) => (
       <RatingsDisplay
-        key={rating.reviewer_name.concat(rating.review_id, productID, uniqueKey())}
+        key={rating.reviewer_name.concat(rating.reviewer_name, rating.review_id, productID, uniqueKey())}
         ratingList={rating}
         onUpdateReview={onUpdateReview}
         starKey={rating.reviewer_name.concat(rating.review_id, productID, uniqueKey(), 'individualtile')}

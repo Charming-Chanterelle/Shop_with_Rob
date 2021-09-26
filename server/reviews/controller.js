@@ -36,7 +36,6 @@ module.exports = {
   },
   handleAddReview: (req, res) => {
     const { body } = req;
-
     addReview(body, (err, results) => {
       if (err) {
         res.status(404).send(err);

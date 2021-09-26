@@ -39,18 +39,7 @@ const getRatings = ({ avgRating }, id) => {
   return ratingsStorage;
 };
 
-const uniqueKey = () => {
-  let key = '';
-  const bank = ['g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', '3', '4', '5', '6', '7', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '8', '9', '!', '@', '$', '#', '%', '^', '*', 'a', 'b', 'c', 'd', 'e', 'f'];
-  const bankLen = bank.length;
-  for (let i = 0; i < 15; i++) {
-    const randID = Math.ceil(Math.random() * (bankLen - 0));
-    key += bank[randID];
-  }
-  return key;
-};
-
-const StarDisplay = ({ stars, component = 'overviewcomponent' }) => {
+const StarDisplay = ({ stars }) => {
   const { ratingsScore, loaded, productID } = useContext(ProductContext);
   const [starRating, setStarRating] = useState([]);
   const [starAttribute, setStarAttribute] = useState({ width: '15', height: '15' });

@@ -3,7 +3,7 @@ const { handleGetReviews, handleGetMeta, handleAddReview, handleHelpfulReview, h
 
 reviewsRouter.get('/', handleGetReviews);
 reviewsRouter.get('/meta', handleGetMeta);
-reviewsRouter.post('/meta', handleAddReview);
+reviewsRouter.post('/', handleAddReview);
 reviewsRouter.put('/:review_id/helpful', handleHelpfulReview);
 reviewsRouter.put('/:review_id/report', handleReportReview);
 

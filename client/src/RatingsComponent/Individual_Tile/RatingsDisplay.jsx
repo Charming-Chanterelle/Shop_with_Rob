@@ -9,12 +9,9 @@ import RatingsImageModal from './RatingsImageModal.jsx';
 
 const getBodyText = (text, onSeeMore = false) => {
   let bodyData = {};
-  // Array of words
   const bodyWords = text.split(' ');
   const wordLimit = 250;
 
-  // Check to see if the amount of words in the body is less than 25
-  // and we have not already clicked on see more
   if (bodyWords.length <= wordLimit || onSeeMore) {
     bodyData = {
       isSeeMore: false,

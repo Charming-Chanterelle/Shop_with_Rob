@@ -44,6 +44,4 @@ const RatingsProductBreakdown = ({ onStarFilter, onStarUnfilter }) => {
   );
 };
 
-{/* <RatingsSummaryChart /> */ }
-{/* <RatingsSummarySlider /> */ }
 export default RatingsProductBreakdown;

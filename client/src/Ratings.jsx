@@ -9,7 +9,7 @@ import RatingsContent from './RatingsComponent/RatingsContent.jsx';
 import RatingsStarHeader from './RatingsComponent/RatingsStarHeader.jsx';
 import RatingsProductBreakdown from './RatingsComponent/RatingsProductBreakdown.jsx';
 import * as RC from './RatingsComponent/RatingsComponentStyledComponent.jsx';
-// Number(window.location.hash.replace('#', ''))
+
 const Ratings = ({ reference }) => {
   const { productID, loaded, ratingsScore } = useContext(ProductContext);
 
@@ -17,13 +17,10 @@ const Ratings = ({ reference }) => {
   const [ratingsCopy, setRatingsCopy] = useState([]);
   const [starFilter, setStarFilter] = useState([]);
   const [totalRatings, setTotalRatings] = useState(0);
-  // total_ratings_count: 26,
   const [showMoreRatings, setShowMoreRatings] = useState(true);
   const [count, setCount] = useState(2);
 
   const getProductRatings = (currentCount = 2, sort = 'relevant') => {
-    // 48487
-    // 48445
     axios.get('/api/reviews/', {
       params: {
         product_id: productID,
@@ -41,7 +38,9 @@ const Ratings = ({ reference }) => {
   };
 
   useEffect(() => {
-    getProductRatings();
+    if (loaded) {
+      getProductRatings();
+    }
   }, [productID]);
 
   useEffect(() => {
@@ -66,13 +65,13 @@ const Ratings = ({ reference }) => {
   };
 
   const onAddReview = (obj) => {
-    console.log('In the ratings component');
-    console.log(obj);
-    // Create post request to send back data.
+    axios.post(`/api/reviews/?product_id=${productID}`, obj)
+      .catch((err) => {
+        console.log('Error creating the review', err);
+      });
   };
 
   const onUpdateReview = (id, action) => {
-    console.log(id);
     axios.put(`/api/reviews/${id}/${action}`)
       .catch((err) => {
         console.log('Error in updating the review action', err);
@@ -90,22 +89,22 @@ const Ratings = ({ reference }) => {
       updatedFilterList.splice(indexOfRating, 1);
     }
 
-    setStarFilter(updatedFilterList);
-  };
-
-  const updateFilteredRatings = () => {
     const filteredRatings = ratingsCopy.filter((ratingsObj) => {
-      const currentRating = starFilter.some((rating) => (
+      const currentRating = updatedFilterList.some((rating) => (
         ratingsObj.rating === rating
       ));
       return currentRating;
     });
+    console.log(updatedFilterList);
+    console.log(filteredRatings);
+
     setRatings(filteredRatings);
+    setStarFilter(updatedFilterList);
   };
 
-  useEffect(() => {
-    updateFilteredRatings();
-  }, [starFilter]);
+  const updateFilteredRatings = () => {
+
+  };
 
   const onStarUnfilter = () => {
     setRatings(ratingsCopy);
@@ -152,7 +151,17 @@ const Ratings = ({ reference }) => {
       </>
     );
   }
-  return <div>No Reviews</div>;
+  return (
+    <div>
+      <R.ReviewAction>
+        <ReviewAction
+          moreRatings={false}
+          onAddReview={onAddReview}
+          onDisplayMoreReviews={onDisplayMoreReviews}
+        />
+      </R.ReviewAction>
+    </div>
+  );
 };
 
 export default Ratings;

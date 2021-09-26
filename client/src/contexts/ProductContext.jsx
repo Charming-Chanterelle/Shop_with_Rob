@@ -4,7 +4,7 @@ import axios from 'axios';
 export const ProductContext = createContext();
 // const currentId = !!window.location.hash ? Number(window.location.hash.replace('#','')) : 48432;
 
-const getAverageRating = ({ ratings }, testID) => {
+const getAverageRating = ({ ratings }) => {
   // We want to get the total reviews and the average of the reviews.
   const weight = Object.keys(ratings);
 
@@ -50,7 +50,7 @@ const getAverageRating = ({ ratings }, testID) => {
   return ratingsObj;
 };
 
-const currentId = !!window.location.hash ? Number(window.location.hash.replace('#', '')) : 48432;
+const currentId = !!window.location.hash ? Number(window.location.hash.replace('#', '')) : 48445;
 
 const ProductContextProvider = ({ children }) => {
   const [product, setProduct] = useState({});
@@ -59,8 +59,6 @@ const ProductContextProvider = ({ children }) => {
   const [ratingsScore, setRatingScore] = useState({});
   const [loaded, setLoaded] = useState(false);
   const [productID, setproductID] = useState(currentId);
-
-  const [hashID, setHashID] = useState();
 
   const changeHash = (hash) => {
     setproductID(hash);

@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable import/extensions */
@@ -9,7 +10,7 @@ import ModalStarRating from './ModalStarRating.jsx';
 import ErrorModule from './ErrorModule.jsx';
 import ThumbsUp from './ThumbsUp.jsx';
 import ThumbsDown from './ThumbsDown.jsx';
-// Use HTML Data valid first. CSS first
+
 const AddReviewModal = ({ show, onReviewSubmit }) => {
   const stars = [1, 2, 3, 4, 5];
   const starText = ['Poor', 'Fair', 'Average', 'Good', 'Great'];
@@ -17,22 +18,20 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
   const { productID, product } = useContext(ProductContext);
 
   const [productName, setProductName] = useState('');
-  const [nickname, setNickname] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [summary, setSumary] = useState('');
   const [body, setBody] = useState('');
   const [recommend, setRecommend] = useState(false);
-  const [isRecommendSelected, setIsRecommendSelected] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [onHoverStarRating, setHoverStarRating] = useState(0);
   const [rating, setStarRating] = useState(0);
   const [displayStarText, setDisplayText] = useState(false);
-  const [characteristics, setCharacteristic] = useState([]);
+  const [characteristics, setCharacteristic] = useState({});
   const [bodyWordCount, setBodyWordCount] = useState(0);
-  const [dataChecker, setDataChecker] = useState(true);
-  const [textBlank, setTextBlank] = useState(false);
   const [errorShow, setErrorShow] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [numberOfChars, setNumberOfChars] = useState(0);
 
   // Figure a way to make this a ternary operation.
   const [thumbsUp, setThumbsUp] = useState('black');
@@ -52,32 +51,33 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
   }, [productID]);
 
   const canSubmitReview = () => {
-    // const dataChecker = [];
     let isDataCorrect = true;
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const correctEmail = emailRegex.test(email);
-    console.log('in the add review modal');
-    console.log(characteristics);
-    // if (nickname.length === 0 || email.length === 0 || body.length < 50 || rating === 0) {
-    //   isDataCorrect = false;
-    //   setErrorMessage(errorBank[0]);
-    //   return isDataCorrect;
-    // }
+    if (
+      name.length === 0
+        || email.length === 0
+        || body.length < 50
+        || rating === 0
+        || Object.keys(characteristics) < numberOfChars
+    ) {
+      isDataCorrect = false;
+      setErrorMessage(errorBank[0]);
+      return isDataCorrect;
+    }
 
-    // if (body.length < 50) {
-    //   isDataCorrect = false;
-    //   setErrorMessage(errorBank[1]);
-    //   return isDataCorrect;
-    // }
+    if (body.length < 50) {
+      isDataCorrect = false;
+      setErrorMessage(errorBank[1]);
+      return isDataCorrect;
+    }
 
-    // if (correctEmail) {
-    //   isDataCorrect = false;
-    //   setErrorMessage(errorBank[2]);
-    //   return isDataCorrect;
-    // }
-    // console.log(email);
-
-    // return isDataCorrect;
+    if (!correctEmail) {
+      isDataCorrect = false;
+      setErrorMessage(errorBank[2]);
+      return isDataCorrect;
+    }
+    return isDataCorrect;
   };
 
   const onWriteBody = ({ target }) => {
@@ -103,18 +103,18 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
 
     if (canSubmitReview()) {
       const newReview = {
-        nickname,
-        email,
-        recommend,
+        product_id: productID,
         rating,
         summary,
         body,
+        recommend,
+        name,
+        email,
         photos,
         characteristics,
       };
-
       onReviewSubmit(newReview);
-      setNickname('');
+      setName('');
       setEmail('');
       setSumary('');
       setBody('');
@@ -132,14 +132,12 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
 
   const onThumbsUp = () => {
     setRecommend(true);
-    setIsRecommendSelected(true);
     setThumbsUp('blue');
     setThumbsDown('black');
   };
 
   const onThumbsDown = () => {
     setRecommend(false);
-    setIsRecommendSelected(true);
     setThumbsUp('black');
     setThumbsDown('red');
   };
@@ -157,9 +155,9 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
     setDisplayText(true);
   };
 
-  const getCharacteristic = (productCharacteristics) => {
-    const newCharacteristics = [...characteristics, productCharacteristics[productCharacteristics.length - 1]];
-    setCharacteristic(newCharacteristics);
+  const getCharacteristic = (productCharacteristics, numChars) => {
+    setCharacteristic(productCharacteristics);
+    setNumberOfChars(numChars);
   };
 
   const onErrorModuleClose = () => {
@@ -192,11 +190,11 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
                 type="blank"
                 minLength="2"
                 maxLength="60"
-                value={nickname}
+                value={name}
                 placeholder="Example: jackson11!"
                 onChange={(e) => {
                   // testFunction(e);
-                  setNickname(e.target.value);
+                  setName(e.target.value);
                 }}
               />
               <RAR.BodyTextWarning>
@@ -211,13 +209,12 @@ const AddReviewModal = ({ show, onReviewSubmit }) => {
                 <RAR.BodyRequired>*</RAR.BodyRequired>
               </RAR.Label>
               <RAR.BodyTextInput
-                show={textBlank}
                 type="text"
                 name="email"
                 maxLength="60"
                 value={email}
                 placeholder="Example: jackson11@email.com"
-                onChange={(e) => { setEmail(e.target.value); setTextBlank(true); }}
+                onChange={(e) => { setEmail(e.target.value); }}
               />
               <RAR.BodyTextWarning>
                 For authentication reasons, you will not be emailed

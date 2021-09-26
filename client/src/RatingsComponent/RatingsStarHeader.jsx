@@ -18,8 +18,7 @@ const RatingsStarHeader = () => {
         </RC.RatingsAndReviewStarContainer>
       </RC.RatingsAndReviewContainer>
     </>
-  )
+  );
 };
-// 0 40 62 100
 
 export default RatingsStarHeader;

@@ -13,14 +13,12 @@ const getRatingPercentage = ({ ratingsPercent }) => {
   return data;
 };
 // { onStarFilter, onStarUnfilter }
-const RatingsSummaryChart = () => {
+const RatingsSummaryChart = ({ onStarFilter, onStarUnfilter }) => {
   const {
     ratingsScore, productID, loaded,
   } = useContext(ProductContext);
-  const [ratings, setRating] = useState(['0%']);
-  const [isStarClicked, setIsStarClicked] = useState({
-    '': '',
-  });
+  const [ratings, setRating] = useState(['0%', '0%', '0%', '0%', '0%']);
+  const [isStarClicked, setIsStarClicked] = useState({});
   const [unfilter, setUnfilter] = useState(false);
   const [fiveStarTextColor, setFiveStarTextColor] = useState('black');
   const [fourStarTextColor, setFourStarTextColor] = useState('black');
@@ -30,8 +28,7 @@ const RatingsSummaryChart = () => {
 
   useEffect(() => {
     if (loaded) {
-      const tempRatings = getRatingPercentage(ratingsScore);
-      setRating(tempRatings);
+      setRating(getRatingPercentage(ratingsScore));
     }
   }, [productID]);
 
@@ -41,15 +38,13 @@ const RatingsSummaryChart = () => {
     updateStarClicked[currentRating] = !updateStarClicked[currentRating];
     setIsStarClicked(updateStarClicked);
     setUnfilter(true);
-    // onStarFilter(currentRating, updateStarClicked);
+    onStarFilter(currentRating, updateStarClicked);
   };
 
   const onUnfilter = () => {
     setUnfilter(false);
-    setIsStarClicked({
-      '': '',
-    });
-    // onStarUnfilter();
+    setIsStarClicked({});
+    onStarUnfilter();
   };
 
   return (
