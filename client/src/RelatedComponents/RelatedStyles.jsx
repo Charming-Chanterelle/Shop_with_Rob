@@ -72,17 +72,23 @@ export const Modal = styles.div`
   top: 0;
   right: 0;
   bottom: 0;
-  background-color: #ffeca0;
+  // background-color: #ffeca0;
+  background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
+
   `;
 
 export const ModalContent = styles.div`
-  width: 500px;
+  // width: 500px;
   background-color: fff;
+  text-align: center;
   z-index: 9999;
+  border-radius: 5px;
+  border: 1px solid #d3d3d3;
+  box-shadow: 2px 2px 2px 1px #d3d3d3;
   `;
 
 export const ModalEdge = styles.div`
@@ -97,4 +103,5 @@ export const ModalBody = styles.div`
   padding: 10px;
   border-top: 10px solid #eee;
   border-bottom: 1px solid #eee;
+  text-align: center;
   `;

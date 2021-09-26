@@ -11,15 +11,15 @@ const ComparisonModal = (props) => {
   }
   return (
     <s.Modal className={`${showModal ? 'show' : ''}`}>
-      <s.ModalContent>
+      <s.ModalContent className="bigText">
         <s.ModalEdge>
           <s.ModalTitle>Comparing</s.ModalTitle>
         </s.ModalEdge>
         <s.ModalBody>
-          <table>
+          {/* <table> */}
             <tr>
               <th>{product.name}</th>
-              <th>Characteristics</th>
+              <th></th>
               <th>{name}</th>
             </tr>
             <tr>
@@ -42,7 +42,7 @@ const ComparisonModal = (props) => {
               <td>Button</td>
               <td>Plastic</td>
             </tr> */}
-          </table>
+          {/* </table> */}
         </s.ModalBody>
         <s.ModalEdge>
           <s.RoundButton onClick={props.onClose} className="button" type="button">Close</s.RoundButton>
