@@ -5,6 +5,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { ProductContext } from './contexts/ProductContext.jsx';
 import { FaStar, FaRegStar, FaChevronCircleRight, FaChevronCircleLeft, FaChevronCircleUp, FaChevronCircleDown, FaFacebookSquare, FaTwitterSquare, FaPinterestSquare, FaCheck, FaRegSmileBeam } from 'react-icons/fa';
 import * as S from './OverviewStyledComponents.jsx';
+import * as RIT from './RatingsComponent/Individual_Tile/IndividualTileStyledComponent.jsx';
 import StarDisplay from './StarDisplay.jsx';
 
 const Overview = (props) => {
@@ -28,6 +29,7 @@ const Overview = (props) => {
   const [quantities, setQuantities] = useState(-1);
   const [quantity, setQuantity] = useState(1);
   const [isFavorited, setIsFavorited] = useState(false);
+  const [bigImageModal, setBigImageModal] = useState(false);
   const quantityMax = 15;
 
   /* ----------------
@@ -201,7 +203,17 @@ const Overview = (props) => {
       <S.Container>
         <S.Main>
           <S.LeftArrow onClick={prevSlide}><FaChevronCircleLeft /></S.LeftArrow>
-          <S.BigImg className="imgFormat" src={mainImg} alt={currentStyle.name} />
+          <S.BigImg
+            className="imgFormat"
+            src={mainImg}
+            alt={currentStyle.name}
+            onClick={() => setBigImageModal(true)}
+          />
+          <RIT.ImageModalContainer show={bigImageModal} onClick={() => setBigImageModal(false)}>
+            <RIT.ModalImage
+              src={mainImg}
+            />
+          </RIT.ImageModalContainer>
           <S.ImgCards>
           <FaChevronCircleUp style={{ color: "#c48f35", paddingLeft: 12, paddingBottom: 2 }} onClick={prevSlide} />
             {photos.map((x, i) => {

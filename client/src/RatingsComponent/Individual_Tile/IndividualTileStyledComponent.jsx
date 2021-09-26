@@ -120,6 +120,7 @@ export const ImageModalContainer = styles.div`
   opacity: 0;
   transition: all 0.3s ease-in-out;
   pointer-events: none;
+  z-index: 1000;
   display: grid;
   grid-template-areas:
   "image-body"
