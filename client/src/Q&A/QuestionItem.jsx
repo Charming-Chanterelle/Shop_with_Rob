@@ -77,8 +77,8 @@ const QuestionItem = ({
         <Click className="Report" onClick={handleReport}>
           {report ? 'Reported' : 'Report'}
         </Click>
-        <AnswerModal onClose={() => setAnswerShow(false)} show={answerShow} questionId={id} question={question} productName={productName} />
       </Interactions>
+      <AnswerModal onClose={() => setAnswerShow(false)} show={answerShow} questionId={id} question={question} productName={productName} />
     </div>
   );
 };

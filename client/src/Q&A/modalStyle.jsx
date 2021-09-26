@@ -1,19 +1,18 @@
-Fix the CSS for the ratings, ensure that the modal is aligned as a grid.
-Add logic to check the submit form.
+import style, { css } from 'styled-components';
 
-export const AddReviewContainer = style.div`
+export const AddQuestionContainer = style.div`
 font-family: 'Poppins', sans-serif;
 position: fixed;
 left: 0;
 top: 0;
 right: 0;
 bottom: 0;
+z-index : 1;
 background-color: rgba(0,0,0,0.5);
-// align-items: center;
-// justify-content: center;
+align-items: center;
+justify-content: center;
 opacity: 0;
-transition: all 1s ease-in-out;
-transform: translateX(-100px);
+transition: all 0.3s ease-in-out;
 pointer-events: none;
 display: grid;
 grid-template-areas:
@@ -25,18 +24,19 @@ grid-template-areas:
 ${({ show }) => show && css`
   opacity: 1;
   pointer-events: visible;
-  transform: translateX(0);
+  transform: translateY(0);
   `
 };
 `;
 
 export const Content = style.div`
+z-index : 1;
   width: 650px;
   height: 800px;
   background-color: rgb(255, 255, 255);
-  transform: translateX(-100px);
-  transition: all 1s ease-in-out;
+  transform: translateY(-200px);
+  transition: all 0.4s ease-in-out;
   border: 3px solid #FBD63F;
   overflow-y: auto;
-  transform: translateX(0);
+  transform: translateY(0);
 `;

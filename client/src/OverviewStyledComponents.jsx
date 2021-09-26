@@ -57,8 +57,7 @@ export const LeftArrow = styles.button`
   grid-area: main;
   position: absolute;
   border-radius: 100%;
-  width: 32px;
-  height: 32px;
+
   z-index: 100;
   top: 85%;
   left: 5%;
@@ -66,25 +65,28 @@ export const LeftArrow = styles.button`
     justify-content: center;
     align-items: center;
   `;
+//width: 32px;
+//height: 32px;
 export const RightArrow = styles.button`
   grid-area: main;
   position: absolute;
   border-radius: 100%;
-  width: 32px;
-  height: 32px;
+
   top: 85%;
   right: 5%;
   display: flex;
     justify-content: center;
     align-items: center;
   `;
+// width: 32px;
+//height: 32px;
 export const BigImg = styles.img`
   grid-area: main;
   position: relative;
   overflow-x: hidden;
   width: 100%;
   height: 100%;
-  background-position: contain;
+  background-position: center;
   cursor: -moz-zoom-in;
   cursor: -webkit-zoom-in;
   cursor: zoom-in;
@@ -92,6 +94,12 @@ export const BigImg = styles.img`
   // background-size: contain;
   // background-position: contain;
   // background-image: url(${props => props.url})
+// export const Expanded = styles.dialog`
+//   box-shadow: 2px 2px 2px 1px #d3d3d3;
+//   position: static;
+//   top: 10%;
+
+//   `;
 export const ImgCards = styles.div`
   grid-area: main;
   position: absolute;

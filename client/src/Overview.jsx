@@ -1,5 +1,4 @@
 /* eslint-disable import/extensions */
-/* eslint-disable react/button-has-type */
 import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
 import { ProductContext } from './contexts/ProductContext.jsx';
@@ -7,6 +6,7 @@ import { FaStar, FaRegStar, FaChevronCircleRight, FaChevronCircleLeft, FaChevron
 import * as S from './OverviewStyledComponents.jsx';
 import * as RIT from './RatingsComponent/Individual_Tile/IndividualTileStyledComponent.jsx';
 import StarDisplay from './StarDisplay.jsx';
+import RatingsImageModal from './RatingsComponent/Individual_Tile/RatingsImageModal.jsx';
 
 const Overview = (props) => {
   const {
@@ -65,7 +65,12 @@ const Overview = (props) => {
   };
   useEffect(() => {
     if (current !== null) {
-      const newImg = currentStyle.photos[current].url;
+      let newImg = currentStyle.photos[0].url;
+      if (current < currentStyle.photos.length) {
+        newImg = currentStyle.photos[current].url;
+      } else {
+        setCurrent(0);
+      }
       setMainImg(newImg);
     }
   }, [current, currentStyle]);
@@ -188,18 +193,13 @@ const Overview = (props) => {
     setPtHovered(!ptHovered);
   };
 
-  // let bigg = React.createRef();
-  // bigg = mainImg;
-
-  /* -----------
+  /* ----------
   |   RETURN   |
   -------------*/
   // if (loaded) {
-  // ensure timing
   const photos = currentStyle.photos ?? [];
   const stylez = styles ?? [];
   const featurez = product.features ?? [];
-  // console.log(<mainImg/>.offsetWidth)
   return (
     <div>
       <S.Container>
@@ -214,17 +214,27 @@ const Overview = (props) => {
           <RIT.ImageModalContainer show={bigImageModal} onClick={() => setBigImageModal(false)}>
             <RIT.ModalImage
               src={mainImg}
+              style={{cursor: "-moz-zoom-out",
+                cursor: "-webkit-zoom-out",
+                cursor: "zoom-out" }}
             />
           </RIT.ImageModalContainer>
           <S.ImgCards>
-          <FaChevronCircleUp style={{ color: "#c48f35", paddingLeft: 12, paddingBottom: 2 }} onClick={prevSlide} />
+            <FaChevronCircleUp style={{ visibility: `${current === 0 ? "hidden" : "visible"}`, color: "#c48f35", paddingLeft: 12, paddingBottom: 2 }}
+              onClick={prevSlide} />
             {photos.map((x, i) => {
               return <S.ImgSample key={x.thumbnail_url + i}
                 onMouseEnter={enterSample}
                 onMouseLeave={exitSample}
-                style={{ transform: `${sampleHovered == x.thumbnail_url ? "scale(1.15, 1.15)" : "scale(1, 1)"}`, border: `${current === i ? "3px solid #FBD63F" : "none"}` }} onClick={imgOnClick} className="imgFormat" url={x.thumbnail_url} name={x.thumbnail_url} value={i} />;
+                style={{ transform: `${sampleHovered == x.thumbnail_url ? "scale(1.15, 1.15)" : "scale(1, 1)"}`, border: `${current === i ? "3px solid #FBD63F" : "none"}` }}
+                onClick={imgOnClick}
+                className="imgFormat"
+                url={x.thumbnail_url}
+                name={x.thumbnail_url}
+                value={i} />;
             })}
-            <FaChevronCircleDown style={{ color: "#c48f35", paddingLeft: 12, paddingTop: 2 }} onClick={nextSlide}/>
+            <FaChevronCircleDown style={{ visibility: `${current === photos.length - 1 ? "hidden" : "visible"}`, color: "#c48f35", paddingLeft: 12, paddingTop: 2 }}
+              onClick={nextSlide} />
           </S.ImgCards>
           <S.RightArrow onClick={nextSlide}><FaChevronCircleRight /></S.RightArrow>
         </S.Main>
@@ -235,7 +245,8 @@ const Overview = (props) => {
         <S.Side>
           <div>
             <StarDisplay stars={{ width: '20', height: '20' }} />
-            <span ref={props.reference} onClick={props.jumpClick} className="bigText"
+            <span ref={props.reference}
+              onClick={props.jumpClick} className="bigText"
               onMouseEnter={toggleReviewHovered}
               onMouseLeave={toggleReviewHovered}
               style={{ float: "right", cursor: "pointer", color: `${reviewHovered ? "blue" : "black"}`, textDecoration: `${reviewHovered ? "underline blue" : "none"}` }}>Read all {ratingsScore.numberOfRatings} reviews</span>
@@ -243,7 +254,6 @@ const Overview = (props) => {
           <div>
             <h4 className="subText"
               style={{ margin: 0, padding: 0, paddingTop: 10 }}>{product.category}</h4>
-
           </div>
           <div>
             <h1 className="bigText" style={{ margin: 0, padding: 0 }}>{product.name}</h1>
@@ -255,7 +265,8 @@ const Overview = (props) => {
               <h2>${currentStyle.original_price}</h2>}
           </div>
           <div>
-            <h3 className="bigText" style={{ marginBottom: 0 }}>
+            <h3 className="bigText"
+              style={{ marginBottom: 0 }}>
               Choose your style:&nbsp;
               {currentStyle.name}
             </h3>
@@ -272,18 +283,17 @@ const Overview = (props) => {
                 </S.StylesButton>)}
             </S.Styles>
             <S.Styles>
-              <select onClick={getSizes} onChange={selectSize} className="imgFormat" name="size" style={{
-                width: "6rem",
-                height: "2rem",
-                boxShadow: "2px 2px 2px 1px #d3d3d3"
-              }}>
+              <select onClick={getSizes}
+                onChange={selectSize}
+                className="imgFormat"
+                name="size"
+                style={{ width: "6rem", height: "2rem", boxShadow: "2px 2px 2px 1px #d3d3d3" }}>
                 {!sizes.includes('Select Size') ? sizes.map((x) => <option key={x} value={x}>{x}</option>) : <option>Select Size</option>}
               </select>
-              <select onClick={getQuantities} onChange={selectQuantity} className="imgFormat" name="quantity" style={{
-                width: "3rem",
-                height: "2rem",
-                boxShadow: "2px 2px 2px 1px #d3d3d3"
-              }}>
+              <select onClick={getQuantities}
+                onChange={selectQuantity}
+                className="imgFormat"
+                name="quantity" style={{ width: "3rem", height: "2rem", boxShadow: "2px 2px 2px 1px #d3d3d3" }}>
                 {quantities < 0 ? <option>-</option> :
                   quantities >= 15 ? [...Array(quantityMax),
                   ].map((undefined, i) => (
@@ -293,9 +303,11 @@ const Overview = (props) => {
                       <option key={i} value={i + 1}>{i + 1}</option>
                     ))}
               </select> &nbsp;&nbsp;&nbsp;
-              <button onClick={favorite} style={{ borderRadius: '100%', width: 35, height: 35, boxShadow: "2px 2px 2px 1px #d3d3d3", display: "flex", justifyContent: "center", alignItems: "center" }} >{isFavorited ?
-                <FaStar /> :
-                <FaRegStar />}
+              {/* , width: 35, height: 35 */}
+              <button onClick={favorite}
+                style={{ borderRadius: '100%', marginTop: 5, boxShadow: "2px 2px 2px 1px #d3d3d3", display: "flex", justifyContent: "center", alignItems: "center" }} >{isFavorited ?
+                  <FaStar /> :
+                  <FaRegStar />}
               </button>
             </S.Styles>
             <div style={{ display: "inline", marginLeft: 15, marginBottom: 10 }}>
@@ -326,7 +338,9 @@ const Overview = (props) => {
         <S.Features>
           <S.FeaturesList>
             {featurez.map((x) => {
-              return <li key={x.value} className="bigText" style={{ listStyleType: "none", marginBottom: 7, fontStyle: "italic"}}><FaRegSmileBeam style={{ color: "#c48f35" }} />&nbsp;&nbsp;{x.feature}{x.value === null ? null : `: ${x.value}`}</li>;
+              return <li key={x.value}
+                className="bigText"
+                style={{ listStyleType: "none", marginBottom: 7, fontStyle: "italic" }}><FaRegSmileBeam style={{ color: "#c48f35" }} />&nbsp;&nbsp;{x.feature}{x.value === null ? null : `: ${x.value}`}</li>;
             })}
           </S.FeaturesList>
         </S.Features>
