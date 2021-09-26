@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import * as s from './RelatedStyles.jsx';
+import { ProductContext } from '../contexts/ProductContext.jsx';
 
 const ComparisonModal = (props) => {
-  const { showModal, name, rating } = props;
+  // console.log(props);
+  const { showModal, name, rating, price } = props;
+  const { product, styles, meta, ratingsScore } = useContext(ProductContext);
   if (!showModal) {
     return null;
   }
@@ -15,21 +18,21 @@ const ComparisonModal = (props) => {
         <s.ModalBody>
           <table>
             <tr>
-              <th>Current</th>
+              <th>{product.name}</th>
               <th>Characteristics</th>
               <th>{name}</th>
             </tr>
             <tr>
-              <td>4 stars</td>
+              <td>{ratingsScore.avgRating.toPrecision(3)}</td>
               <td>Rating</td>
               <td>{rating}</td>
             </tr>
             <tr>
-              <td>Yes</td>
-              <td>Sale Item</td>
-              <td>No</td>
+              <td>{product.default_price}</td>
+              <td>Price</td>
+              <td>{price}</td>
             </tr>
-            <tr>
+            {/* <tr>
               <td>Cotton</td>
               <td>Fabric</td>
               <td>Canvas</td>
@@ -38,7 +41,7 @@ const ComparisonModal = (props) => {
               <td>Brass</td>
               <td>Button</td>
               <td>Plastic</td>
-            </tr>
+            </tr> */}
           </table>
         </s.ModalBody>
         <s.ModalEdge>

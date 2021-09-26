@@ -67,7 +67,7 @@ export const CardText = styles.div`
   `;
 
 export const Modal = styles.div`
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   right: 0;

@@ -16,7 +16,10 @@ const Related = (props) => {
   // const [overviewID, setOverviewID] = useState(productID);
   const [relatedItems, setRelatedItems] = useState([]);
   // const [open, setOpen] = useState(false);
-  const { productID, changeHash } = useContext(ProductContext);
+  const { productID, changeHash, product, styles } = useContext(ProductContext);
+  const [currentProductName, setCurrentProductName] = useState('');
+  const [currentRating, setCurrentRating] = useState('');
+  const [currentPrice, setCurrentPrice] = useState('');
 
   const getRelatedProducts = () => {
     // axios.get(`/api/products/${productID}/related`)
@@ -106,15 +109,24 @@ const Related = (props) => {
                 <s.Card key={item.product.name}>
                   <div>
                     <div>
-                      <s.RoundButton onClick={() => setShowModal(true)} type="button">
+                      <s.RoundButton
+                        onClick={() => {
+                          setCurrentProductName(item.product.name);
+                          setCurrentRating(item.reviews.toPrecision(3));
+                          setCurrentPrice(item.product.default_price);
+                          setShowModal(true);
+                        }}
+                        type="button"
+                      >
                         {/* <s.RoundButton onClick={() => setOpen(true)} type="button"> */}
                         <FaRegStar />
                       </s.RoundButton>
                       <ComparisonModal
                         onClose={() => setShowModal(false)}
                         showModal={showModal}
-                        name={item.product.name}
-                        rating={item.product.rating}
+                        name={currentProductName}
+                        rating={currentRating}
+                        price={currentPrice}
                         // isOpen={open}
                       />
                     </div>
