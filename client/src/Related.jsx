@@ -15,7 +15,7 @@ const Related = (props) => {
   const [showModal, setShowModal] = useState(false);
   // const [overviewID, setOverviewID] = useState(productID);
   const [relatedItems, setRelatedItems] = useState([]);
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const { productID, changeHash } = useContext(ProductContext);
 
   const getRelatedProducts = () => {
@@ -28,10 +28,9 @@ const Related = (props) => {
 
         ));
       })
-      .then((second) =>
-        // starting with an array of three nested arrays
-        // end with a singular array
-        Promise.all(second.map((promises) => Promise.all(promises))))
+      // starting with an array of three nested arrays
+      // end with a singular array
+      .then((second) => Promise.all(second.map((promises) => Promise.all(promises))))
       .then((resolved) =>
         // have array of arrays
         // need data from nested array
