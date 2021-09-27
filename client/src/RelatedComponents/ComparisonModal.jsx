@@ -1,35 +1,49 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { FaTimes } from 'react-icons/fa';
 import * as s from './RelatedStyles.jsx';
+import { ProductContext } from '../contexts/ProductContext.jsx';
 
 const ComparisonModal = (props) => {
-  const { showModal } = props;
+  // console.log(props);
+  const {
+    showModal, name, rating, price,
+  } = props;
+  const {
+    product, styles, meta, ratingsScore,
+  } = useContext(ProductContext);
   if (!showModal) {
     return null;
   }
   return (
-    <s.Modal className={`${props.showModal ? 'show' : ''}`}>
-      <s.ModalContent>
+    <s.Modal className={`${showModal ? 'show' : ''}`}>
+      <s.ModalContent className="bigText">
         <s.ModalEdge>
-          <s.ModalTitle>Comparing</s.ModalTitle>
+          <s.ModalTitle><b>Comparing</b></s.ModalTitle>
         </s.ModalEdge>
         <s.ModalBody>
-          <table>
-            <tr>
-              <th>Current</th>
-              <th>Characteristics</th>
-              <th>Related Item</th>
-            </tr>
-            <tr>
-              <td>4 stars</td>
-              <td>Rating</td>
-              <td>4.2 stars</td>
-            </tr>
-            <tr>
-              <td>Yes</td>
-              <td>Sale Item</td>
-              <td>No</td>
-            </tr>
-            <tr>
+          {/* <table> */}
+          <tr>
+            <th>{product.name}</th>
+            <th />
+            <th>{name}</th>
+          </tr>
+          <tr>
+            <td>{ratingsScore.avgRating.toPrecision(3)}</td>
+            <td><i>Rating</i></td>
+            <td>{rating}</td>
+          </tr>
+          <tr>
+            <td>
+              $
+              {product.default_price}
+            </td>
+            <td><i>Price</i></td>
+            <td>
+              $
+              {price}
+            </td>
+          </tr>
+          {/* <tr>
               <td>Cotton</td>
               <td>Fabric</td>
               <td>Canvas</td>
@@ -38,11 +52,11 @@ const ComparisonModal = (props) => {
               <td>Brass</td>
               <td>Button</td>
               <td>Plastic</td>
-            </tr>
-          </table>
+            </tr> */}
+          {/* </table> */}
         </s.ModalBody>
         <s.ModalEdge>
-          <button onClick={props.onClose} className="button" type="button">Close</button>
+          <s.RoundButton onClick={props.onClose} className="button" type="button"><FaTimes /></s.RoundButton>
         </s.ModalEdge>
       </s.ModalContent>
     </s.Modal>

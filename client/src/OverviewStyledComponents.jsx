@@ -65,8 +65,13 @@ export const LeftArrow = styles.button`
     justify-content: center;
     align-items: center;
   `;
+<<<<<<< HEAD
   // width: 32px;
   // height: 32px;
+=======
+//width: 32px;
+//height: 32px;
+>>>>>>> b6b84519e1212244fd04705cead41c58bf1984fe
 export const RightArrow = styles.button`
   grid-area: main;
   position: absolute;
@@ -78,8 +83,13 @@ export const RightArrow = styles.button`
     justify-content: center;
     align-items: center;
   `;
+<<<<<<< HEAD
   // width: 32px;
   // height: 32px;
+=======
+// width: 32px;
+//height: 32px;
+>>>>>>> b6b84519e1212244fd04705cead41c58bf1984fe
 export const BigImg = styles.img`
   grid-area: main;
   position: relative;

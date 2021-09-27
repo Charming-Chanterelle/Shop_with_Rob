@@ -15,13 +15,11 @@ const Related = (props) => {
   const [showModal, setShowModal] = useState(false);
   // const [overviewID, setOverviewID] = useState(productID);
   const [relatedItems, setRelatedItems] = useState([]);
-
-  const { productID, changeHash } = useContext(ProductContext);
-
-
-
-
-
+  // const [open, setOpen] = useState(false);
+  const { productID, changeHash, product, styles } = useContext(ProductContext);
+  const [currentProductName, setCurrentProductName] = useState('');
+  const [currentRating, setCurrentRating] = useState('');
+  const [currentPrice, setCurrentPrice] = useState('');
 
   const getRelatedProducts = () => {
     // axios.get(`/api/products/${productID}/related`)
@@ -33,10 +31,9 @@ const Related = (props) => {
 
         ));
       })
-      .then((second) =>
-        // starting with an array of three nested arrays
-        // end with a singular array
-        Promise.all(second.map((promises) => Promise.all(promises))))
+      // starting with an array of three nested arrays
+      // end with a singular array
+      .then((second) => Promise.all(second.map((promises) => Promise.all(promises))))
       .then((resolved) =>
         // have array of arrays
         // need data from nested array
@@ -65,7 +62,6 @@ const Related = (props) => {
 
   const [length, setLength] = useState(relatedItems.length);
 
-
   useEffect(() => {
     getRelatedProducts();
   }, [productID]);
@@ -73,7 +69,6 @@ const Related = (props) => {
   useEffect(() => {
     setLength(relatedItems.length);
   }, [relatedItems]);
-
 
   // useEffect(getRelatedProducts, []);
   const next = () => {
@@ -97,7 +92,7 @@ const Related = (props) => {
                   currentIndex > 0
                   && (
                   <s.RoundButton type="button" onClick={prev} className="left-arrow">
-                  <FaChevronCircleLeft></FaChevronCircleLeft>
+                    <FaChevronCircleLeft />
                   </s.RoundButton>
                   )
               }
@@ -111,19 +106,32 @@ const Related = (props) => {
             >
               {/* start of item info */}
               {relatedItems.map((item) => (
-                <s.Card key={item.product.name} onClick={() => changeHash(item.product.id)}>
+                <s.Card key={item.product.name}>
                   <div>
                     <div>
-                      <s.RoundButton onClick={() => setShowModal(true)} type="button">
+                      <s.RoundButton
+                        onClick={() => {
+                          setCurrentProductName(item.product.name);
+                          setCurrentRating(item.reviews.toPrecision(3));
+                          setCurrentPrice(item.product.default_price);
+                          setShowModal(true);
+                        }}
+                        type="button"
+                      >
+                        {/* <s.RoundButton onClick={() => setOpen(true)} type="button"> */}
                         <FaRegStar />
                       </s.RoundButton>
                       <ComparisonModal
                         onClose={() => setShowModal(false)}
                         showModal={showModal}
+                        name={currentProductName}
+                        rating={currentRating}
+                        price={currentPrice}
+                        // isOpen={open}
                       />
                     </div>
-                    <img src={item.styles[0].photos[0].thumbnail_url} className="carouselImage" alt="related-item" />
-                    <s.CardText>
+                    <img onClick={() => changeHash(item.product.id)} src={item.styles[0].photos[0].thumbnail_url} className="carouselImage" alt="related-item" />
+                    <div>
                       <div className="bigText">
                         <b>
                           {item.product.name}
@@ -141,7 +149,7 @@ const Related = (props) => {
                         Rating:
                         {` ${item.reviews.toPrecision(3)}`}
                       </div>
-                    </s.CardText>
+                    </div>
                   </div>
                 </s.Card>
               ))}
@@ -153,7 +161,7 @@ const Related = (props) => {
                   (currentIndex < (length - show) && relatedItems.length >= show)
                   && (
                   <s.RoundButton type="button" onClick={next} className="right-arrow">
-                    <FaChevronCircleRight></FaChevronCircleRight>
+                    <FaChevronCircleRight />
                   </s.RoundButton>
                   )
               }

@@ -7,9 +7,14 @@ import NavBar from './NavBar.jsx';
 import Overview from './Overview.jsx';
 import Related from './Related.jsx';
 import Outfit from './Outfit.jsx';
+<<<<<<< HEAD
 
 const Questions = React.lazy(() => import('./Q&A/App.jsx'));
+=======
+const Questions = React.lazy(() => import ('./Q&A/App.jsx'));
+>>>>>>> b6b84519e1212244fd04705cead41c58bf1984fe
 const Ratings = React.lazy(() => import ('./Ratings.jsx'));
+
 
 function App() {
   const scrollToDiv = (ref) => window.scrollTo(0, ref.current.offsetTop);
@@ -23,7 +28,7 @@ function App() {
       <Outfit show={4} />
       <Suspense fallback={<div>Loading...</div>}>
         <Questions />
-        <Ratings reference={el2} />
+        <Ratings reference={el2}/>
       </Suspense>
     </ProductContextProvider>
   );

@@ -301,8 +301,9 @@ const Overview = (props) => {
                       <option key={i} value={i + 1}>{i + 1}</option>
                     ))}
               </select> &nbsp;&nbsp;&nbsp;
+              {/* , width: 35, height: 35 */}
               <button onClick={favorite}
-                style={{ borderRadius: '100%', width: 35, height: 35, boxShadow: "2px 2px 2px 1px #d3d3d3", display: "flex", justifyContent: "center", alignItems: "center" }} >{isFavorited ?
+                style={{ borderRadius: '100%', marginTop: 5, boxShadow: "2px 2px 2px 1px #d3d3d3", display: "flex", justifyContent: "center", alignItems: "center" }} >{isFavorited ?
                   <FaStar /> :
                   <FaRegStar />}
               </button>
