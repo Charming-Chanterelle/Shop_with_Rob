@@ -7,12 +7,7 @@ import NavBar from './NavBar.jsx';
 import Overview from './Overview.jsx';
 import Related from './Related.jsx';
 import Outfit from './Outfit.jsx';
-<<<<<<< HEAD
-
-const Questions = React.lazy(() => import('./Q&A/App.jsx'));
-=======
 const Questions = React.lazy(() => import ('./Q&A/App.jsx'));
->>>>>>> b6b84519e1212244fd04705cead41c58bf1984fe
 const Ratings = React.lazy(() => import ('./Ratings.jsx'));
 
 
