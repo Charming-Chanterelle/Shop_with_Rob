@@ -4,8 +4,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import { ProductContext } from './contexts/ProductContext.jsx';
 import StarRating from './StarRating.jsx';
 
-const getRatings = ({ avgRating }) => {
+const getRatings = ({ avgRating }, id) => {
   const ratings = Number(avgRating);
+  console.log('Star Display', id, ratings);
   let ratingsStorage = [];
 
   if (ratings === 0) {
@@ -36,7 +37,7 @@ const getRatings = ({ avgRating }) => {
   for (let j = 0; j < maxRating; j++) {
     ratingsStorage.push('0%');
   }
-
+  console.log(ratingsStorage);
   return ratingsStorage;
 };
 
@@ -51,13 +52,13 @@ const uniqueKey = () => {
   return key;
 };
 
-const StarDisplay = ({ stars }) => {
+const StarDisplay = ({ stars, component = 'overviewcomponent' }) => {
   const { ratingsScore, loaded, productID } = useContext(ProductContext);
   const [starRating, setStarRating] = useState([]);
   const [starAttribute, setStarAttribute] = useState({ width: '15', height: '15' });
 
   useEffect(() => {
-    setStarRating(getRatings(ratingsScore));
+    setStarRating(getRatings(ratingsScore, productID));
     setStarAttribute(stars);
   }, [ratingsScore]);
 
@@ -65,20 +66,14 @@ const StarDisplay = ({ stars }) => {
     <>
       {starRating.map((rating, count) => (
         <StarRating
-          key={uniqueKey().concat(count, rating)}
+          key={uniqueKey().concat(count, rating, component)}
           currentRating={rating}
-          currentCount={uniqueKey().concat(count, rating)}
+          currentCount={uniqueKey().concat(count, rating, component)}
           starProp={starAttribute}
         />
       ))}
     </>
   );
 };
-// 0 40 62 100
+
 export default StarDisplay;
-// starRating
-// ['0%', '0%', '0%', '0%', '0%']
-// ['100%', '40%', '0%', '0%', '0%']
-// ['100%', '100%', '62%', '0%', '0%']
-// ['100%', '100%', '100%', '40%', '0%']
-// ['100%', '100%', '100%', '100%', '100%']

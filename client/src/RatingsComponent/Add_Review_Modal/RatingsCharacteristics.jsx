@@ -4,7 +4,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { ProductContext } from '../../contexts/ProductContext.jsx';
 import * as RAR from './AddReviewModalStyledComponent.jsx';
-import CharacterDisplay from './RatingsCharacteristicsDisplay.jsx';
+// import CharacterDisplay from './RatingsCharacteristicsDisplay.jsx';
 
 const getCharacterID = (characteristics) => {
   if (Object.keys(characteristics).length === 0) {
@@ -34,6 +34,8 @@ const RatingsCharacteristics = ({ getCharacteristic }) => {
   const { meta, productID } = useContext(ProductContext);
   const [characters, setCharacter] = useState([]);
   const [characterID, setCharacterID] = useState({});
+  const [description, setDescription] = useState([]);
+  const [ratingsPercent, setRatingPercent] = useState('0%');
   const data = {};
   const characterBank = {
     Size: ['A size too small', '½ a size too small', 'Perfect', '½ a size too big', 'A size too wide'],
@@ -50,10 +52,11 @@ const RatingsCharacteristics = ({ getCharacteristic }) => {
     setCharacter(Object.keys(characteristics));
   }, [productID]);
 
-  const characterData = (name, value) => {
+  const characterData = (name, value, index) => {
+    const fillPercent = ['0%', '30%', '50%', '70%', '93%'];
     const key = characterID[name];
     data[key] = value;
-
+    setRatingPercent(fillPercent[value - 1]);
     getCharacteristic(data);
   };
 
@@ -61,27 +64,39 @@ const RatingsCharacteristics = ({ getCharacteristic }) => {
     <>
       {characters.map((character, count) => (
         <>
-          <RAR.RatingsCharacterContainer>
-            <RAR.RatingsCharacteristicText
-              key={characterBank[character]
-                .concat(uniqueKey(), count, characterBank[character][count])}
-            >
+          <RAR.RatingsCharacterContainer
+            key={characterBank[character]
+              .concat(uniqueKey(), count, characterBank[character][count])}
+          >
+            <RAR.RatingsCharacteristicText>
               {character}
               <RAR.BodyRequired>*</RAR.BodyRequired>
               :
             </RAR.RatingsCharacteristicText>
             <RAR.RatingsCharacterRadioContainer>
-              {characterBank[character].map((currentCharacter, index) => (
-                <CharacterDisplay
-                  key={uniqueKey().split('').reverse().join('')
-                    .concat(index)}
-                  currentCount={index + 1}
-                  currentCharacter={character}
-                  currentCharacteristics={currentCharacter}
-                  onChangeCharacteristic={characterData}
-                />
-              ))}
+              <RAR.RatingsCharacteristicRadioInput
+                type="range"
+                name={character}
+                min="1"
+                max="5"
+                step="0"
+                defaultValue="1"
+                onChange={(event) => characterData(event.target.name, event.target.value, count)}
+                ratingsValue={ratingsPercent}
+                charName={character}
+              />
             </RAR.RatingsCharacterRadioContainer>
+            <RAR.RatingsCharacterDescContainer>
+              <RAR.RatingsCharacterFirstText>
+                {characterBank[character][0]}
+              </RAR.RatingsCharacterFirstText>
+              <RAR.RatingsCharacterMiddleText>
+                {characterBank[character][2]}
+              </RAR.RatingsCharacterMiddleText>
+              <RAR.RatingsCharacterLastText>
+                {characterBank[character][4]}
+              </RAR.RatingsCharacterLastText>
+            </RAR.RatingsCharacterDescContainer>
           </RAR.RatingsCharacterContainer>
         </>
       ))}

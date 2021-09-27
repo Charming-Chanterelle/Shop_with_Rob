@@ -3,7 +3,6 @@ import styles from 'styled-components';
 
 export const Card = styles.div`
   width: 20%
-  // width: calc((100% - (300px)) / 4);
   height: 100%
   text-align: center;
   display: flex;
@@ -26,21 +25,26 @@ export const Card = styles.div`
 
 export const RoundButton = styles.button`
   background-color:#FBD63F;
-  float: right;
+
   border: none;
   border-radius: 50%;
   color:#000000;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
+  display: flex;
   font-size: 16px;
   cursor: pointer;
-  padding: 15px 8px 15px;
+  padding: 15px;
   &:hover {
     color: #FBD63F;
     border: #black solid 1px;
     background:#fcecae;
   }
+  position: absolute;
+  // right: 5px;
+  z-index: 5000;
+  // float: right;
+
   `;
 
 // export const RoundButton:hover = styles.button`
@@ -63,29 +67,34 @@ export const CardText = styles.div`
   `;
 
 export const Modal = styles.div`
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
-  background-color: #ffeca0;
+  background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
+
   `;
 
 export const ModalContent = styles.div`
-  width: 500px;
-  background-color: fff;
+  // width: 500px;
+  background-color: #fffefa;
+  text-align: center;
   z-index: 9999;
+  border-radius: 5px;
+  border: 1px solid #d3d3d3;
+  box-shadow: 2px 2px 2px 1px #d3d3d3;
   `;
 
 export const ModalEdge = styles.div`
   padding: 10px;
   `;
 
-export const ModalTitle = styles.h4`
+export const ModalTitle = styles.h2`
   margin: 0;
   `;
 
@@ -93,4 +102,5 @@ export const ModalBody = styles.div`
   padding: 10px;
   border-top: 10px solid #eee;
   border-bottom: 1px solid #eee;
+  text-align: center;
   `;

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import * as RAR from './AddReviewModalStyledComponent.jsx';
 
-const ErrorModule = ({ show, onClose }) => {
+const ErrorModule = ({ show, message, onClose }) => {
 
   return (
     <>
       <RAR.ErrorModuleContainer show={show} onClick={onClose} >
         <RAR.ErrorContent>
-          <div>Error</div>
+          <span>{message}</span>
         </RAR.ErrorContent>
       </RAR.ErrorModuleContainer>
     </>

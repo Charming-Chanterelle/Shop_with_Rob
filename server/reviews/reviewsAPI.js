@@ -36,7 +36,7 @@ module.exports = {
     };
     axios(options)
       .then((results) => {
-        client.setex(`meta_productID_${product_id}`, TTL, JSON.stringify(results.data));
+        // client.setex(`meta_productID_${product_id}`, TTL, JSON.stringify(results.data));
         callback(null, results.data);
       })
       .catch((err) => {

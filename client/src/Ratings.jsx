@@ -8,6 +8,7 @@ import RatingsFilter from './RatingsComponent/RatingsFilter.jsx';
 import RatingsContent from './RatingsComponent/RatingsContent.jsx';
 import RatingsStarHeader from './RatingsComponent/RatingsStarHeader.jsx';
 import RatingsProductBreakdown from './RatingsComponent/RatingsProductBreakdown.jsx';
+import * as RC from './RatingsComponent/RatingsComponentStyledComponent.jsx';
 // Number(window.location.hash.replace('#', ''))
 const Ratings = ({ reference }) => {
   const { productID, loaded, ratingsScore } = useContext(ProductContext);
@@ -73,9 +74,9 @@ const Ratings = ({ reference }) => {
   const onUpdateReview = (id, action) => {
     console.log(id);
     axios.put(`/api/reviews/${id}/${action}`)
-    .catch((err) => {
-      console.log('Error in updating the review action', err);
-    });
+      .catch((err) => {
+        console.log('Error in updating the review action', err);
+      });
   };
 
   const onStarFilter = (starRating, isClicked) => {
@@ -89,16 +90,22 @@ const Ratings = ({ reference }) => {
       updatedFilterList.splice(indexOfRating, 1);
     }
 
+    setStarFilter(updatedFilterList);
+  };
+
+  const updateFilteredRatings = () => {
     const filteredRatings = ratingsCopy.filter((ratingsObj) => {
-      const currentRating = updatedFilterList.some((rating) => (
+      const currentRating = starFilter.some((rating) => (
         ratingsObj.rating === rating
       ));
       return currentRating;
     });
-
     setRatings(filteredRatings);
-    setStarFilter(updatedFilterList);
   };
+
+  useEffect(() => {
+    updateFilteredRatings();
+  }, [starFilter]);
 
   const onStarUnfilter = () => {
     setRatings(ratingsCopy);
@@ -108,6 +115,9 @@ const Ratings = ({ reference }) => {
   if (ratings.length !== 0) {
     return (
       <>
+        <RC.RatingsAndReviewTitle>
+          Ratings & Reviews
+        </RC.RatingsAndReviewTitle>
         <R.Container ref={reference}>
           <R.Stars>
             <RatingsStarHeader />

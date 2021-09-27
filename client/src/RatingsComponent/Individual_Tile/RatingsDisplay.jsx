@@ -11,7 +11,7 @@ const getBodyText = (text, onSeeMore = false) => {
   let bodyData = {};
   // Array of words
   const bodyWords = text.split(' ');
-  const wordLimit = 25;
+  const wordLimit = 250;
 
   // Check to see if the amount of words in the body is less than 25
   // and we have not already clicked on see more
@@ -124,10 +124,10 @@ const RatingsDisplay = ({ ratingList, onUpdateReview, starKey }) => {
             </RIT.ResponseText>
           </RIT.Response>
         )}
-          {/* {photos.length !== 0
-            ? (
-              <RIT.ImageContainer>
-                {
+        {photos.length !== 0
+          ? (
+            <RIT.ImageContainer>
+              {
                 photos.map(
                   (photo) => (
                     <>
@@ -150,9 +150,9 @@ const RatingsDisplay = ({ ratingList, onUpdateReview, starKey }) => {
                   ),
                 )
               }
-              </RIT.ImageContainer>
-            )
-            : null} */}
+            </RIT.ImageContainer>
+          )
+          : null}
         <RIT.Helpful>
           Helpful?
           {isHelpful
