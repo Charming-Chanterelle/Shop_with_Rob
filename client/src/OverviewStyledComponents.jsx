@@ -57,8 +57,7 @@ export const LeftArrow = styles.button`
   grid-area: main;
   position: absolute;
   border-radius: 100%;
-  width: 32px;
-  height: 32px;
+
   z-index: 100;
   top: 85%;
   left: 5%;
@@ -66,18 +65,21 @@ export const LeftArrow = styles.button`
     justify-content: center;
     align-items: center;
   `;
+  // width: 32px;
+  // height: 32px;
 export const RightArrow = styles.button`
   grid-area: main;
   position: absolute;
   border-radius: 100%;
-  width: 32px;
-  height: 32px;
+
   top: 85%;
   right: 5%;
   display: flex;
     justify-content: center;
     align-items: center;
   `;
+  // width: 32px;
+  // height: 32px;
 export const BigImg = styles.img`
   grid-area: main;
   position: relative;

@@ -66,9 +66,9 @@ const StarDisplay = ({ stars, component = 'overviewcomponent' }) => {
     <>
       {starRating.map((rating, count) => (
         <StarRating
-          key={uniqueKey().concat(count, rating, component)}
+          key={count}
           currentRating={rating}
-          currentCount={uniqueKey().concat(count, rating, component)}
+          currentCount={count}
           starProp={starAttribute}
         />
       ))}
